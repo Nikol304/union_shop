@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
+import 'package:union_shop/about_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -19,9 +20,12 @@ class UnionShopApp extends StatelessWidget {
       home: const HomeScreen(),
       // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
-      // When navigating to '/product', build and return the ProductPage
-      // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage()},
+      // When navigating to routes, build and return the corresponding pages
+      // In your browser, try these links: http://localhost:49856/#/product  or  #/about
+      routes: {
+        '/product': (context) => const ProductPage(),
+        '/about': (context) => const AboutPage(),
+      },
     );
   }
 }
@@ -388,7 +392,8 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: 8),
                             const Text(
                               "We\'ll never share your email.",
-                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
                         );
@@ -485,8 +490,7 @@ class HomeScreen extends StatelessWidget {
                                           isDense: true,
                                           contentPadding:
                                               const EdgeInsets.symmetric(
-                                                  horizontal: 8,
-                                                  vertical: 10),
+                                                  horizontal: 8, vertical: 10),
                                         ),
                                       ),
                                     ),
@@ -504,8 +508,8 @@ class HomeScreen extends StatelessWidget {
                                 const SizedBox(height: 8),
                                 const Text(
                                   "We\'ll never share your email.",
-                                  style:
-                                      TextStyle(fontSize: 12, color: Colors.grey),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),
