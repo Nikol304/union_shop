@@ -21,6 +21,9 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final double horizontalPadding =
+        width > 900 ? 96.0 : (width > 600 ? 64.0 : 24.0);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -158,7 +161,8 @@ class AboutPage extends StatelessWidget {
             Container(
               width: double.infinity,
               color: Colors.grey[100],
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+              padding: EdgeInsets.symmetric(
+                  vertical: 40, horizontal: horizontalPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -180,16 +184,24 @@ class AboutPage extends StatelessWidget {
               ),
             ),
 
-            // Placeholder content (reuse product cards layout)
+            // About details (increased horizontal margin)
             Container(
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                // responsive horizontal margin for better readability
+                padding: EdgeInsets.symmetric(
+                    vertical: 24.0, horizontal: horizontalPadding),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
                       'This page mirrors the home layout. Replace with custom content.',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, height: 1.5),
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      'Union Shop is run by students and supports campus life through events and merchandise. Replace this copy with detailed about information, opening times, and team contact info as needed.',
+                      style: TextStyle(fontSize: 16, height: 1.5),
                     ),
                   ],
                 ),
