@@ -184,29 +184,7 @@ class AboutPage extends StatelessWidget {
               ),
             ),
 
-            // About details (increased horizontal margin)
-            Container(
-              color: Colors.white,
-              child: Padding(
-                // responsive horizontal margin for better readability
-                padding: EdgeInsets.symmetric(
-                    vertical: 24.0, horizontal: horizontalPadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'This page mirrors the home layout. Replace with custom content.',
-                      style: TextStyle(fontSize: 16, height: 1.5),
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      'Union Shop is run by students and supports campus life through events and merchandise. Replace this copy with detailed about information, opening times, and team contact info as needed.',
-                      style: TextStyle(fontSize: 16, height: 1.5),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // (about details section removed)
 
             // Footer (copied from main)
             Container(
