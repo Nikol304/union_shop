@@ -81,9 +81,7 @@ class SimilarPage extends StatelessWidget {
                               _NavLink(
                                   label: 'Products',
                                   onTap: () => navigateToProduct(context)),
-                              _NavLink(
-                                  label: 'About',
-                                  onTap: () => navigateToAbout(context)),
+                              // About link removed
                               _NavLink(
                                   label: 'Similar',
                                   onTap: () => navigateToSimilar(context)),
