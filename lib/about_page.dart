@@ -162,7 +162,7 @@ class AboutPage extends StatelessWidget {
               width: double.infinity,
               color: Colors.grey[100],
               padding: EdgeInsets.symmetric(
-                  vertical: 40, horizontal: horizontalPadding),
+                  vertical: 64, horizontal: horizontalPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -178,6 +178,26 @@ class AboutPage extends StatelessWidget {
                   SizedBox(height: 12),
                   Text(
                     'Our mission is to make campus life more connected and affordable. This placeholder copy can be replaced with the real about information you want on the site.',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                  SizedBox(height: 18),
+                  Text(
+                    'History',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Founded by students, Union Shop began as a pop-up stall at campus events and grew into a permanent store. Over the years we have expanded our range and collaborated with student groups to promote sustainability and creativity.',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                  SizedBox(height: 18),
+                  Text(
+                    'Values',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'We prioritise affordability, student involvement, and community support. Profits help fund student activities and we try to choose products that reflect campus values.',
                     style: TextStyle(fontSize: 16, height: 1.5),
                   ),
                 ],
