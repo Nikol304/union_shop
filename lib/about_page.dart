@@ -154,32 +154,29 @@ class AboutPage extends StatelessWidget {
               ),
             ),
 
-            // Hero (simple variant)
-            SizedBox(
-              height: 300,
+            // About intro (replaces hero)
+            Container(
               width: double.infinity,
-              child: Container(
-                color: Colors.grey[200],
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        'About Page',
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 12),
-                      ElevatedButton(
-                        onPressed: () => navigateToProduct(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d2963),
-                        ),
-                        child: const Text('See products'),
-                      ),
-                    ],
+              color: Colors.grey[100],
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'About Union Shop',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                ),
+                  SizedBox(height: 12),
+                  Text(
+                    'Union Shop is a student-run store providing merchandise and resources for the campus community. We offer a curated selection of products, support student initiatives, and donate a portion of proceeds to student activities.',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    'Our mission is to make campus life more connected and affordable. This placeholder copy can be replaced with the real about information you want on the site.',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                ],
               ),
             ),
 
