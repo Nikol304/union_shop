@@ -11,6 +11,14 @@ class SimilarPage extends StatelessWidget {
     Navigator.pushNamed(context, '/product');
   }
 
+  void navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void navigateToSimilar(BuildContext context) {
+    Navigator.pushNamed(context, '/similar');
+  }
+
   void placeholderCallbackForButtons() {
     // placeholder
   }
@@ -42,6 +50,7 @@ class SimilarPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo -> Home
                           GestureDetector(
                             onTap: () => navigateToHome(context),
                             child: Image.network(
@@ -61,7 +70,28 @@ class SimilarPage extends StatelessWidget {
                               },
                             ),
                           ),
+
+                          const SizedBox(width: 32),
+
+                          Row(
+                            children: [
+                              _NavLink(
+                                  label: 'Home',
+                                  onTap: () => navigateToHome(context)),
+                              _NavLink(
+                                  label: 'Products',
+                                  onTap: () => navigateToProduct(context)),
+                              _NavLink(
+                                  label: 'About',
+                                  onTap: () => navigateToAbout(context)),
+                              _NavLink(
+                                  label: 'Similar',
+                                  onTap: () => navigateToSimilar(context)),
+                            ],
+                          ),
+
                           const Spacer(),
+
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -142,7 +172,8 @@ class SimilarPage extends StatelessWidget {
                     children: [
                       const Text(
                         'Similar Page',
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 28, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton(
@@ -185,6 +216,35 @@ class SimilarPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _NavLink({
+    required this.label,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onTap,
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+      ),
+      child: Text(
+        label.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 13,
+          letterSpacing: 1,
+          color: Colors.black,
         ),
       ),
     );

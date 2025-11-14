@@ -7,6 +7,18 @@ class ProductPage extends StatelessWidget {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
 
+  void navigateToProduct(BuildContext context) {
+    Navigator.pushNamed(context, '/product');
+  }
+
+  void navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void navigateToSimilar(BuildContext context) {
+    Navigator.pushNamed(context, '/similar');
+  }
+
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
   }
@@ -34,12 +46,13 @@ class ProductPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  // Main header
+                  // Main header with inline nav links
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo -> Home
                           GestureDetector(
                             onTap: () {
                               navigateToHome(context);
@@ -61,7 +74,32 @@ class ProductPage extends StatelessWidget {
                               },
                             ),
                           ),
+
+                          const SizedBox(width: 32),
+
+                          Row(
+                            children: [
+                              _NavLink(
+                                label: 'Home',
+                                onTap: () => navigateToHome(context),
+                              ),
+                              _NavLink(
+                                label: 'Products',
+                                onTap: () => navigateToProduct(context),
+                              ),
+                              _NavLink(
+                                label: 'About',
+                                onTap: () => navigateToAbout(context),
+                              ),
+                              _NavLink(
+                                label: 'Similar',
+                                onTap: () => navigateToSimilar(context),
+                              ),
+                            ],
+                          ),
+
                           const Spacer(),
+
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -239,6 +277,35 @@ class ProductPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NavLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _NavLink({
+    required this.label,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onTap,
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+      ),
+      child: Text(
+        label.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 13,
+          letterSpacing: 1,
+          color: Colors.black,
         ),
       ),
     );

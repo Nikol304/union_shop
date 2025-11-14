@@ -18,12 +18,11 @@ class UnionShopApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
-      home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
+      // Start at '/'
       initialRoute: '/',
-      // When navigating to routes, build and return the corresponding pages
-      // In your browser, try these links: http://localhost:49856/#/product  or  #/about
+      // All named routes (INCLUDING HOME)
       routes: {
+        '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutPage(),
         '/similar': (context) => const SimilarPage(),
@@ -41,6 +40,14 @@ class HomeScreen extends StatelessWidget {
 
   void navigateToProduct(BuildContext context) {
     Navigator.pushNamed(context, '/product');
+  }
+
+  void navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void navigateToSimilar(BuildContext context) {
+    Navigator.pushNamed(context, '/similar');
   }
 
   void placeholderCallbackForButtons() {
@@ -76,6 +83,7 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo -> goes Home
                           GestureDetector(
                             onTap: () {
                               navigateToHome(context);
@@ -97,7 +105,34 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
+
+                          const SizedBox(width: 32),
+
+                          // 🔗 NAV LINKS
+                          Row(
+                            children: [
+                              _NavLink(
+                                label: 'Home',
+                                onTap: () => navigateToHome(context),
+                              ),
+                              _NavLink(
+                                label: 'Products',
+                                onTap: () => navigateToProduct(context),
+                              ),
+                              _NavLink(
+                                label: 'About',
+                                onTap: () => navigateToAbout(context),
+                              ),
+                              _NavLink(
+                                label: 'Similar',
+                                onTap: () => navigateToSimilar(context),
+                              ),
+                            ],
+                          ),
+
                           const Spacer(),
+
+                          // Icons (search, profile, bag, menu)
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -589,6 +624,35 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _NavLink extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  const _NavLink({
+    required this.label,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+        child: Text(
+          label.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 14,
+            letterSpacing: 1.2,
+            fontWeight: FontWeight.w500,
+            color: Colors.black, // hard-coded, no theme override
+          ),
+        ),
       ),
     );
   }
