@@ -16,7 +16,7 @@ class ProductPage extends StatelessWidget {
   }
 
   void navigateToSimilar(BuildContext context) {
-    Navigator.pushNamed(context, '/similar');
+    Navigator.pushNamed(context, '/about');
   }
 
   void placeholderCallbackForButtons() {
@@ -89,7 +89,7 @@ class ProductPage extends StatelessWidget {
                               ),
                               // About link removed
                               _NavLink(
-                                label: 'Similar',
+                                label: 'About',
                                 onTap: () => navigateToSimilar(context),
                               ),
                             ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
-import 'package:union_shop/similar_page.dart';
+import 'package:union_shop/about_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -23,7 +23,7 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
-        '/similar': (context) => const SimilarPage(),
+        '/about': (context) => const AboutPage(),
       },
     );
   }
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void navigateToSimilar(BuildContext context) {
-    Navigator.pushNamed(context, '/similar');
+    Navigator.pushNamed(context, '/about');
   }
 
   void placeholderCallbackForButtons() {
@@ -119,7 +119,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               // About link removed
                               _NavLink(
-                                label: 'Similar',
+                                label: 'About',
                                 onTap: () => navigateToSimilar(context),
                               ),
                             ],

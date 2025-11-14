@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SimilarPage extends StatelessWidget {
-  const SimilarPage({super.key});
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -13,10 +13,6 @@ class SimilarPage extends StatelessWidget {
 
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
-  }
-
-  void navigateToSimilar(BuildContext context) {
-    Navigator.pushNamed(context, '/similar');
   }
 
   void placeholderCallbackForButtons() {
@@ -83,8 +79,8 @@ class SimilarPage extends StatelessWidget {
                                   onTap: () => navigateToProduct(context)),
                               // About link removed
                               _NavLink(
-                                  label: 'Similar',
-                                  onTap: () => navigateToSimilar(context)),
+                                  label: 'About',
+                                  onTap: () => navigateToAbout(context)),
                             ],
                           ),
 
@@ -169,7 +165,7 @@ class SimilarPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text(
-                        'Similar Page',
+                        'About Page',
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
