@@ -8,6 +8,7 @@ import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/merch_page.dart';
 import 'package:union_shop/halloween_page.dart';
 import 'package:union_shop/signature_page.dart';
+import 'package:union_shop/authentication.dart';
 import 'package:union_shop/clothing.dart';
 
 void main() {
@@ -38,6 +39,7 @@ class UnionShopApp extends StatelessWidget {
         '/signature': (context) => const SignaturePage(),
         '/collections': (context) => const CollectionsPage(),
         '/about': (context) => const AboutPage(),
+        '/login': (context) => const LoginPage(),
       },
     );
   }
@@ -102,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
+                          color: Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ),
