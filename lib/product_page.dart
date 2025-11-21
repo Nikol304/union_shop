@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  String _selectedColor = 'Black';
+  String _selectedSize = 'S';
+  String _quantity = '1';
 
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -14,26 +23,30 @@ class ProductPage extends StatelessWidget {
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
+
   void navigateToCollections(BuildContext context) {
     Navigator.pushNamed(context, '/collections');
   }
+
   void navigateToSimilar(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
 
-
-
   void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
+    // placeholder
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final double horizontalPadding =
+        screenWidth > 1100 ? 120 : (screenWidth > 800 ? 64 : 24);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header
+            // ================= HEADER =================
             Container(
               height: 100,
               color: Colors.white,
@@ -50,7 +63,7 @@ class ProductPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  // Main header with inline nav links
+                  // Main header with nav links
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,9 +71,7 @@ class ProductPage extends StatelessWidget {
                         children: [
                           // Logo -> Home
                           GestureDetector(
-                            onTap: () {
-                              navigateToHome(context);
-                            },
+                            onTap: () => navigateToHome(context),
                             child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
                               height: 18,
@@ -91,11 +102,10 @@ class ProductPage extends StatelessWidget {
                                 label: 'Products',
                                 onTap: () => navigateToProduct(context),
                               ),
-                               _NavLink(
-                                  label: 'Collections',
-                                  onTap: () => navigateToCollections(context),
-                                ),
-                              // About link removed
+                              _NavLink(
+                                label: 'Collections',
+                                onTap: () => navigateToCollections(context),
+                              ),
                               _NavLink(
                                 label: 'About',
                                 onTap: () => navigateToSimilar(context),
@@ -173,101 +183,85 @@ class ProductPage extends StatelessWidget {
               ),
             ),
 
-            // Product details
+            // ============== PRODUCT CONTENT ==============
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Product image
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.grey[200],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey[300],
-                            child: const Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_not_supported,
-                                    size: 64,
-                                    color: Colors.grey,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Image unavailable',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: 40,
+              ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final bool isWide = constraints.maxWidth > 900;
+
+                  if (isWide) {
+                    // Desktop-ish: two columns
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: main image + thumbnails
+                        Expanded(
+                          flex: 5,
+                          child: _ProductImages(),
+                        ),
+                        const SizedBox(width: 48),
+                        // RIGHT: details
+                        Expanded(
+                          flex: 5,
+                          child: _ProductDetailsPanel(
+                            selectedColor: _selectedColor,
+                            onColorChanged: (value) {
+                              if (value != null) {
+                                setState(() => _selectedColor = value);
+                              }
+                            },
+                            selectedSize: _selectedSize,
+                            onSizeChanged: (value) {
+                              if (value != null) {
+                                setState(() => _selectedSize = value);
+                              }
+                            },
+                            quantity: _quantity,
+                            onQuantityChanged: (value) {
+                              setState(() => _quantity = value);
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+
+                  // Mobile / tablet: stacked
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _ProductImages(),
+                      const SizedBox(height: 32),
+                      _ProductDetailsPanel(
+                        selectedColor: _selectedColor,
+                        onColorChanged: (value) {
+                          if (value != null) {
+                            setState(() => _selectedColor = value);
+                          }
+                        },
+                        selectedSize: _selectedSize,
+                        onSizeChanged: (value) {
+                          if (value != null) {
+                            setState(() => _selectedSize = value);
+                          }
+                        },
+                        quantity: _quantity,
+                        onQuantityChanged: (value) {
+                          setState(() => _quantity = value);
                         },
                       ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Product name
-                  const Text(
-                    'Placeholder Product Name',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Product price
-                  const Text(
-                    '£15.00',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Product description
-                  const Text(
-                    'Description',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                },
               ),
             ),
 
-            // Footer (copied from main)
+            // ================= FOOTER =================
             Container(
               width: double.infinity,
               color: Colors.grey[50],
@@ -494,6 +488,288 @@ class ProductPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// ===================== SUB-WIDGETS =====================
+
+class _ProductImages extends StatelessWidget {
+  _ProductImages({super.key});
+
+  final String mainImageUrl =
+      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854'; // replace with real hoodie image
+  final List<String> thumbnails = const [
+    'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+    'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+    'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+    'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: 4 / 3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.network(
+              mainImageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[200],
+                  child: const Center(
+                    child: Icon(Icons.image_not_supported,
+                        size: 48, color: Colors.grey),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 90,
+          child: Row(
+            children: thumbnails
+                .map(
+                  (url) => Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: AspectRatio(
+                        aspectRatio: 4 / 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black12),
+                          ),
+                          child: Image.network(
+                            url,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[200],
+                                child: const Icon(
+                                  Icons.image_not_supported,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProductDetailsPanel extends StatelessWidget {
+  final String selectedColor;
+  final String selectedSize;
+  final String quantity;
+  final ValueChanged<String?> onColorChanged;
+  final ValueChanged<String?> onSizeChanged;
+  final ValueChanged<String> onQuantityChanged;
+
+  const _ProductDetailsPanel({
+    super.key,
+    required this.selectedColor,
+    required this.selectedSize,
+    required this.quantity,
+    required this.onColorChanged,
+    required this.onSizeChanged,
+    required this.onQuantityChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const purple = Color(0xFF4d2963);
+    const shopPurple = Color(0xFF5a31f4);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Classic Sweatshirts',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          '£23.00',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'Tax included.',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black54,
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Color + Size
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Color'),
+                  const SizedBox(height: 4),
+                  DropdownButtonFormField<String>(
+                    value: selectedColor,
+                    items: const [
+                      DropdownMenuItem(value: 'Black', child: Text('Black')),
+                      DropdownMenuItem(value: 'Green', child: Text('Green')),
+                      DropdownMenuItem(value: 'Purple', child: Text('Purple')),
+                    ],
+                    onChanged: onColorChanged,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Size'),
+                  const SizedBox(height: 4),
+                  DropdownButtonFormField<String>(
+                    value: selectedSize,
+                    items: const [
+                      DropdownMenuItem(value: 'S', child: Text('S')),
+                      DropdownMenuItem(value: 'M', child: Text('M')),
+                      DropdownMenuItem(value: 'L', child: Text('L')),
+                      DropdownMenuItem(value: 'XL', child: Text('XL')),
+                    ],
+                    onChanged: onSizeChanged,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+
+        // Quantity
+        Row(
+          children: [
+            const Text('Quantity'),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 80,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: TextEditingController(text: quantity),
+                onChanged: onQuantityChanged,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 24),
+
+        // ADD TO CART button
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: purple,
+              side: const BorderSide(color: purple),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
+            child: const Text(
+              'ADD TO CART',
+              style: TextStyle(
+                letterSpacing: 1.2,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // Buy with shop button
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: shopPurple,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
+            child: const Text(
+              'Buy with shop',
+              style: TextStyle(
+                letterSpacing: 1.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        TextButton(
+          onPressed: () {},
+          child: const Text(
+            'More payment options',
+            style: TextStyle(decoration: TextDecoration.underline),
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        const Text(
+          'Bringing to you, our best selling Classic Sweatshirt. '
+          'Available in 4 different colours.',
+          style: TextStyle(
+            fontSize: 15,
+            height: 1.6,
+          ),
+        ),
+      ],
     );
   }
 }
