@@ -14,10 +14,14 @@ class ProductPage extends StatelessWidget {
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
-
+  void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
+  }
   void navigateToSimilar(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
+
+
 
   void placeholderCallbackForButtons() {
     // This is the event handler for buttons that don't work yet
@@ -87,6 +91,10 @@ class ProductPage extends StatelessWidget {
                                 label: 'Products',
                                 onTap: () => navigateToProduct(context),
                               ),
+                               _NavLink(
+                                  label: 'Collections',
+                                  onTap: () => navigateToCollections(context),
+                                ),
                               // About link removed
                               _NavLink(
                                 label: 'About',

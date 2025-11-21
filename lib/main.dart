@@ -125,15 +125,16 @@ class HomeScreen extends StatelessWidget {
                                   label: 'Products',
                                   onTap: () => navigateToProduct(context),
                                 ),
+                                 _NavLink(
+                                  label: 'Collections',
+                                  onTap: () => navigateToCollections(context),
+                                ),
                                 // About link
                                 _NavLink(
                                   label: 'About',
                                   onTap: () => navigateToAbout(context),
                                 ),
-                                _NavLink(
-                                  label: 'Collections',
-                                  onTap: () => navigateToCollections(context),
-                                ),
+                               
                               ],
                             ),
 

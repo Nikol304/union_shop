@@ -11,12 +11,14 @@ class CollectionsPage extends StatelessWidget {
     Navigator.pushNamed(context, '/product');
   }
 
-  void navigateToCollections(BuildContext context) {
-    Navigator.pushNamed(context, '/collections');
-  }
+  
 
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
+  }
+
+  void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
   }
 
   void placeholderCallbackForButtons() {

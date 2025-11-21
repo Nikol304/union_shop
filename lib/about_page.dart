@@ -11,9 +11,15 @@ class AboutPage extends StatelessWidget {
     Navigator.pushNamed(context, '/product');
   }
 
+void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
+  }
+  
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
+
+  
 
   void placeholderCallbackForButtons() {
     // placeholder
@@ -80,6 +86,9 @@ class AboutPage extends StatelessWidget {
                               _NavLink(
                                   label: 'Products',
                                   onTap: () => navigateToProduct(context)),
+                                  _NavLink(
+                                  label: 'Collections',
+                                  onTap: () => navigateToCollections(context)),
                               // About link removed
                               _NavLink(
                                   label: 'About',
