@@ -7,20 +7,26 @@ class ShopNavDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       onSelected: (value) {
+        // avoid pushing the same route if we're already on it
+        final current = ModalRoute.of(context)?.settings.name;
+        String? target;
         switch (value) {
           case 'clothing':
-            Navigator.pushNamed(context, '/collections');
+            target = '/clothing';
             break;
           case 'merch':
-            Navigator.pushNamed(context, '/merch'); // TODO: create route/page
+            target = '/merch';
             break;
           case 'halloween':
-            Navigator.pushNamed(context, '/halloween'); // TODO
+            target = '/halloween';
             break;
           case 'signature':
-            Navigator.pushNamed(context, '/signature'); // TODO
+            target = '/signature';
             break;
         }
+        if (target == null) return;
+        if (current == target) return; // already there
+        Navigator.pushNamed(context, target);
       },
       offset: const Offset(0, 20),
       elevation: 4,
