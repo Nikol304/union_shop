@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
+import 'package:union_shop/collections_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -23,6 +24,7 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
+        '/collections': (context) => const CollectionsPage(),
         '/about': (context) => const AboutPage(),
       },
     );
@@ -44,6 +46,10 @@ class HomeScreen extends StatelessWidget {
     Navigator.pushNamed(context, '/about');
   }
 
+  void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
+  }
+
   void navigateToSimilar(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
@@ -54,6 +60,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -106,24 +113,29 @@ class HomeScreen extends StatelessWidget {
 
                           const SizedBox(width: 32),
 
-                          // 🔗 NAV LINKS
-                          Row(
-                            children: [
-                              _NavLink(
-                                label: 'Home',
-                                onTap: () => navigateToHome(context),
-                              ),
-                              _NavLink(
-                                label: 'Products',
-                                onTap: () => navigateToProduct(context),
-                              ),
-                              // About link removed
-                              _NavLink(
-                                label: 'About',
-                                onTap: () => navigateToSimilar(context),
-                              ),
-                            ],
-                          ),
+                          // 🔗 NAV LINKS (hidden on narrow screens)
+                          if (!isMobile)
+                            Row(
+                              children: [
+                                _NavLink(
+                                  label: 'Home',
+                                  onTap: () => navigateToHome(context),
+                                ),
+                                _NavLink(
+                                  label: 'Products',
+                                  onTap: () => navigateToProduct(context),
+                                ),
+                                // About link
+                                _NavLink(
+                                  label: 'About',
+                                  onTap: () => navigateToAbout(context),
+                                ),
+                                _NavLink(
+                                  label: 'Collections',
+                                  onTap: () => navigateToCollections(context),
+                                ),
+                              ],
+                            ),
 
                           const Spacer(),
 
@@ -172,18 +184,41 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
+                                PopupMenuButton<String>(
                                   icon: const Icon(
                                     Icons.menu,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onSelected: (value) {
+                                    if (value == 'home') {
+                                      navigateToHome(context);
+                                    } else if (value == 'products') {
+                                      navigateToProduct(context);
+                                    } else if (value == 'collections') {
+                                      navigateToCollections(context);
+                                    } else if (value == 'about') {
+                                      navigateToAbout(context);
+                                    }
+                                  },
+                                  itemBuilder: (context) => const [
+                                    PopupMenuItem(
+                                      value: 'home',
+                                      child: Text('Home'),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 'products',
+                                      child: Text('Products'),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 'collections',
+                                      child: Text('Collections'),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 'about',
+                                      child: Text('About'),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
