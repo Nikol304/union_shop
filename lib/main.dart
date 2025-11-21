@@ -4,6 +4,9 @@ import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/sale.dart';
 import 'package:union_shop/widgets/shop_nav_dropdown.dart';
+import 'package:union_shop/merch_page.dart';
+import 'package:union_shop/halloween_page.dart';
+import 'package:union_shop/signature_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -27,6 +30,9 @@ class UnionShopApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
         '/sale': (context) => const SalePage(),
+        '/merch': (context) => const MerchPage(),
+        '/halloween': (context) => const HalloweenPage(),
+        '/signature': (context) => const SignaturePage(),
         '/collections': (context) => const CollectionsPage(),
         '/about': (context) => const AboutPage(),
       },
