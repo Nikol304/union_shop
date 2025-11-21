@@ -14,7 +14,11 @@ class AboutPage extends StatelessWidget {
 void navigateToCollections(BuildContext context) {
     Navigator.pushNamed(context, '/collections');
   }
-  
+
+  void navigateToSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale');
+  }
+
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
@@ -89,7 +93,9 @@ void navigateToCollections(BuildContext context) {
                                   _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context)),
-                              // About link removed
+                              _NavLink(
+                                  label: 'Sale',
+                                  onTap: () => navigateToSale(context)),
                               _NavLink(
                                   label: 'About',
                                   onTap: () => navigateToAbout(context)),

@@ -11,15 +11,19 @@ class CollectionsPage extends StatelessWidget {
     Navigator.pushNamed(context, '/product');
   }
 
-  
+  void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
+  }
+
+void navigateToSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale');
+  }
 
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
 
-  void navigateToCollections(BuildContext context) {
-    Navigator.pushNamed(context, '/collections');
-  }
+  
 
   void placeholderCallbackForButtons() {
     // placeholder for icons
@@ -95,6 +99,10 @@ class CollectionsPage extends StatelessWidget {
                               _NavLink(
                                 label: 'Collections',
                                 onTap: () => navigateToCollections(context),
+                              ),
+                              _NavLink(
+                                label: 'Sale',
+                                onTap: () => navigateToSale(context),
                               ),
                               _NavLink(
                                 label: 'About',

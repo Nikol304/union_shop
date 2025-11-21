@@ -50,6 +50,10 @@ class HomeScreen extends StatelessWidget {
     Navigator.pushNamed(context, '/collections');
   }
 
+  void navigateToSale(BuildContext context) {
+    Navigator.pushNamed(context, '/sale');
+  }
+
   void navigateToSimilar(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
@@ -128,6 +132,10 @@ class HomeScreen extends StatelessWidget {
                                  _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context),
+                                ),
+                                _NavLink(
+                                  label: 'Sale',
+                                  onTap: () => navigateToSale(context),
                                 ),
                                 // About link
                                 _NavLink(
