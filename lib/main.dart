@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
+import 'package:union_shop/sale.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -24,6 +25,7 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
+        '/sale': (context) => const SalePage(),
         '/collections': (context) => const CollectionsPage(),
         '/about': (context) => const AboutPage(),
       },
@@ -129,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                                   label: 'Products',
                                   onTap: () => navigateToProduct(context),
                                 ),
-                                 _NavLink(
+                                _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context),
                                 ),
@@ -142,7 +144,6 @@ class HomeScreen extends StatelessWidget {
                                   label: 'About',
                                   onTap: () => navigateToAbout(context),
                                 ),
-                               
                               ],
                             ),
 
@@ -204,6 +205,8 @@ class HomeScreen extends StatelessWidget {
                                       navigateToHome(context);
                                     } else if (value == 'products') {
                                       navigateToProduct(context);
+                                    } else if (value == 'sale') {
+                                      navigateToSale(context);
                                     } else if (value == 'collections') {
                                       navigateToCollections(context);
                                     } else if (value == 'about') {
@@ -218,6 +221,10 @@ class HomeScreen extends StatelessWidget {
                                     PopupMenuItem(
                                       value: 'products',
                                       child: Text('Products'),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 'sale',
+                                      child: Text('Sale'),
                                     ),
                                     PopupMenuItem(
                                       value: 'collections',
