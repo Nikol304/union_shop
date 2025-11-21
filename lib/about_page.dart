@@ -32,6 +32,7 @@ void navigateToCollections(BuildContext context) {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
     final double horizontalPadding =
         width > 900 ? 96.0 : (width > 600 ? 64.0 : 24.0);
     return Scaffold(
@@ -44,6 +45,7 @@ void navigateToCollections(BuildContext context) {
               color: Colors.white,
               child: Column(
                 children: [
+                  // Top banner
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -54,6 +56,7 @@ void navigateToCollections(BuildContext context) {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
+                  // Main header
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -82,28 +85,31 @@ void navigateToCollections(BuildContext context) {
 
                           const SizedBox(width: 32),
 
-                          Row(
-                            children: [
-                              _NavLink(
-                                  label: 'Home',
-                                  onTap: () => navigateToHome(context)),
-                              _NavLink(
-                                  label: 'Products',
-                                  onTap: () => navigateToProduct(context)),
-                                  _NavLink(
-                                  label: 'Collections',
-                                  onTap: () => navigateToCollections(context)),
-                              _NavLink(
-                                  label: 'Sale',
-                                  onTap: () => navigateToSale(context)),
-                              _NavLink(
-                                  label: 'About',
-                                  onTap: () => navigateToAbout(context)),
-                            ],
-                          ),
+                          // Nav links (hidden on narrow screens)
+                          if (!isMobile)
+                            Row(
+                              children: [
+                                _NavLink(
+                                    label: 'Home',
+                                    onTap: () => navigateToHome(context)),
+                                _NavLink(
+                                    label: 'Products',
+                                    onTap: () => navigateToProduct(context)),
+                                _NavLink(
+                                    label: 'Collections',
+                                    onTap: () => navigateToCollections(context)),
+                                _NavLink(
+                                    label: 'Sale',
+                                    onTap: () => navigateToSale(context)),
+                                _NavLink(
+                                    label: 'About',
+                                    onTap: () => navigateToAbout(context)),
+                              ],
+                            ),
 
                           const Spacer(),
 
+                          // Icons (search, profile, bag, menu)
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
                             child: Row(
@@ -148,18 +154,32 @@ void navigateToCollections(BuildContext context) {
                                   ),
                                   onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
+                                PopupMenuButton<String>(
                                   icon: const Icon(
                                     Icons.menu,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onSelected: (value) {
+                                    if (value == 'home') {
+                                      navigateToHome(context);
+                                    } else if (value == 'products') {
+                                      navigateToProduct(context);
+                                    } else if (value == 'sale') {
+                                      navigateToSale(context);
+                                    } else if (value == 'collections') {
+                                      navigateToCollections(context);
+                                    } else if (value == 'about') {
+                                      navigateToAbout(context);
+                                    }
+                                  },
+                                  itemBuilder: (context) => const [
+                                    PopupMenuItem(value: 'home', child: Text('Home')),
+                                    PopupMenuItem(value: 'products', child: Text('Products')),
+                                    PopupMenuItem(value: 'sale', child: Text('Sale')),
+                                    PopupMenuItem(value: 'collections', child: Text('Collections')),
+                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                  ],
                                 ),
                               ],
                             ),

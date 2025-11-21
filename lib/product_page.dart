@@ -45,6 +45,7 @@ class _ProductPageState extends State<ProductPage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final double horizontalPadding =
         screenWidth > 1100 ? 120 : (screenWidth > 800 ? 64 : 24);
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -96,30 +97,32 @@ class _ProductPageState extends State<ProductPage> {
 
                           const SizedBox(width: 32),
 
-                          Row(
-                            children: [
-                              _NavLink(
-                                label: 'Home',
-                                onTap: () => navigateToHome(context),
-                              ),
-                              _NavLink(
-                                label: 'Products',
-                                onTap: () => navigateToProduct(context),
-                              ),
-                              _NavLink(
-                                label: 'Collections',
-                                onTap: () => navigateToCollections(context),
-                              ),
-                              _NavLink(
-                                label: 'Sale',
-                                onTap: () => navigateToSale(context),
-                              ),
-                              _NavLink(
-                                label: 'About',
-                                onTap: () => navigateToSimilar(context),
-                              ),
-                            ],
-                          ),
+                          // Nav links (hidden on narrow screens)
+                          if (!isMobile)
+                            Row(
+                              children: [
+                                _NavLink(
+                                  label: 'Home',
+                                  onTap: () => navigateToHome(context),
+                                ),
+                                _NavLink(
+                                  label: 'Products',
+                                  onTap: () => navigateToProduct(context),
+                                ),
+                                _NavLink(
+                                  label: 'Collections',
+                                  onTap: () => navigateToCollections(context),
+                                ),
+                                _NavLink(
+                                  label: 'Sale',
+                                  onTap: () => navigateToSale(context),
+                                ),
+                                _NavLink(
+                                  label: 'About',
+                                  onTap: () => navigateToSimilar(context),
+                                ),
+                              ],
+                            ),
 
                           const Spacer(),
 
@@ -167,18 +170,32 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                   onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
+                                PopupMenuButton<String>(
                                   icon: const Icon(
                                     Icons.menu,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onSelected: (value) {
+                                    if (value == 'home') {
+                                      navigateToHome(context);
+                                    } else if (value == 'products') {
+                                      navigateToProduct(context);
+                                    } else if (value == 'sale') {
+                                      navigateToSale(context);
+                                    } else if (value == 'collections') {
+                                      navigateToCollections(context);
+                                    } else if (value == 'about') {
+                                      navigateToAbout(context);
+                                    }
+                                  },
+                                  itemBuilder: (context) => const [
+                                    PopupMenuItem(value: 'home', child: Text('Home')),
+                                    PopupMenuItem(value: 'products', child: Text('Products')),
+                                    PopupMenuItem(value: 'sale', child: Text('Sale')),
+                                    PopupMenuItem(value: 'collections', child: Text('Collections')),
+                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                  ],
                                 ),
                               ],
                             ),
@@ -643,16 +660,10 @@ class _ProductDetailsPanel extends StatelessWidget {
                     value: selectedColor,
                     items: const [
                       DropdownMenuItem(value: 'Black', child: Text('Black')),
-                      DropdownMenuItem(value: 'Green', child: Text('Green')),
-                      DropdownMenuItem(value: 'Purple', child: Text('Purple')),
+                      DropdownMenuItem(value: 'Blue', child: Text('Blue')),
+                      DropdownMenuItem(value: 'Grey', child: Text('Grey')),
                     ],
                     onChanged: onColorChanged,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    ),
                   ),
                 ],
               ),
@@ -673,12 +684,6 @@ class _ProductDetailsPanel extends StatelessWidget {
                       DropdownMenuItem(value: 'XL', child: Text('XL')),
                     ],
                     onChanged: onSizeChanged,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    ),
                   ),
                 ],
               ),
