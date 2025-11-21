@@ -31,9 +31,9 @@ class SalePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-  final double horizontalPadding =
-    screenWidth > 1100 ? 120 : (screenWidth > 800 ? 64 : 24);
-  final bool isMobile = MediaQuery.of(context).size.width < 600;
+    final double horizontalPadding =
+        screenWidth > 1100 ? 120 : (screenWidth > 800 ? 64 : 24);
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
 
     // simple dummy “database”
     final saleProducts = <_SaleProduct>[
@@ -208,11 +208,18 @@ class SalePage extends StatelessWidget {
                                     }
                                   },
                                   itemBuilder: (context) => const [
-                                    PopupMenuItem(value: 'home', child: Text('Home')),
-                                    PopupMenuItem(value: 'products', child: Text('Products')),
-                                    PopupMenuItem(value: 'sale', child: Text('Sale')),
-                                    PopupMenuItem(value: 'collections', child: Text('Collections')),
-                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                    PopupMenuItem(
+                                        value: 'home', child: Text('Home')),
+                                    PopupMenuItem(
+                                        value: 'products',
+                                        child: Text('Products')),
+                                    PopupMenuItem(
+                                        value: 'sale', child: Text('Sale')),
+                                    PopupMenuItem(
+                                        value: 'collections',
+                                        child: Text('Collections')),
+                                    PopupMenuItem(
+                                        value: 'about', child: Text('About')),
                                   ],
                                 ),
                               ],
@@ -623,8 +630,7 @@ class _SaleProductCard extends StatelessWidget {
               return Container(
                 color: Colors.grey[200],
                 child: const Center(
-                  child:
-                      Icon(Icons.image_not_supported, color: Colors.grey),
+                  child: Icon(Icons.image_not_supported, color: Colors.grey),
                 ),
               );
             },
@@ -757,8 +763,7 @@ class _FakeDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black26),
       ),
@@ -802,4 +807,3 @@ class _NavLink extends StatelessWidget {
     );
   }
 }
-

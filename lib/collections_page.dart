@@ -15,15 +15,13 @@ class CollectionsPage extends StatelessWidget {
     Navigator.pushNamed(context, '/collections');
   }
 
-void navigateToSale(BuildContext context) {
+  void navigateToSale(BuildContext context) {
     Navigator.pushNamed(context, '/sale');
   }
 
   void navigateToAbout(BuildContext context) {
     Navigator.pushNamed(context, '/about');
   }
-
-  
 
   void placeholderCallbackForButtons() {
     // placeholder for icons
@@ -180,11 +178,18 @@ void navigateToSale(BuildContext context) {
                                     }
                                   },
                                   itemBuilder: (context) => const [
-                                    PopupMenuItem(value: 'home', child: Text('Home')),
-                                    PopupMenuItem(value: 'products', child: Text('Products')),
-                                    PopupMenuItem(value: 'sale', child: Text('Sale')),
-                                    PopupMenuItem(value: 'collections', child: Text('Collections')),
-                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                    PopupMenuItem(
+                                        value: 'home', child: Text('Home')),
+                                    PopupMenuItem(
+                                        value: 'products',
+                                        child: Text('Products')),
+                                    PopupMenuItem(
+                                        value: 'sale', child: Text('Sale')),
+                                    PopupMenuItem(
+                                        value: 'collections',
+                                        child: Text('Collections')),
+                                    PopupMenuItem(
+                                        value: 'about', child: Text('About')),
                                   ],
                                 ),
                               ],
@@ -219,7 +224,6 @@ void navigateToSale(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 32),
-
                   LayoutBuilder(
                     builder: (context, constraints) {
                       final bool threeCols = constraints.maxWidth >= 1100;
@@ -381,8 +385,8 @@ void navigateToSale(BuildContext context) {
                             const SizedBox(height: 8),
                             const Text(
                               "We\'ll never share your email.",
-                              style: TextStyle(
-                                  fontSize: 12, color: Colors.grey),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
                         );

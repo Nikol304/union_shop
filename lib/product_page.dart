@@ -190,11 +190,18 @@ class _ProductPageState extends State<ProductPage> {
                                     }
                                   },
                                   itemBuilder: (context) => const [
-                                    PopupMenuItem(value: 'home', child: Text('Home')),
-                                    PopupMenuItem(value: 'products', child: Text('Products')),
-                                    PopupMenuItem(value: 'sale', child: Text('Sale')),
-                                    PopupMenuItem(value: 'collections', child: Text('Collections')),
-                                    PopupMenuItem(value: 'about', child: Text('About')),
+                                    PopupMenuItem(
+                                        value: 'home', child: Text('Home')),
+                                    PopupMenuItem(
+                                        value: 'products',
+                                        child: Text('Products')),
+                                    PopupMenuItem(
+                                        value: 'sale', child: Text('Sale')),
+                                    PopupMenuItem(
+                                        value: 'collections',
+                                        child: Text('Collections')),
+                                    PopupMenuItem(
+                                        value: 'about', child: Text('About')),
                                   ],
                                 ),
                               ],
