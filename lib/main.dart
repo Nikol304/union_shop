@@ -3,6 +3,7 @@ import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/sale.dart';
+import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -127,10 +128,7 @@ class HomeScreen extends StatelessWidget {
                                   label: 'Home',
                                   onTap: () => navigateToHome(context),
                                 ),
-                                _NavLink(
-                                  label: 'Products',
-                                  onTap: () => navigateToProduct(context),
-                                ),
+                                const ShopNavDropdown(),
                                 _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context),
@@ -703,3 +701,6 @@ class _NavLink extends StatelessWidget {
     );
   }
 }
+
+// Shop dropdown has been moved to a reusable widget in
+// lib/widgets/shop_nav_dropdown.dart

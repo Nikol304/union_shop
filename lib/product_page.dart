@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -105,10 +106,7 @@ class _ProductPageState extends State<ProductPage> {
                                   label: 'Home',
                                   onTap: () => navigateToHome(context),
                                 ),
-                                _NavLink(
-                                  label: 'Products',
-                                  onTap: () => navigateToProduct(context),
-                                ),
+                                const ShopNavDropdown(),
                                 _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context),

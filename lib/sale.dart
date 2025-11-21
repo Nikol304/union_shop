@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
@@ -143,10 +144,7 @@ class SalePage extends StatelessWidget {
                                   label: 'Home',
                                   onTap: () => navigateToHome(context),
                                 ),
-                                _NavLink(
-                                  label: 'Products',
-                                  onTap: () => navigateToProduct(context),
-                                ),
+                                const ShopNavDropdown(),
                                 _NavLink(
                                   label: 'Collections',
                                   onTap: () => navigateToCollections(context),
