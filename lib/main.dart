@@ -11,6 +11,7 @@ import 'package:union_shop/signature_page.dart';
 import 'package:union_shop/authentication.dart';
 import 'package:union_shop/the_print_shack.dart';
 import 'package:union_shop/clothing.dart';
+import 'package:union_shop/print_shack_personalisation.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -40,6 +41,8 @@ class UnionShopApp extends StatelessWidget {
         '/signature': (context) => const SignaturePage(),
         '/collections': (context) => const CollectionsPage(),
         '/print-shack': (context) => const PrintShackPage(),
+        '/print-shack-personalisation': (context) =>
+            const PrintShackPersonalisationPage(),
         '/about': (context) => const AboutPage(),
         '/login': (context) => const LoginPage(),
       },

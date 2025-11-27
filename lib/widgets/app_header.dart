@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/shop_nav_dropdown.dart';
+import 'package:union_shop/widgets/print_shack_nav_dropdown.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   const AppHeader({Key? key}) : super(key: key);
@@ -69,10 +70,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           label: 'Collections',
                           onTap: () => navigateTo('/collections'),
                         ),
-                        _NavLink(
-                          label: 'Print Shack',
-                          onTap: () => navigateTo('/print-shack'),
-                        ),
+                        const PrintShackNavDropdown(),
                         _NavLink(
                           label: 'Sale',
                           onTap: () => navigateTo('/sale'),
