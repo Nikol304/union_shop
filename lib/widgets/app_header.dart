@@ -70,6 +70,10 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           onTap: () => navigateTo('/collections'),
                         ),
                         _NavLink(
+                          label: 'Print Shack',
+                          onTap: () => navigateTo('/print-shack'),
+                        ),
+                        _NavLink(
                           label: 'Sale',
                           onTap: () => navigateTo('/sale'),
                         ),

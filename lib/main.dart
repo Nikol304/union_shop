@@ -9,6 +9,7 @@ import 'package:union_shop/merch_page.dart';
 import 'package:union_shop/halloween_page.dart';
 import 'package:union_shop/signature_page.dart';
 import 'package:union_shop/authentication.dart';
+import 'package:union_shop/the_print_shack.dart';
 import 'package:union_shop/clothing.dart';
 
 void main() {
@@ -38,6 +39,7 @@ class UnionShopApp extends StatelessWidget {
         '/halloween': (context) => const HalloweenPage(),
         '/signature': (context) => const SignaturePage(),
         '/collections': (context) => const CollectionsPage(),
+        '/print-shack': (context) => const PrintShackPage(),
         '/about': (context) => const AboutPage(),
         '/login': (context) => const LoginPage(),
       },
