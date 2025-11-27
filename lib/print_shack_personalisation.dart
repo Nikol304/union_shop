@@ -1,176 +1,555 @@
-// lib/print_shack_page.dart
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
 
-class PrintShackPage extends StatelessWidget {
-  const PrintShackPage({super.key});
+class PrintShackPersonalisationPage extends StatefulWidget {
+  const PrintShackPersonalisationPage({Key? key}) : super(key: key);
+
+  @override
+  State<PrintShackPersonalisationPage> createState() =>
+      _PrintShackPersonalisationPageState();
+}
+
+class _PrintShackPersonalisationPageState
+    extends State<PrintShackPersonalisationPage> {
+  String _perLineValue = 'One Line of Text';
+  final TextEditingController _personalisationController =
+      TextEditingController();
+  final TextEditingController _quantityController =
+      TextEditingController(text: '1');
+
+  @override
+  void dispose() {
+    _personalisationController.dispose();
+    _quantityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return Scaffold(
       appBar: const AppHeader(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-            constraints: const BoxConstraints(maxWidth: 1000),
-            color: Colors.white,
+      backgroundColor: Colors.white,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isMobile = constraints.maxWidth < 900;
+
+          return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Page title
-                Text(
-                  'The Union Print Shack',
-                  textAlign: TextAlign.center,
-                  style: textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 32),
+                  child:
+                      isMobile ? _buildMobileContent() : _buildDesktopContent(),
                 ),
-                const SizedBox(height: 32),
-
-                // 3-image banner like the website
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: AspectRatio(
-                    aspectRatio: 16 / 5, // wide strip
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.network(
-                            'https://shop.upsu.net/cdn/shop/files/UniversityHoodieFront_1024x1024@2x.jpg?v=1689855600',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                _imagePlaceholder(),
-                          ),
-                        ),
-                        Expanded(
-                          child: Image.network(
-                            'https://shop.upsu.net/cdn/shop/files/PrintShack_1024x1024@2x.jpg?v=1689855600',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                _imagePlaceholder(),
-                          ),
-                        ),
-                        Expanded(
-                          child: Image.network(
-                            'https://shop.upsu.net/cdn/shop/files/YourNameHere_1024x1024@2x.jpg?v=1689855600',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                _imagePlaceholder(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Text content – headings + paragraphs
-                Align(
-                  alignment: Alignment.centerLeft,
+                const Divider(height: 0),
+                // Use the site's standard footer layout so this page matches others
+                Container(
+                  width: double.infinity,
+                  color: Colors.grey[50],
+                  padding: const EdgeInsets.all(24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      _SectionBlock(
-                        heading: 'Make It Yours at The Union Print Shack',
-                        body:
-                            "Want to add a personal touch? We’ve got you covered with heat-pressed customisation on all our clothing. "
-                            "Swing by the shop – our team’s always happy to help you pick the right gear and answer any questions.",
+                    children: [
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isNarrow = constraints.maxWidth < 600;
+                          if (isNarrow) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Opening Hours',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                const Text('Mon - Fri: 09:00 - 17:00'),
+                                const Text('Sat: 10:00 - 16:00'),
+                                const Text('Sun: Closed'),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'Help',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  child: const Text('Contact Us'),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  child: const Text('Shipping & Returns'),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  child: const Text('Privacy Policy'),
+                                ),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'Subscribe',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter your email',
+                                    border: OutlineInputBorder(),
+                                    isDense: true,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 10),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF4d2963),
+                                    ),
+                                    child: const Text('Subscribe'),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  "We\'ll never share your email.",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            );
+                          }
+
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      'Opening Hours',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text('Mon - Fri: 09:00 - 17:00'),
+                                    Text('Sat: 10:00 - 16:00'),
+                                    Text('Sun: Closed'),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Help',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    TextButton(
+                                      onPressed: () {},
+                                      style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        alignment: Alignment.centerLeft,
+                                      ),
+                                      child: const Text('Contact Us'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        alignment: Alignment.centerLeft,
+                                      ),
+                                      child: const Text('Shipping & Returns'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        alignment: Alignment.centerLeft,
+                                      ),
+                                      child: const Text('Privacy Policy'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Subscribe',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              hintText: 'Enter your email',
+                                              border: OutlineInputBorder(),
+                                              isDense: true,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 10),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xFF4d2963),
+                                          ),
+                                          child: const Text('Subscribe'),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      "We\'ll never share your email.",
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                      SizedBox(height: 16),
-                      _SectionBlock(
-                        heading: 'Uni Gear or Your Gear – We’ll Personalise It',
-                        body:
-                            "Whether you choose official university clothing from the Union Shop or bring in your own, we can personalise it for you. "
-                            "Add your name, course, society, nickname or short message to create something that’s uniquely yours.",
-                      ),
-                      SizedBox(height: 16),
-                      _SectionBlock(
-                        heading: 'Simple Pricing, No Surprises',
-                        body:
-                            "Customising your gear won’t break the bank – just £3 for one line of text or a small chest logo, and £5 for two lines "
-                            "or a large back logo. Turnaround time is up to three working days, and we’ll let you know as soon as it’s ready to collect.",
-                      ),
-                      SizedBox(height: 16),
-                      _SectionBlock(
-                        heading: 'Personalisation Terms & Conditions',
-                        body:
-                            "We will print your clothing exactly as you have provided it to us, whether online or in person. We are not responsible "
-                            "for any spelling errors, so please ensure your chosen text is clearly displayed in either capitals or lowercase. "
-                            "Refunds are not provided for any personalised items.",
-                      ),
-                      SizedBox(height: 16),
-                      _SectionBlock(
-                        heading: 'Ready to Make It Yours?',
-                        body:
-                            "Pop in or get in touch today – let’s create something uniquely you with our personalisation service – The Union Print Shack!",
+                      const SizedBox(height: 16),
+                      Center(
+                        child: Text(
+                          '© ${DateTime.now().year} Union Shop',
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ),
                     ],
                   ),
                 ),
-
-                // You can leave footer to your global layout (like on HomeScreen)
-                const SizedBox(height: 32),
               ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
-}
 
-class _SectionBlock extends StatelessWidget {
-  final String heading;
-  final String body;
+  // ---------- MAIN CONTENT (DESKTOP) ----------
 
-  const _SectionBlock({
-    required this.heading,
-    required this.body,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final headingStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w700,
-          color: Colors.black87,
-        );
-
-    return Column(
+  Widget _buildDesktopContent() {
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          heading,
-          style: headingStyle,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          body,
-          style: const TextStyle(
-            fontSize: 14,
-            height: 1.6,
-            color: Colors.black87,
+        // LEFT – Product images
+        Expanded(
+          flex: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AspectRatio(
+                aspectRatio: 1.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      // Replace with your image
+                      image: AssetImage('assets/personalisation_main.jpg'),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  _buildThumbnail('assets/personalisation_main.jpg', true),
+                  const SizedBox(width: 8),
+                  _buildThumbnail('assets/personalisation_alt.jpg', false),
+                ],
+              ),
+            ],
           ),
+        ),
+
+        const SizedBox(width: 40),
+
+        // RIGHT – Product info + form
+        Expanded(
+          flex: 5,
+          child: _buildProductForm(),
         ),
       ],
     );
   }
-}
 
-Widget _imagePlaceholder() {
-  return Container(
-    color: Colors.grey[200],
-    child: const Center(
-      child: Icon(
-        Icons.image_not_supported,
-        color: Colors.grey,
+  // ---------- MAIN CONTENT (MOBILE) ----------
+
+  Widget _buildMobileContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: 1.0,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/personalisation_main.jpg'),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            _buildThumbnail('assets/personalisation_main.jpg', true),
+            const SizedBox(width: 8),
+            _buildThumbnail('assets/personalisation_alt.jpg', false),
+          ],
+        ),
+        const SizedBox(height: 24),
+        _buildProductForm(),
+      ],
+    );
+  }
+
+  // ---------- PRODUCT FORM ----------
+
+  Widget _buildProductForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Personalisation',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          '£3.00',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Tax included.',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Per Line dropdown
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Per Line: ',
+              style: TextStyle(fontSize: 14),
+            ),
+            const SizedBox(width: 4),
+            const Text(
+              'One Line of Text',
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: 260,
+          child: DropdownButtonFormField<String>(
+            value: _perLineValue,
+            items: const [
+              DropdownMenuItem(
+                value: 'One Line of Text',
+                child: Text('One Line of Text'),
+              ),
+              DropdownMenuItem(
+                value: 'Two Lines of Text',
+                child: Text('Two Lines of Text'),
+              ),
+            ],
+            decoration: _inputDecoration(),
+            onChanged: (val) {
+              if (val != null) {
+                setState(() => _perLineValue = val);
+              }
+            },
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Personalisation line
+        const Text(
+          'Personalisation Line 1:',
+          style: TextStyle(fontSize: 14),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _personalisationController,
+          decoration: _inputDecoration(),
+        ),
+        const SizedBox(height: 24),
+
+        // Quantity
+        const Text(
+          'Quantity',
+          style: TextStyle(fontSize: 14),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: 100,
+          child: TextField(
+            controller: _quantityController,
+            keyboardType: TextInputType.number,
+            decoration: _inputDecoration(),
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Add to cart button
+        SizedBox(
+          width: double.infinity,
+          child: SizedBox(
+            height: 52,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4D2963),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              onPressed: () {
+                // TODO: handle add to cart
+              },
+              child: const Text(
+                'ADD TO CART',
+                style: TextStyle(
+                  letterSpacing: 1.4,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+
+        // Small print
+        const Text(
+          '£3 for one line of text! £5 for two!\n\n'
+          'One line of text is 10 characters.\n\n'
+          'Please ensure all spellings are correct before submitting your purchase '
+          'as we will print your item with the exact wording you provide. '
+          'We will not be responsible for any incorrect spellings printed onto '
+          'your garment. Personalised items do not qualify for refunds.',
+          style: TextStyle(fontSize: 14, height: 1.5),
+        ),
+        const SizedBox(height: 24),
+
+        // Share buttons (simple placeholders)
+        Row(
+          children: [
+            _shareButton('SHARE'),
+            const SizedBox(width: 8),
+            _shareButton('TWEET'),
+            const SizedBox(width: 8),
+            _shareButton('PIN IT'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // ---------- FOOTER ----------
+  // footer replaced with the standard site footer in the build method above
+
+  // ---------- SMALL HELPERS ----------
+
+  Widget _buildThumbnail(String asset, bool isSelected) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isSelected ? const Color(0xFF4D2963) : Colors.grey.shade300,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(4),
+        image: DecorationImage(
+          image: AssetImage(asset),
+          fit: BoxFit.cover,
+        ),
       ),
-    ),
-  );
+    );
+  }
+
+  InputDecoration _inputDecoration() {
+    return InputDecoration(
+      isDense: true,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(2),
+      ),
+    );
+  }
+
+  Widget _shareButton(String label) {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: Colors.grey.shade400),
+      ),
+      onPressed: () {},
+      child: Text(label),
+    );
+  }
 }
