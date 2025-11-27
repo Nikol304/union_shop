@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
+import 'package:union_shop/widgets/app_footer.dart';
 
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
@@ -35,7 +36,7 @@ class SalePage extends StatelessWidget {
     final double horizontalPadding =
         screenWidth > 1100 ? 120 : (screenWidth > 800 ? 64 : 24);
 
-    // simple dummy “database”
+    // simple dummy database
     final saleProducts = <_SaleProduct>[
       _SaleProduct(
         title: 'A5 Notepad',
@@ -114,13 +115,13 @@ class SalePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Don’t miss out! Get yours before they’re all gone!',
+                    "Don't miss out! Get yours before they're all gone!",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 15, color: Colors.black87),
                   ),
                   const SizedBox(height: 24),
                   const Text(
-                    'All prices shown are inclusive of the discount 🛒',
+                    'All prices shown are inclusive of the discount',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, color: Colors.black54),
                   ),
@@ -219,230 +220,8 @@ class SalePage extends StatelessWidget {
               ),
             ),
 
-            // ============== FOOTER (same style) ==============
-            Container(
-              width: double.infinity,
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isNarrow = constraints.maxWidth < 600;
-                      if (isNarrow) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Opening Hours',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text('Mon - Fri: 09:00 - 17:00'),
-                            const Text('Sat: 10:00 - 16:00'),
-                            const Text('Sun: Closed'),
-                            const SizedBox(height: 16),
-                            const Text(
-                              'Help',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            TextButton(
-                              onPressed: placeholderCallbackForButtons,
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.centerLeft,
-                              ),
-                              child: const Text('Contact Us'),
-                            ),
-                            TextButton(
-                              onPressed: placeholderCallbackForButtons,
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.centerLeft,
-                              ),
-                              child: const Text('Shipping & Returns'),
-                            ),
-                            TextButton(
-                              onPressed: placeholderCallbackForButtons,
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.centerLeft,
-                              ),
-                              child: const Text('Privacy Policy'),
-                            ),
-                            const SizedBox(height: 16),
-                            const Text(
-                              'Subscribe',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Enter your email',
-                                border: const OutlineInputBorder(),
-                                isDense: true,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 10),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: placeholderCallbackForButtons,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF4d2963),
-                                ),
-                                child: const Text('Subscribe'),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              "We\'ll never share your email.",
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        );
-                      }
-
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Opening Hours',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text('Mon - Fri: 09:00 - 17:00'),
-                                Text('Sat: 10:00 - 16:00'),
-                                Text('Sun: Closed'),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Help',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Contact Us'),
-                                ),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Shipping & Returns'),
-                                ),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Privacy Policy'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Subscribe',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter your email',
-                                          border: const OutlineInputBorder(),
-                                          isDense: true,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 8, vertical: 10),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    ElevatedButton(
-                                      onPressed: placeholderCallbackForButtons,
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFF4d2963),
-                                      ),
-                                      child: const Text('Subscribe'),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "We\'ll never share your email.",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      '© ${DateTime.now().year} Union Shop',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Shared footer
+            const AppFooter(),
           ],
         ),
       ),
@@ -478,71 +257,50 @@ class _SaleProductCard extends StatelessWidget {
     final bool hasDiscount =
         product.oldPrice != null && !product.soldOut && product.oldPrice != '';
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AspectRatio(
-          aspectRatio: 4 / 3,
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
+    return Card(
+      clipBehavior: Clip.hardEdge,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: 4 / 3,
+            child: Image.network(
+              product.imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
                 color: Colors.grey[200],
-                child: const Center(
-                  child: Icon(Icons.image_not_supported, color: Colors.grey),
-                ),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          product.title,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 4),
-        if (product.soldOut)
-          const Text(
-            'Sold out',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
-            ),
-          )
-        else if (hasDiscount)
-          Row(
-            children: [
-              Text(
-                product.oldPrice!,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                child: const Center(child: Icon(Icons.image_not_supported)),
               ),
-              const SizedBox(width: 6),
-              Text(
-                product.price,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          )
-        else
-          Text(
-            product.price,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
             ),
           ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(product.title,
+                    style: const TextStyle(fontWeight: FontWeight.w600)),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    if (hasDiscount)
+                      Text(product.oldPrice ?? '',
+                          style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey)),
+                    if (hasDiscount) const SizedBox(width: 8),
+                    Text(product.price,
+                        style: const TextStyle(fontWeight: FontWeight.w700)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                ElevatedButton(
+                    onPressed: () {}, child: const Text('Add to basket')),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -551,92 +309,24 @@ class _FilterSortRow extends StatelessWidget {
   final String productsCount;
   final bool compact;
 
-  const _FilterSortRow({
-    required this.productsCount,
-    required this.compact,
-  });
+  const _FilterSortRow({required this.productsCount, required this.compact});
 
   @override
   Widget build(BuildContext context) {
-    const labelStyle =
-        TextStyle(fontSize: 12, letterSpacing: 1, color: Colors.black54);
-
-    if (compact) {
-      // stacked for mobile
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text('FILTER BY  ', style: labelStyle),
-              _FakeDropdown(text: 'All products'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              const Text('SORT BY  ', style: labelStyle),
-              _FakeDropdown(text: 'Best selling'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            productsCount,
-            style: const TextStyle(fontSize: 13, color: Colors.black54),
-          ),
-        ],
-      );
-    }
-
-    // normal row
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Row(
-            children: [
-              const Text('FILTER BY  ', style: labelStyle),
-              _FakeDropdown(text: 'All products'),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Row(
-            children: [
-              const Text('SORT BY  ', style: labelStyle),
-              _FakeDropdown(text: 'Best selling'),
-            ],
-          ),
-        ),
-        Text(
-          productsCount,
-          style: const TextStyle(fontSize: 13, color: Colors.black54),
+        Text(productsCount),
+        Row(
+          children: [
+            const Text('Sort by'),
+            const SizedBox(width: 8),
+            DropdownButton<String>(items: const [
+              DropdownMenuItem(value: 'pop', child: Text('Popularity'))
+            ], onChanged: (_) {}),
+          ],
         ),
       ],
     );
   }
 }
-
-class _FakeDropdown extends StatelessWidget {
-  final String text;
-  const _FakeDropdown({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black26),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(text),
-          const SizedBox(width: 4),
-          const Icon(Icons.expand_more, size: 18),
-        ],
-      ),
-    );
-  }
-}
-
-// _NavLink removed; AppHeader provides navigation links now.
