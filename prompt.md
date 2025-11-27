@@ -252,12 +252,12 @@ authentication.dart
 - ask where the collections page should be linked as it doesnt appear in the header in original website
 - remove sandwitch bar from web version, it should only appear in mobile version
 - add header text message
-- write test functions for all files
+- write test functions for all files (learn what tests exactly u need)
 - make sure the test functions run and there are no errors
 - have a thorough, clean README file -- add at the end so it includes everything
 - the union logo should be bigger and the links centralised
 - connect all the buttons to pages so they are functional
-
+- fix all problems that terminal says there are
 # start on functionality:\
 - Add items to bag
 - Remove items from bag
