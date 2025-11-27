@@ -232,3 +232,34 @@ Based on the Shopify screenshot and your existing style, the footer should conta
 
 **Example prompt line to finalize**
 > “Implement the feature described above. Start by giving me the implementation plan and list of files you'll change. Then provide the code patches. Keep the solution responsive and consistent with the existing AppHeader.”
+
+
+# Shared footer Prompt
+Replace the inline footers with the constant widget app_footer in the following pages:
+halloween_page.dart
+signature_page.dart
+specific_collection_page.dart
+shop.dart
+authentication.dart
+
+
+# Next steps: 
+- print shack pages to match example ones
+- ensure all necessary pages are now created for the coursework 
+- ask where the collections page should be linked as it doesnt appear in the header in original website
+- remove sandwitch bar from web version, it should only appear in mobile version
+- add header text message
+- write test functions for all files
+- make sure the test functions run and there are no errors
+- have a thorough, clean README file -- add at the end so it includes everything
+
+# start on functionality:\
+- Add items to bag
+- Remove items from bag
+- Cart page
+- filtering and sorting on collection page
+
+# Advanced:
+- user authentication and account management
+- cart management and price calculations
+- deployment on git maybe, using firebase for database
