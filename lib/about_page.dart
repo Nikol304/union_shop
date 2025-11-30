@@ -30,9 +30,9 @@ class AboutPage extends StatelessWidget {
                 horizontal: horizontalPadding,
                 vertical: 40,
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'About Union Shop',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),

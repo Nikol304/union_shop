@@ -51,8 +51,8 @@ class ShopNavDropdown extends StatelessWidget {
           child: Text('Signature & Essential Range'),
         ),
       ],
-      child: Row(
-        children: const [
+      child: const Row(
+        children: [
           Text(
             'SHOP',
             style: TextStyle(

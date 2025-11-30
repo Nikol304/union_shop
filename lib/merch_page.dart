@@ -38,154 +38,123 @@ class MerchPage extends StatelessWidget {
 
     // Dummy merchandise items – replace with real data later
     final List<_MerchProduct> merchProducts = [
-            // Shared footer
-            const AppFooter(),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: placeholderCallbackForButtons,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF4d2963),
-                                ),
-                                child: const Text('Subscribe'),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              "We\'ll never share your email.",
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        );
+      _MerchProduct(
+        title: 'Union Tote Bag',
+        imageUrl:
+            'https://images.pexels.com/photos/1002638/pexels-photo-1002638.jpeg',
+        price: '£8.00',
+      ),
+      _MerchProduct(
+        title: 'Union Mug',
+        imageUrl:
+            'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+        price: '£6.00',
+      ),
+      _MerchProduct(
+        title: 'Union Sticker Pack',
+        imageUrl:
+            'https://images.pexels.com/photos/208119/pexels-photo-208119.jpeg',
+        price: '£3.00',
+      ),
+      _MerchProduct(
+        title: 'Union Badge Set',
+        imageUrl:
+            'https://images.pexels.com/photos/7608496/pexels-photo-7608496.jpeg',
+        price: '£4.50',
+      ),
+    ];
+
+    return Scaffold(
+      appBar: const AppHeader(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // ============== MERCH CONTENT ==============
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: 40,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Merchandise',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+
+                  // Product grid
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      int columns = 1;
+                      if (constraints.maxWidth >= 1100) {
+                        columns = 3;
+                      } else if (constraints.maxWidth >= 750) {
+                        columns = 2;
                       }
 
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Opening Hours',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text('Mon - Fri: 09:00 - 17:00'),
-                                Text('Sat: 10:00 - 16:00'),
-                                Text('Sun: Closed'),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Help',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Contact Us'),
-                                ),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Shipping & Returns'),
-                                ),
-                                TextButton(
-                                  onPressed: placeholderCallbackForButtons,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                  ),
-                                  child: const Text('Privacy Policy'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Subscribe',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter your email',
-                                          border: const OutlineInputBorder(),
-                                          isDense: true,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 8, vertical: 10),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    ElevatedButton(
-                                      onPressed: placeholderCallbackForButtons,
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFF4d2963),
-                                      ),
-                                      child: const Text('Subscribe'),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "We\'ll never share your email.",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      const double spacing = 32;
+                      final double cardWidth =
+                          (constraints.maxWidth - spacing * (columns - 1)) /
+                              columns;
+
+                      return Wrap(
+                        spacing: spacing,
+                        runSpacing: 48,
+                        children: merchProducts
+                            .map(
+                              (p) => SizedBox(
+                                width: cardWidth,
+                                child: _MerchProductCard(product: p),
+                              ),
+                            )
+                            .toList(),
                       );
                     },
                   ),
-                  const SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      '© ${DateTime.now().year} Union Shop',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
+
+                  const SizedBox(height: 40),
+
+                  // Pagination
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          side: const BorderSide(color: Colors.black12),
+                        ),
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                      const SizedBox(width: 24),
+                      const Text('Page 1 of 1'),
+                      const SizedBox(width: 24),
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          side: const BorderSide(color: Colors.black12),
+                        ),
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
+
+            // Shared footer
+            const AppFooter(),
           ],
         ),
       ),
@@ -280,96 +249,6 @@ class _MerchProductCard extends StatelessWidget {
   }
 }
 
-class _FilterSortRow extends StatelessWidget {
-  final String productsCount;
-  final bool compact;
-
-  const _FilterSortRow({
-    required this.productsCount,
-    required this.compact,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    const labelStyle =
-        TextStyle(fontSize: 12, letterSpacing: 1, color: Colors.black54);
-
-    if (compact) {
-      // stacked for mobile
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: const [
-              Text('FILTER BY  ', style: labelStyle),
-              _FakeDropdown(text: 'All products'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: const [
-              Text('SORT BY  ', style: labelStyle),
-              _FakeDropdown(text: 'Featured'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            productsCount,
-            style: const TextStyle(fontSize: 13, color: Colors.black54),
-          ),
-        ],
-      );
-    }
-
-    // desktop-ish row
-    return Row(
-      children: [
-        Expanded(
-          child: Row(
-            children: const [
-              Text('FILTER BY  ', style: labelStyle),
-              _FakeDropdown(text: 'All products'),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Row(
-            children: const [
-              Text('SORT BY  ', style: labelStyle),
-              _FakeDropdown(text: 'Featured'),
-            ],
-          ),
-        ),
-        Text(
-          productsCount,
-          style: const TextStyle(fontSize: 13, color: Colors.black54),
-        ),
-      ],
-    );
-  }
-}
-
-class _FakeDropdown extends StatelessWidget {
-  final String text;
-  const _FakeDropdown({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black26),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(text),
-          const SizedBox(width: 4),
-          const Icon(Icons.expand_more, size: 18),
-        ],
-      ),
-    );
-  }
-}
+// _FakeDropdown is defined in other pages where needed; not used in this file.
 
 // _NavLink removed; AppHeader centralizes navigation.

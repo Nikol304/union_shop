@@ -166,9 +166,9 @@ class _InfoCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          border: Border(
+          border: const Border(
             left: BorderSide(
-              color: const Color(0xFF4d2963),
+              color: Color(0xFF4d2963),
               width: 3,
             ),
           ),

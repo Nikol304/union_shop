@@ -71,7 +71,7 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // LEFT: main image + thumbnails
-                        Expanded(
+                        const Expanded(
                           flex: 5,
                           child: _ProductImages(),
                         ),
@@ -106,7 +106,7 @@ class _ProductPageState extends State<ProductPage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _ProductImages(),
+                      const _ProductImages(),
                       const SizedBox(height: 32),
                       _ProductDetailsPanel(
                         selectedColor: _selectedColor,
@@ -281,7 +281,7 @@ class _ProductDetailsPanel extends StatelessWidget {
                   const Text('Color'),
                   const SizedBox(height: 4),
                   DropdownButtonFormField<String>(
-                    value: selectedColor,
+                    initialValue: selectedColor,
                     items: const [
                       DropdownMenuItem(value: 'Black', child: Text('Black')),
                       DropdownMenuItem(value: 'Blue', child: Text('Blue')),
@@ -300,7 +300,7 @@ class _ProductDetailsPanel extends StatelessWidget {
                   const Text('Size'),
                   const SizedBox(height: 4),
                   DropdownButtonFormField<String>(
-                    value: selectedSize,
+                    initialValue: selectedSize,
                     items: const [
                       DropdownMenuItem(value: 'S', child: Text('S')),
                       DropdownMenuItem(value: 'M', child: Text('M')),

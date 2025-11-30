@@ -5,9 +5,9 @@ import 'package:union_shop/widgets/app_footer.dart';
 void main() {
   testWidgets('AppFooter displays key sections', (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
-          body: const AppFooter(),
+          body: AppFooter(),
         ),
       ),
     );

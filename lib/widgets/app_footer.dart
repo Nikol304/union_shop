@@ -82,12 +82,12 @@ class AppFooter extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                         hintText: 'Enter your email',
                         border: OutlineInputBorder(),
                         isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
+                        contentPadding: EdgeInsets.symmetric(
                             horizontal: 8, vertical: 10),
                       ),
                     ),
@@ -104,7 +104,7 @@ class AppFooter extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      "We\'ll never share your email.",
+                      "We'll never share your email.",
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ],
@@ -115,10 +115,10 @@ class AppFooter extends StatelessWidget {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Opening Hours',
                           style: TextStyle(
@@ -189,13 +189,13 @@ class AppFooter extends StatelessWidget {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: TextField(
                                 decoration: InputDecoration(
                                   hintText: 'Enter your email',
                                   border: OutlineInputBorder(),
                                   isDense: true,
-                                  contentPadding: const EdgeInsets.symmetric(
+                                  contentPadding: EdgeInsets.symmetric(
                                       horizontal: 8, vertical: 10),
                                 ),
                               ),
@@ -212,7 +212,7 @@ class AppFooter extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         const Text(
-                          "We\'ll never share your email.",
+                          "We'll never share your email.",
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],

@@ -147,7 +147,7 @@ class CollectionCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Container(
-                color: Colors.black.withOpacity(0.35),
+                color: const Color.fromRGBO(0, 0, 0, 0.35),
               ),
               Center(
                 child: Text(

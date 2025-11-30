@@ -39,8 +39,8 @@ class PrintShackNavDropdown extends StatelessWidget {
           child: Text('Personalisation'),
         ),
       ],
-      child: Row(
-        children: const [
+      child: const Row(
+        children: [
           Text(
             'PRINT SHACK',
             style: TextStyle(

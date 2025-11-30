@@ -167,7 +167,7 @@ class SalePage extends StatelessWidget {
                         columns = 2;
                       }
 
-                      final double spacing = 32;
+                      const double spacing = 32;
                       final double cardWidth =
                           (constraints.maxWidth - spacing * (columns - 1)) /
                               columns;

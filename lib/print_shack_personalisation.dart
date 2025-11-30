@@ -166,15 +166,15 @@ class _PrintShackPersonalisationPageState
         const SizedBox(height: 24),
 
         // Per Line dropdown
-        Row(
+        const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Per Line: ',
               style: TextStyle(fontSize: 14),
             ),
-            const SizedBox(width: 4),
-            const Text(
+            SizedBox(width: 4),
+            Text(
               'One Line of Text',
               style: TextStyle(fontSize: 14),
             ),
@@ -184,7 +184,7 @@ class _PrintShackPersonalisationPageState
         SizedBox(
           width: 260,
           child: DropdownButtonFormField<String>(
-            value: _perLineValue,
+            initialValue: _perLineValue,
             items: const [
               DropdownMenuItem(
                 value: 'One Line of Text',

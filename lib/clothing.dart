@@ -313,15 +313,15 @@ class _FilterSortRow extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text('FILTER BY  ', style: labelStyle),
               _FakeDropdown(text: 'All products'),
             ],
           ),
           const SizedBox(height: 12),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text('SORT BY  ', style: labelStyle),
               _FakeDropdown(text: 'Featured'),
             ],
@@ -338,17 +338,17 @@ class _FilterSortRow extends StatelessWidget {
     // desktop-ish row
     return Row(
       children: [
-        Expanded(
+        const Expanded(
           child: Row(
-            children: const [
+            children: [
               Text('FILTER BY  ', style: labelStyle),
               _FakeDropdown(text: 'All products'),
             ],
           ),
         ),
-        Expanded(
+        const Expanded(
           child: Row(
-            children: const [
+            children: [
               Text('SORT BY  ', style: labelStyle),
               _FakeDropdown(text: 'Featured'),
             ],
