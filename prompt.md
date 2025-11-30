@@ -250,6 +250,7 @@ authentication.dart -- shoudnt have a footer?
 - is this page scalable for mobile
 - add the products and reuse the page
 - add back button so i can go back to all collections page
+- make products look like the shop ones
 
 # Navigation
 - add navigation routes for all pages --/page_name
