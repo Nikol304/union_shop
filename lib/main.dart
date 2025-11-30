@@ -13,6 +13,8 @@ import 'package:union_shop/authentication.dart';
 import 'package:union_shop/the_print_shack.dart';
 import 'package:union_shop/clothing.dart';
 import 'package:union_shop/print_shack_personalisation.dart';
+import 'package:union_shop/specific_collection_page.dart';
+import 'package:union_shop/models/product.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -41,6 +43,8 @@ class UnionShopApp extends StatelessWidget {
         '/halloween': (context) => const HalloweenPage(),
         '/signature': (context) => const SignaturePage(),
         '/collections': (context) => const CollectionsPage(),
+        '/collection': (context) => const SpecificCollectionPage(
+            title: 'Collection', products: const <Product>[]),
         '/print-shack': (context) => const PrintShackPage(),
         '/print-shack-personalisation': (context) =>
             const PrintShackPersonalisationPage(),
@@ -68,6 +72,30 @@ class HomeScreen extends StatelessWidget {
 
   void navigateToCollections(BuildContext context) {
     Navigator.pushNamed(context, '/collections');
+  }
+
+  void navigateToCollection(BuildContext context) {
+    Navigator.pushNamed(context, '/collection');
+  }
+
+  void navigateToMerch(BuildContext context) {
+    Navigator.pushNamed(context, '/merch');
+  }
+
+  void navigateToHalloween(BuildContext context) {
+    Navigator.pushNamed(context, '/halloween');
+  }
+
+  void navigateToSignature(BuildContext context) {
+    Navigator.pushNamed(context, '/signature');
+  }
+
+  void navigateToPrintShack(BuildContext context) {
+    Navigator.pushNamed(context, '/print-shack');
+  }
+
+  void navigateToPrintShackPersonalisation(BuildContext context) {
+    Navigator.pushNamed(context, '/print-shack-personalisation');
   }
 
   void navigateToSale(BuildContext context) {

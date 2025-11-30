@@ -1,6 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
+import 'package:union_shop/specific_collection_page.dart';
+import 'package:union_shop/models/product.dart';
+
+// Sample products used for demo/showing collections. Replace with real data later.
+const Map<String, List<Product>> _sampleProducts = {
+  'Autumn Favourites': [
+    Product(
+      id: 'autumn-1',
+      title: 'Autumn Hoodie',
+      price: 29.99,
+      imageUrl:
+          'https://images.pexels.com/photos/936048/pexels-photo-936048.jpeg',
+    ),
+    Product(
+      id: 'autumn-2',
+      title: 'Autumn T-Shirt',
+      price: 14.99,
+      imageUrl:
+          'https://images.pexels.com/photos/428343/pexels-photo-428343.jpeg',
+    ),
+  ],
+  'Black Friday': [
+    Product(
+      id: 'bf-1',
+      title: 'Black Friday Mug',
+      price: 6.99,
+      imageUrl:
+          'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+    ),
+  ],
+  'Clothing': [
+    Product(
+      id: 'cloth-1',
+      title: 'Classic Hoodie',
+      price: 39.99,
+      imageUrl:
+          'https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg',
+    ),
+  ],
+  'Accessories': [],
+  'Gift Ideas': [],
+  'Essentials': [],
+};
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -133,35 +176,50 @@ class CollectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: AspectRatio(
-        aspectRatio: 4 / 3,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                color: const Color.fromRGBO(0, 0, 0, 0.35),
-              ),
-              Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.1,
+    return GestureDetector(
+      onTap: () {
+        // Push SpecificCollectionPage and pass sample products for the tapped collection.
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SpecificCollectionPage(
+              title: title,
+              subtitle: null,
+              products: _sampleProducts[title] ?? const <Product>[],
+            ),
+          ),
+        );
+      },
+      child: SizedBox(
+        width: width,
+        child: AspectRatio(
+          aspectRatio: 4 / 3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  color: const Color.fromRGBO(0, 0, 0, 0.35),
+                ),
+                Center(
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.1,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
