@@ -236,11 +236,12 @@ Based on the Shopify screenshot and your existing style, the footer should conta
 
 # Shared footer Prompt
 Replace the inline footers with the constant widget app_footer in the following pages:
-halloween_page.dart
-signature_page.dart
-specific_collection_page.dart
-shop.dart
-authentication.dart
+halloween_page.dart --DONE --
+signature_page.dart -- DONE--
+specific_collection_page.dart 
+
+shop.dart -- Shoudnt be a page?
+authentication.dart -- shoudnt have a footer?
 
 
 # Next steps: 
