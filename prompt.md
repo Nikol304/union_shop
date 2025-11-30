@@ -238,11 +238,21 @@ Based on the Shopify screenshot and your existing style, the footer should conta
 Replace the inline footers with the constant widget app_footer in the following pages:
 halloween_page.dart --DONE --
 signature_page.dart -- DONE--
-specific_collection_page.dart 
+
+specific_collection_page.dart -- created, rooted to navigation, footer DONE --
 
 shop.dart -- Shoudnt be a page?
 authentication.dart -- shoudnt have a footer?
 
+# Specific_collection_page
+- route that page to collections, onclick of a collection it leads to that page
+- why are models needed, can i reuse them across the site, also widget- product_card.dart
+- is this page scalable for mobile
+- add the products and reuse the page
+- add back button so i can go back to all collections page
+
+# Navigation
+- add navigation routes for all pages --/page_name
 
 # Next steps: 
 - print shack pages to match example ones
