@@ -4,6 +4,7 @@ import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/sale.dart';
 import 'package:union_shop/widgets/app_header.dart';
+import 'package:union_shop/widgets/home_hero_carousel.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 
 import 'package:union_shop/merch_page.dart';
@@ -118,79 +119,10 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Hero Section
-            // Hero Section
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  // Background image
-                  Positioned.fill(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(0, 0, 0, 0.7),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Content overlay
-                  Positioned(
-                    left: 24,
-                    right: 24,
-                    top: 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Placeholder Hero Title',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            height: 1.2,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "This is placeholder text for the hero section.",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            height: 1.5,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 32),
-                        ElevatedButton(
-                          onPressed: placeholderCallbackForButtons,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            foregroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                          ),
-                          child: const Text(
-                            'BROWSE PRODUCTS',
-                            style: TextStyle(fontSize: 14, letterSpacing: 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // ========================
+            // HERO CAROUSEL
+            // ========================
+            const HomeHeroCarousel(),
 
             // Products Section
             Container(
