@@ -50,7 +50,10 @@ class UnionShopApp extends StatelessWidget {
         '/print-shack-personalisation': (context) =>
             const PrintShackPersonalisationPage(),
         '/about': (context) => const AboutPage(),
-        '/login': (context) => const LoginPage(),
+        // Keep both route names mapping to the same authentication page for
+        // backwards compatibility. Use '/authentication' as the canonical route.
+        '/login': (context) => const AuthenticationPage(),
+        '/authentication': (context) => const AuthenticationPage(),
       },
     );
   }
@@ -101,6 +104,14 @@ class HomeScreen extends StatelessWidget {
 
   void navigateToSale(BuildContext context) {
     Navigator.pushNamed(context, '/sale');
+  }
+
+  void navigateToLogin(BuildContext context) {
+    Navigator.pushNamed(context, '/login');
+  }
+
+  void navigateToAuthentication(BuildContext context) {
+    Navigator.pushNamed(context, '/authentication');
   }
 
   void navigateToSimilar(BuildContext context) {

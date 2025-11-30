@@ -79,6 +79,10 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           label: 'About',
                           onTap: () => navigateTo('/about'),
                         ),
+                        _NavLink(
+                          label: 'Login',
+                          onTap: () => navigateTo('/authentication'),
+                        ),
                       ],
                     ),
                   const Spacer(),
@@ -112,7 +116,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                             minHeight: 32,
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                            Navigator.pushNamed(context, '/authentication');
                           },
                         ),
                         IconButton(

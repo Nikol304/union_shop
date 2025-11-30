@@ -241,7 +241,7 @@ signature_page.dart -- DONE--
 
 specific_collection_page.dart -- created, rooted to navigation, footer DONE --
 
-shop.dart -- Shoudnt be a page?
+shop.dart -- Shoudnt be a page? -- DELETED --
 authentication.dart -- shoudnt have a footer?
 
 # Specific_collection_page
