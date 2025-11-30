@@ -251,9 +251,17 @@ authentication.dart -- shoudnt have a footer?
 - add the products and reuse the page
 - add back button so i can go back to all collections page
 - make products look like the shop ones
+- the collection one shouldnt appear as a link for final project
 
 # Navigation
 - add navigation routes for all pages --/page_name
+
+# Product page
+- link page
+
+# Mobile navigation
+- On phone sandwitch bar menu doesnt show all options available on dekstop
+- shop is missing
 
 # Next steps: 
 - print shack pages to match example ones
