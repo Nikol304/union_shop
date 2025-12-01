@@ -23,11 +23,9 @@ class CartModel extends ChangeNotifier {
 
   List<CartItem> get items => List.unmodifiable(_items);
 
-  int get totalQuantity =>
-      _items.fold(0, (sum, item) => sum + item.quantity);
+  int get totalQuantity => _items.fold(0, (sum, item) => sum + item.quantity);
 
-  double get subtotal =>
-      _items.fold(0.0, (sum, item) => sum + item.lineTotal);
+  double get subtotal => _items.fold(0.0, (sum, item) => sum + item.lineTotal);
 
   void addItem(
     Product product, {

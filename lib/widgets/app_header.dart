@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 import 'package:union_shop/widgets/print_shack_nav_dropdown.dart';
 
@@ -119,18 +121,56 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                             Navigator.pushNamed(context, '/authentication');
                           },
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () {},
+                        Consumer<CartModel>(
+                          builder: (context, cart, _) {
+                            final count = cart.totalQuantity;
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.shopping_bag_outlined,
+                                    size: 18,
+                                    color: Colors.grey,
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  constraints: const BoxConstraints(
+                                    minWidth: 32,
+                                    minHeight: 32,
+                                  ),
+                                  onPressed: () {
+                                    // Debug: confirm handler runs when tapped
+                                    // Use print so it appears in debug console
+                                    // (remove this after debugging)
+                                    // ignore: avoid_print
+                                    print('AppHeader: cart icon tapped');
+                                    Navigator.pushNamed(context, '/cart');
+                                  },
+                                ),
+                                if (count > 0)
+                                  Positioned(
+                                    right: 6,
+                                    top: 8,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        '$count',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            );
+                          },
                         ),
                         PopupMenuButton<String>(
                           icon: const Icon(

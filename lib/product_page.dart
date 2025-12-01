@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 
@@ -17,8 +19,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product =
-        ModalRoute.of(context)!.settings.arguments as Product;
+    final product = ModalRoute.of(context)!.settings.arguments as Product;
 
     final width = MediaQuery.of(context).size.width;
     final isDesktop = width >= 900;
@@ -45,8 +46,7 @@ class _ProductPageState extends State<ProductPage> {
                       builder: (context, constraints) {
                         final isWide = constraints.maxWidth >= 900;
 
-                        final image =
-                            _ProductImage(imageUrl: product.imageUrl);
+                        final image = _ProductImage(imageUrl: product.imageUrl);
 
                         final details = _ProductDetailsPanel(
                           product: product,
@@ -247,7 +247,8 @@ class _ProductDetailsPanel extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: quantity > 1 ? () => onQuantityChanged(quantity - 1) : null,
+              onPressed:
+                  quantity > 1 ? () => onQuantityChanged(quantity - 1) : null,
               icon: const Icon(Icons.remove),
             ),
             Text('$quantity'),
@@ -264,7 +265,17 @@ class _ProductDetailsPanel extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              // TODO: hook into cart
+              if (quantity <= 0) return;
+              final cart = context.read<CartModel>();
+              cart.addItem(
+                product,
+                color: selectedColor,
+                size: selectedSize,
+                quantity: quantity,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Added to cart')),
+              );
             },
             child: const Text('ADD TO CART'),
           ),
