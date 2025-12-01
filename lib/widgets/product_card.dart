@@ -4,37 +4,45 @@ import 'package:union_shop/models/product.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/product'),
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/product',
+          arguments: product,
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Image.network(
+          // Image
+          AspectRatio(
+            aspectRatio: 1,
+            child: Image.asset(
               product.imageUrl,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                color: Colors.grey[300],
-                child: const Center(
-                  child: Icon(Icons.image_not_supported, color: Colors.grey),
-                ),
-              ),
             ),
           ),
           const SizedBox(height: 8),
+          // Name
           Text(
             product.title,
-            style: const TextStyle(fontSize: 14, color: Colors.black),
-            maxLines: 2,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 4),
+          // Price
           Text(
             '£${product.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ],
       ),

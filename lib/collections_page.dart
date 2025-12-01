@@ -2,48 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 import 'package:union_shop/specific_collection_page.dart';
-import 'package:union_shop/models/product.dart';
-
-// Sample products used for demo/showing collections. Replace with real data later.
-const Map<String, List<Product>> _sampleProducts = {
-  'Autumn Favourites': [
-    Product(
-      id: 'autumn-1',
-      title: 'Autumn Hoodie',
-      price: 29.99,
-      imageUrl:
-          'https://images.pexels.com/photos/936048/pexels-photo-936048.jpeg',
-    ),
-    Product(
-      id: 'autumn-2',
-      title: 'Autumn T-Shirt',
-      price: 14.99,
-      imageUrl:
-          'https://images.pexels.com/photos/428343/pexels-photo-428343.jpeg',
-    ),
-  ],
-  'Black Friday': [
-    Product(
-      id: 'bf-1',
-      title: 'Black Friday Mug',
-      price: 6.99,
-      imageUrl:
-          'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
-    ),
-  ],
-  'Clothing': [
-    Product(
-      id: 'cloth-1',
-      title: 'Classic Hoodie',
-      price: 39.99,
-      imageUrl:
-          'https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg',
-    ),
-  ],
-  'Accessories': [],
-  'Gift Ideas': [],
-  'Essentials': [],
-};
+import 'package:union_shop/data/dummy_products.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -174,18 +133,29 @@ class CollectionCard extends StatelessWidget {
     required this.width,
   });
 
+  // Map friendly tile titles to collection keys used on Product.collection
+  static const Map<String, String> _titleToCollectionKey = {
+    'Autumn Favourites': 'autumn',
+    'Black Friday': 'black-friday',
+    'Clothing': 'clothing',
+    'Accessories': 'merch',
+    'Gift Ideas': 'gift-ideas',
+    'Essentials': 'essential',
+  };
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Push SpecificCollectionPage and pass sample products for the tapped collection.
+        final key = _titleToCollectionKey[title] ?? title.toLowerCase();
+        final filtered = allProducts.where((p) => p.collection == key).toList();
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SpecificCollectionPage(
               title: title,
-              subtitle: null,
-              products: _sampleProducts[title] ?? const <Product>[],
+              products: filtered,
             ),
           ),
         );
