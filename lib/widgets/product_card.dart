@@ -38,12 +38,40 @@ class ProductCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
-          Text(
-            '£${product.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
-          ),
+          _buildPriceRow(product),
         ],
       ),
+    );
+  }
+
+  Widget _buildPriceRow(Product product) {
+    if (product.oldPrice != null && product.oldPrice! > product.price) {
+      return Row(
+        children: [
+          Text(
+            '£${product.oldPrice!.toStringAsFixed(2)}',
+            style: const TextStyle(
+              fontSize: 13,
+              color: Colors.grey,
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            '£${product.price.toStringAsFixed(2)}',
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Text(
+      '£${product.price.toStringAsFixed(2)}',
+      style: const TextStyle(fontSize: 13, color: Colors.grey),
     );
   }
 }

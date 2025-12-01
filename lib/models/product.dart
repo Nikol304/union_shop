@@ -5,6 +5,9 @@ class Product {
   final String imageUrl;
 
   // New optional fields
+  /// Optional old price for sales/discounts
+  final double? oldPrice;
+
   final String description;
   final String category; // e.g. 'clothing', 'merch'
   final String collection; // e.g. 'essential', 'signature', 'halloween'
@@ -16,6 +19,7 @@ class Product {
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.oldPrice,
     this.description = '',
     this.category = '',
     this.collection = '',

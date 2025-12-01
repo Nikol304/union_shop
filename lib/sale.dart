@@ -12,6 +12,7 @@ class SalePage extends StatelessWidget {
       id: 'sale-a5-notepad',
       title: 'A5 Notepad',
       price: 1.80,
+      oldPrice: 3.00,
       imageUrl:
           'https://images.pexels.com/photos/950241/pexels-photo-950241.jpeg',
     ),
@@ -19,6 +20,7 @@ class SalePage extends StatelessWidget {
       id: 'sale-classic-sweatshirt-neutral',
       title: 'Classic Sweatshirts - Neutral',
       price: 10.99,
+      oldPrice: 17.00,
       imageUrl:
           'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
     ),
@@ -33,6 +35,7 @@ class SalePage extends StatelessWidget {
       id: 'sale-iphone-cable',
       title: 'iPhone Charge & Sync Cable',
       price: 1.50,
+      oldPrice: 3.00,
       imageUrl:
           'https://images.pexels.com/photos/1054389/pexels-photo-1054389.jpeg',
     ),
@@ -40,6 +43,7 @@ class SalePage extends StatelessWidget {
       id: 'sale-dimple-pop-keyring',
       title: 'Dimple Pop Fidget Keyring',
       price: 0.99,
+      oldPrice: 1.50,
       imageUrl:
           'https://images.pexels.com/photos/3662718/pexels-photo-3662718.jpeg',
     ),
@@ -47,6 +51,7 @@ class SalePage extends StatelessWidget {
       id: 'sale-nike-tech-pants-w',
       title: 'Nike Academy 18 Tech Pants (W)',
       price: 7.00,
+      oldPrice: 24.99,
       imageUrl:
           'https://images.pexels.com/photos/7671173/pexels-photo-7671173.jpeg',
     ),
