@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart_model.dart';
+import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
@@ -27,8 +30,10 @@ class UnionShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Union Shop',
+    return ChangeNotifierProvider(
+      create: (_) => CartModel(),
+      child: MaterialApp(
+        title: 'Union Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
@@ -39,6 +44,12 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeScreen(),
         '/product': (context) => const ProductPage(),
+        '/cart': (context) {
+          // debug
+          // ignore: avoid_print
+          print('ROUTE: building CartPage');
+          return const CartPage();
+        },
         '/sale': (context) => const SalePage(),
         '/clothing': (context) => const ClothingPage(),
         '/merch': (context) => const MerchPage(),
@@ -56,6 +67,7 @@ class UnionShopApp extends StatelessWidget {
         '/login': (context) => const AuthenticationPage(),
         '/authentication': (context) => const AuthenticationPage(),
       },
+      ),
     );
   }
 }
