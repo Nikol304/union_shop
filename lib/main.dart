@@ -34,39 +34,39 @@ class UnionShopApp extends StatelessWidget {
       create: (_) => CartModel(),
       child: MaterialApp(
         title: 'Union Shop',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
-      ),
-      // Start at '/'
-      initialRoute: '/',
-      // All named routes (INCLUDING HOME)
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/product': (context) => const ProductPage(),
-        '/cart': (context) {
-          // debug
-          // ignore: avoid_print
-          print('ROUTE: building CartPage');
-          return const CartPage();
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+        ),
+        // Start at '/'
+        initialRoute: '/',
+        // All named routes (INCLUDING HOME)
+        routes: {
+          '/': (context) => const HomeScreen(),
+          '/product': (context) => const ProductPage(),
+          '/cart': (context) {
+            // debug
+            // ignore: avoid_print
+            print('ROUTE: building CartPage');
+            return const CartPage();
+          },
+          '/sale': (context) => const SalePage(),
+          '/clothing': (context) => const ClothingPage(),
+          '/merch': (context) => const MerchPage(),
+          '/halloween': (context) => const HalloweenPage(),
+          '/signature': (context) => const SignaturePage(),
+          '/collections': (context) => const CollectionsPage(),
+          '/collection': (context) => const SpecificCollectionPage(
+              title: 'Collection', products: const <Product>[]),
+          '/print-shack': (context) => const PrintShackPage(),
+          '/print-shack-personalisation': (context) =>
+              const PrintShackPersonalisationPage(),
+          '/about': (context) => const AboutPage(),
+          // Keep both route names mapping to the same authentication page for
+          // backwards compatibility. Use '/authentication' as the canonical route.
+          '/login': (context) => const AuthenticationPage(),
+          '/authentication': (context) => const AuthenticationPage(),
         },
-        '/sale': (context) => const SalePage(),
-        '/clothing': (context) => const ClothingPage(),
-        '/merch': (context) => const MerchPage(),
-        '/halloween': (context) => const HalloweenPage(),
-        '/signature': (context) => const SignaturePage(),
-        '/collections': (context) => const CollectionsPage(),
-        '/collection': (context) => const SpecificCollectionPage(
-            title: 'Collection', products: const <Product>[]),
-        '/print-shack': (context) => const PrintShackPage(),
-        '/print-shack-personalisation': (context) =>
-            const PrintShackPersonalisationPage(),
-        '/about': (context) => const AboutPage(),
-        // Keep both route names mapping to the same authentication page for
-        // backwards compatibility. Use '/authentication' as the canonical route.
-        '/login': (context) => const AuthenticationPage(),
-        '/authentication': (context) => const AuthenticationPage(),
-      },
       ),
     );
   }
