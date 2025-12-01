@@ -6,11 +6,13 @@ import 'package:union_shop/widgets/product_card.dart';
 
 class SpecificCollectionPage extends StatefulWidget {
   final String title;
+  final String? subtitle;
   final List<Product> products;
 
   const SpecificCollectionPage({
     super.key,
     required this.title,
+    this.subtitle,
     required this.products,
   });
 
@@ -140,6 +142,16 @@ class _SpecificCollectionPageState extends State<SpecificCollectionPage> {
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
+                    if (widget.subtitle != null) ...[
+                      Text(
+                        widget.subtitle!,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.black54),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
                     Text(
                       '${filtered.length} products',
                       style: Theme.of(context).textTheme.bodyMedium,
