@@ -184,7 +184,6 @@ class CollectionCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => SpecificCollectionPage(
               title: title,
-              subtitle: null,
               products: _sampleProducts[title] ?? const <Product>[],
             ),
           ),
