@@ -255,7 +255,7 @@ class _SpecificCollectionPageState extends State<SpecificCollectionPage> {
                               crossAxisCount: crossAxisCount,
                               mainAxisSpacing: 24,
                               crossAxisSpacing: 24,
-                              childAspectRatio: 0.72,
+                              childAspectRatio: 1.0,
                             ),
                             itemCount: pageItems.length,
                             itemBuilder: (context, index) {
@@ -290,12 +290,15 @@ class _SpecificCollectionPageState extends State<SpecificCollectionPage> {
                           ),
                         ],
                       ),
+
+                    const SizedBox(height: 24),
+                    // Put the footer inside the scrollable content so it won't overlap products
+                    const AppFooter(),
                   ],
                 ),
               ),
             ),
           ),
-          const AppFooter(),
         ],
       ),
     );
