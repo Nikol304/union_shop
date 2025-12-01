@@ -47,9 +47,17 @@ class ProductPage extends StatelessWidget {
                     Center(
                       child: SizedBox(
                         width: isMobile ? 250 : 350,
-                        child: Image.asset(
+                        child: Image.network(
                           product.imageUrl,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: Colors.grey[300],
+                            height: isMobile ? 250 : 350,
+                            child: const Center(
+                                child: Icon(Icons.image_not_supported,
+                                    color: Colors.grey)),
+                          ),
                         ),
                       ),
                     ),
