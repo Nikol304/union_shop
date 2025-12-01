@@ -126,188 +126,194 @@ class _SpecificCollectionPageState extends State<SpecificCollectionPage> {
           const AppHeader(),
           Expanded(
             child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 16 : 48,
-                  vertical: isMobile ? 16 : 32,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Collection: ${widget.title}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 16 : 48,
+                      vertical: isMobile ? 16 : 32,
                     ),
-                    const SizedBox(height: 8),
-                    if (widget.subtitle != null) ...[
-                      Text(
-                        widget.subtitle!,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: Colors.black54),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                    Text(
-                      '${filtered.length} products',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Filter + Sort
-                    Wrap(
-                      spacing: 16,
-                      runSpacing: 8,
-                      alignment: WrapAlignment.spaceBetween,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
+                        Text(
+                          'Collection: ${widget.title}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        if (widget.subtitle != null) ...[
+                          Text(
+                            widget.subtitle!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.black54),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                        Text(
+                          '${filtered.length} products',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Filter + Sort
+                        Wrap(
+                          spacing: 16,
+                          runSpacing: 8,
+                          alignment: WrapAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Filter by:',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Filter by:',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(width: 8),
+                                DropdownButton<String>(
+                                  value: _selectedFilter,
+                                  onChanged: _onFilterChanged,
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: 'all',
+                                      child: Text('All products'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'inStock',
+                                      child: Text('In stock'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'onSale',
+                                      child: Text('On sale'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'clothing',
+                                      child: Text('Clothing only'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'merch',
+                                      child: Text('Merch only'),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 8),
-                            DropdownButton<String>(
-                              value: _selectedFilter,
-                              onChanged: _onFilterChanged,
-                              items: const [
-                                DropdownMenuItem(
-                                  value: 'all',
-                                  child: Text('All products'),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Sort by:',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
-                                DropdownMenuItem(
-                                  value: 'inStock',
-                                  child: Text('In stock'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'onSale',
-                                  child: Text('On sale'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'clothing',
-                                  child: Text('Clothing only'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'merch',
-                                  child: Text('Merch only'),
+                                const SizedBox(width: 8),
+                                DropdownButton<String>(
+                                  value: _selectedSort,
+                                  onChanged: _onSortChanged,
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: 'featured',
+                                      child: Text('Featured'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'priceLowHigh',
+                                      child: Text('Price: Low to High'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'priceHighLow',
+                                      child: Text('Price: High to Low'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'nameAZ',
+                                      child: Text('Name: A–Z'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'nameZA',
+                                      child: Text('Name: Z–A'),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'Sort by:',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+
+                        const SizedBox(height: 24),
+
+                        // Grid of products
+                        if (pageItems.isEmpty)
+                          const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 32),
+                              child: Text('No products match your filters.'),
                             ),
-                            const SizedBox(width: 8),
-                            DropdownButton<String>(
-                              value: _selectedSort,
-                              onChanged: _onSortChanged,
-                              items: const [
-                                DropdownMenuItem(
-                                  value: 'featured',
-                                  child: Text('Featured'),
+                          )
+                        else
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              int crossAxisCount = 3;
+                              final width = constraints.maxWidth;
+                              if (width < 600) {
+                                crossAxisCount = 1;
+                              } else if (width < 900) {
+                                crossAxisCount = 2;
+                              }
+                              return GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: crossAxisCount,
+                                  mainAxisSpacing: 24,
+                                  crossAxisSpacing: 24,
+                                  childAspectRatio: 1.0,
                                 ),
-                                DropdownMenuItem(
-                                  value: 'priceLowHigh',
-                                  child: Text('Price: Low to High'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'priceHighLow',
-                                  child: Text('Price: High to Low'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'nameAZ',
-                                  child: Text('Name: A–Z'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'nameZA',
-                                  child: Text('Name: Z–A'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                itemCount: pageItems.length,
+                                itemBuilder: (context, index) {
+                                  final product = pageItems[index];
+                                  return ProductCard(product: product);
+                                },
+                              );
+                            },
+                          ),
+
+                        const SizedBox(height: 24),
+
+                        // Pagination controls
+                        if (filtered.length > _itemsPerPage)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: _currentPage > 0
+                                    ? () => _goToPreviousPage(totalPages)
+                                    : null,
+                                child: const Text('Previous'),
+                              ),
+                              const SizedBox(width: 16),
+                              Text('Page ${_currentPage + 1} of $totalPages'),
+                              const SizedBox(width: 16),
+                              TextButton(
+                                onPressed: _currentPage < totalPages - 1
+                                    ? () => _goToNextPage(totalPages)
+                                    : null,
+                                child: const Text('Next'),
+                              ),
+                            ],
+                          ),
+
+                        const SizedBox(height: 24),
                       ],
                     ),
+                  ),
 
-                    const SizedBox(height: 24),
-
-                    // Grid of products
-                    if (pageItems.isEmpty)
-                      const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 32),
-                          child: Text('No products match your filters.'),
-                        ),
-                      )
-                    else
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          int crossAxisCount = 3;
-                          final width = constraints.maxWidth;
-                          if (width < 600) {
-                            crossAxisCount = 1;
-                          } else if (width < 900) {
-                            crossAxisCount = 2;
-                          }
-                          return GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: crossAxisCount,
-                              mainAxisSpacing: 24,
-                              crossAxisSpacing: 24,
-                              childAspectRatio: 1.0,
-                            ),
-                            itemCount: pageItems.length,
-                            itemBuilder: (context, index) {
-                              final product = pageItems[index];
-                              return ProductCard(product: product);
-                            },
-                          );
-                        },
-                      ),
-
-                    const SizedBox(height: 24),
-
-                    // Pagination controls
-                    if (filtered.length > _itemsPerPage)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: _currentPage > 0
-                                ? () => _goToPreviousPage(totalPages)
-                                : null,
-                            child: const Text('Previous'),
-                          ),
-                          const SizedBox(width: 16),
-                          Text('Page ${_currentPage + 1} of $totalPages'),
-                          const SizedBox(width: 16),
-                          TextButton(
-                            onPressed: _currentPage < totalPages - 1
-                                ? () => _goToNextPage(totalPages)
-                                : null,
-                            child: const Text('Next'),
-                          ),
-                        ],
-                      ),
-
-                    const SizedBox(height: 24),
-                    // Put the footer inside the scrollable content so it won't overlap products
-                    const AppFooter(),
-                  ],
-                ),
+                  // Full-width footer that still scrolls with the page
+                  const AppFooter(),
+                ],
               ),
             ),
           ),
