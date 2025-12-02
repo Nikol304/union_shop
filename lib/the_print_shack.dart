@@ -1,4 +1,4 @@
-// lib/print_shack_page.dart
+// lib/the_print_shack.dart
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
@@ -8,135 +8,144 @@ class PrintShackPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    const accentColour = Color(0xFF4d2963);
+    final width = MediaQuery.of(context).size.width;
+    final double horizontalPadding =
+        width > 900 ? 96.0 : (width > 600 ? 48.0 : 24.0);
 
     return Scaffold(
       appBar: const AppHeader(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                constraints: const BoxConstraints(maxWidth: 900),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Page title
-                    Text(
-                      'The Union Print Shack',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+            // Main content
+            Container(
+              width: double.infinity,
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: 48,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Page title
+                  const Text(
+                    'The Union Print Shack',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.1,
                     ),
-                    const SizedBox(height: 12),
-                    Text(
-                      "Let’s create something uniquely yours with our personalisation service.",
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
+                  ),
+                  const SizedBox(height: 40),
 
-                    // Hero-style image
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: Image.network(
-                          // You can swap this for your own image later
-                          'https://shop.upsu.net/cdn/shop/files/ClassicHoodies_UniShop_1024x1024@2x.jpg?v=1689855600',
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[200],
-                              child: const Center(
-                                child: Icon(Icons.image_not_supported),
-                              ),
-                            );
-                          },
+                  // Image strip (3 images side-by-side on desktop, stacked on mobile)
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final bool isWide = constraints.maxWidth >= 900;
+                      final imageWidgets = [
+                        _PrintImage(
+                          imageUrl:
+                              'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Sections similar to the website content
-                    const _InfoCard(
-                      title: 'Make It Yours at The Union Print Shack',
-                      body:
-                          "Want to add a personal touch to your uni gear? The Print Shack offers on-site heat-pressed customisation on a wide range of clothing. "
-                          "Drop into the shop and the team can help you choose the right item and answer any questions you have about the process.",
-                    ),
-                    const SizedBox(height: 16),
-
-                    const _InfoCard(
-                      title: 'Uni Gear or Your Own Clothing',
-                      body:
-                          "You can personalise official university-branded clothing from the Union Shop or bring in your own hoodies and tees. "
-                          "Whether it’s your name, society, course or a short message, we’ll help you turn it into something you’ll actually want to wear.",
-                    ),
-                    const SizedBox(height: 16),
-
-                    const _PricingCard(),
-                    const SizedBox(height: 16),
-
-                    const _InfoCard(
-                      title: 'Personalisation Terms & Conditions',
-                      body:
-                          "All text is printed exactly as provided, online or in person, so please double-check spelling and capitalisation before confirming your order. "
-                          "Personalised items are made just for you and therefore can’t be refunded or exchanged unless there is a fault with the product itself.",
-                    ),
-                    const SizedBox(height: 16),
-
-                    const _InfoCard(
-                      title: 'Ready to Get Started?',
-                      body:
-                          "Add your clothing to your basket and then choose a personalisation option, or visit the Union Shop in person to chat to the team. "
-                          "From one-off gifts to group hoodies, The Union Print Shack is here to help you stand out.",
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Opening hours block (similar to the site)
-                    const _OpeningHoursCard(),
-
-                    const SizedBox(height: 32),
-
-                    // Call to action
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // You can later navigate to a dedicated "personalisation" flow
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: accentColour,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 32,
-                            vertical: 14,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
+                        _PrintImage(
+                          imageUrl:
+                              'https://images.pexels.com/photos/4061381/pexels-photo-4061381.jpeg',
                         ),
-                        child: const Text(
-                          'FIND OUT MORE',
-                          style: TextStyle(
-                            letterSpacing: 1,
-                            fontSize: 13,
-                          ),
+                        _PrintImage(
+                          imageUrl:
+                              'https://images.pexels.com/photos/6311575/pexels-photo-6311575.jpeg',
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                  ],
-                ),
+                      ];
+
+                      if (isWide) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: imageWidgets
+                              .map(
+                                (img) => Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                    ),
+                                    child: img,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        );
+                      } else {
+                        return Column(
+                          children: imageWidgets
+                              .map(
+                                (img) => Padding(
+                                  padding:
+                                      const EdgeInsets.only(bottom: 16.0),
+                                  child: img,
+                                ),
+                              )
+                              .toList(),
+                        );
+                      }
+                    },
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Text sections
+                  const _TextSection(
+                    heading: 'Make It Yours at The Union Print Shack',
+                    body:
+                        "Want to add a personal twist to your Union gear? "
+                        "Our Print Shack team can add heat-pressed names, numbers, "
+                        "and custom text to clothing. Drop by the shop and we’ll "
+                        "help you choose the right item and design.",
+                  ),
+                  const SizedBox(height: 24),
+
+                  const _TextSection(
+                    heading: 'Uni Gear or Your Gear – We’ll Personalise It',
+                    body:
+                        "Whether you’re wearing official university merch or a hoodie "
+                        "you already own, we can personalise both. Bring your items in, "
+                        "tell us what you’d like printed, and we’ll help you create "
+                        "something that feels uniquely yours.",
+                  ),
+                  const SizedBox(height: 24),
+
+                  const _TextSection(
+                    heading: 'Simple Pricing, No Surprises',
+                    body:
+                        "Personalisation is kept affordable with clear pricing. "
+                        "Small text or a chest logo costs around the price of a coffee, "
+                        "and larger back prints are only a little more. Turnaround is "
+                        "usually within a few working days, and we’ll let you know when "
+                        "your order is ready to collect.",
+                  ),
+                  const SizedBox(height: 24),
+
+                  const _TextSection(
+                    heading: 'Personalisation Terms & Conditions',
+                    body:
+                        "We print your text exactly as it is given to us, whether online "
+                        "or in-person. Please double-check spellings and whether you want "
+                        "upper- or lower-case letters. Because items are customised, we’re "
+                        "not able to offer refunds or exchanges on personalised products.",
+                  ),
+                  const SizedBox(height: 24),
+
+                  const _TextSection(
+                    heading: 'Ready to Make It Yours?',
+                    body:
+                        "Pop into the shop or get in touch to start your design. "
+                        "Let’s create something personal with The Union Print Shack.",
+                  ),
+                ],
               ),
             ),
 
-            // Shared site footer (full width)
+            // Shared footer
             const AppFooter(),
           ],
         ),
@@ -145,190 +154,58 @@ class PrintShackPage extends StatelessWidget {
   }
 }
 
-class _InfoCard extends StatelessWidget {
-  final String title;
+class _PrintImage extends StatelessWidget {
+  final String imageUrl;
+
+  const _PrintImage({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 4 / 3,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+class _TextSection extends StatelessWidget {
+  final String heading;
   final String body;
 
-  const _InfoCard({
-    required this.title,
+  const _TextSection({
+    required this.heading,
     required this.body,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0.7,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          border: const Border(
-            left: BorderSide(
-              color: Color(0xFF4d2963),
-              width: 3,
+    final theme = Theme.of(context);
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            heading,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              body,
-              style: const TextStyle(
-                fontSize: 14,
-                height: 1.5,
-                color: Colors.black87,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PricingCard extends StatelessWidget {
-  const _PricingCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0.7,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Simple Pricing, No Surprises',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              "Personalising your clothing is straightforward and affordable:",
-              style: TextStyle(fontSize: 14, height: 1.5),
-            ),
-            const SizedBox(height: 8),
-            const _BulletPoint(
-              text: '£3 for one line of text or a small chest logo.',
-            ),
-            const _BulletPoint(
-              text: '£5 for two lines of text or a large back logo.',
-            ),
-            const _BulletPoint(
-              text:
-                  'Turnaround time is usually up to three working days. You’ll be contacted when your order is ready to collect.',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _BulletPoint extends StatelessWidget {
-  final String text;
-
-  const _BulletPoint({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('•  ',
-            style: TextStyle(
-              height: 1.5,
-            )),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.5,
+          const SizedBox(height: 8),
+          Text(
+            body,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              height: 1.4,
             ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _OpeningHoursCard extends StatelessWidget {
-  const _OpeningHoursCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0.7,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Opening Hours',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              '(Term Time)',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Monday – Friday: 9:00am – 4:00pm',
-              style: TextStyle(fontSize: 13, height: 1.4),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              '(Outside of Term Time / Consolidation Weeks)',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Monday – Friday: 10:00am – 3:00pm',
-              style: TextStyle(fontSize: 13, height: 1.4),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'You can still browse and purchase online 24/7.',
-              style: TextStyle(fontSize: 13, height: 1.4),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

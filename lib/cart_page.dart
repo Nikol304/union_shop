@@ -443,8 +443,8 @@ class _SubtotalAndActions extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/', (route) => false);
+                            Navigator.of(context)
+                                .pushNamedAndRemoveUntil('/', (route) => false);
                           },
                           child: const Text('Continue shopping'),
                         ),
