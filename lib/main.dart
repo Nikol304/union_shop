@@ -61,16 +61,16 @@ class UnionShopApp extends StatelessWidget {
               title: 'Collection', products: const <Product>[]),
           '/print-shack': (context) => const PrintShackPage(),
           '/print-shack-personalisation': (context) =>
-              const PrintShackPersonalisationPage(
-                product: PersonalisationProduct(
-                  id: 'personalisation',
+              PrintShackPersonalisationPage(
+                product: const PersonalisationProduct(
+                  id: 'ps-sample',
                   title: 'Personalisation',
-                  price: 3.00,
-                  images: [
-                    'assets/personalisation_main.jpg',
-                    'assets/personalisation_alt.jpg',
+                  price: 3.0,
+                  images: <String>[
+                    'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
+                    'https://images.pexels.com/photos/6311575/pexels-photo-6311575.jpeg',
                   ],
-                  perLineOptions: [
+                  perLineOptions: <String>[
                     'One Line of Text',
                     'Two Lines of Text',
                   ],

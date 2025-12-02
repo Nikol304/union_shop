@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 import 'package:union_shop/models/personalisation_product.dart';
+import 'package:union_shop/models/cart_model.dart';
+import 'package:union_shop/models/product.dart';
 
 class PrintShackPersonalisationPage extends StatefulWidget {
   final PersonalisationProduct product;
@@ -21,6 +24,8 @@ class _PrintShackPersonalisationPageState
   late String _perLineValue;
   final TextEditingController _personalisationController =
       TextEditingController();
+  final TextEditingController _personalisationLine2Controller =
+      TextEditingController();
   final TextEditingController _quantityController =
       TextEditingController(text: '1');
 
@@ -37,6 +42,7 @@ class _PrintShackPersonalisationPageState
   @override
   void dispose() {
     _personalisationController.dispose();
+    _personalisationLine2Controller.dispose();
     _quantityController.dispose();
     super.dispose();
   }
@@ -259,7 +265,22 @@ class _PrintShackPersonalisationPageState
           controller: _personalisationController,
           decoration: _inputDecoration(),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
+
+        if (_perLineValue == 'Two Lines of Text') ...[
+          const Text(
+            'Personalisation Line 2:',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _personalisationLine2Controller,
+            decoration: _inputDecoration(),
+          ),
+          const SizedBox(height: 16),
+        ],
+
+        const SizedBox(height: 8),
 
         // Quantity
         const Text(
@@ -290,8 +311,58 @@ class _PrintShackPersonalisationPageState
                 ),
               ),
               onPressed: () {
-                // TODO: hook into CartModel if you want
-                // For coursework spec, having a working form is enough.
+                final line1 = _personalisationController.text.trim();
+                final line2 = _personalisationLine2Controller.text.trim();
+                final qty = int.tryParse(_quantityController.text) ?? 1;
+
+                // Basic validation
+                if (line1.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in Personalisation Line 1.'),
+                    ),
+                  );
+                  return;
+                }
+
+                if (_perLineValue == 'Two Lines of Text' && line2.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in Personalisation Line 2.'),
+                    ),
+                  );
+                  return;
+                }
+
+                final textSummary = _perLineValue == 'Two Lines of Text'
+                    ? '$line1 / $line2'
+                    : line1;
+
+                // Build a Product instance to add to the cart (personalisation
+                // details baked into the title). Use the currently selected
+                // image as the product image if available.
+                final selectedImage = (widget.product.images.isNotEmpty)
+                    ? widget.product.images[_selectedImageIndex]
+                    : '';
+
+                final personalisedProduct = Product(
+                  id: '${widget.product.id}-${DateTime.now().millisecondsSinceEpoch}',
+                  title: '${widget.product.title} — $textSummary',
+                  price: widget.product.price,
+                  imageUrl: selectedImage,
+                );
+
+                // Add to cart via provider
+                Provider.of<CartModel>(context, listen: false)
+                    .addItem(personalisedProduct, quantity: qty);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Personalisation added ($qty): $textSummary',
+                    ),
+                  ),
+                );
               },
               child: const Text(
                 'ADD TO CART',
