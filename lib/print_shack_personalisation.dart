@@ -32,19 +32,84 @@ class _PrintShackPersonalisationPageState
   // which thumbnail is selected (for big image)
   int _selectedImageIndex = 0;
 
+  void _onFormChanged() {
+    // Rebuild to update button enabled/disabled state
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
     // default dropdown value from model
     _perLineValue = widget.product.perLineOptions.first;
+    // listen for changes so we can enable/disable the Add button
+    _personalisationController.addListener(_onFormChanged);
+    _personalisationLine2Controller.addListener(_onFormChanged);
   }
 
   @override
   void dispose() {
+    _personalisationController.removeListener(_onFormChanged);
+    _personalisationLine2Controller.removeListener(_onFormChanged);
     _personalisationController.dispose();
     _personalisationLine2Controller.dispose();
     _quantityController.dispose();
     super.dispose();
+  }
+
+  bool get isFormValid {
+    if (_personalisationController.text.trim().isEmpty) return false;
+    if (_perLineValue == 'Two Lines of Text' &&
+        _personalisationLine2Controller.text.trim().isEmpty) return false;
+    return true;
+  }
+
+  void _handleAddToCart() {
+    final line1 = _personalisationController.text.trim();
+    final line2 = _personalisationLine2Controller.text.trim();
+    final qty = int.tryParse(_quantityController.text) ?? 1;
+
+    // Basic validation (shouldn't happen if button is disabled correctly)
+    if (line1.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in Personalisation Line 1.'),
+        ),
+      );
+      return;
+    }
+
+    if (_perLineValue == 'Two Lines of Text' && line2.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in Personalisation Line 2.'),
+        ),
+      );
+      return;
+    }
+
+    final textSummary =
+        _perLineValue == 'Two Lines of Text' ? '$line1 / $line2' : line1;
+
+    final selectedImage = (widget.product.images.isNotEmpty)
+        ? widget.product.images[_selectedImageIndex]
+        : '';
+
+    final personalisedProduct = Product(
+      id: '${widget.product.id}-${DateTime.now().millisecondsSinceEpoch}',
+      title: '${widget.product.title} — $textSummary',
+      price: widget.product.price,
+      imageUrl: selectedImage,
+    );
+
+    Provider.of<CartModel>(context, listen: false)
+        .addItem(personalisedProduct, quantity: qty);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Personalisation added ($qty): $textSummary'),
+      ),
+    );
   }
 
   @override
@@ -305,65 +370,15 @@ class _PrintShackPersonalisationPageState
             height: 52,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4D2963),
+                backgroundColor: const Color(0xFF4D2963), // active purple
+                disabledBackgroundColor: Colors.grey.shade300,
+                disabledForegroundColor: Colors.grey.shade600,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              onPressed: () {
-                final line1 = _personalisationController.text.trim();
-                final line2 = _personalisationLine2Controller.text.trim();
-                final qty = int.tryParse(_quantityController.text) ?? 1;
-
-                // Basic validation
-                if (line1.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please fill in Personalisation Line 1.'),
-                    ),
-                  );
-                  return;
-                }
-
-                if (_perLineValue == 'Two Lines of Text' && line2.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please fill in Personalisation Line 2.'),
-                    ),
-                  );
-                  return;
-                }
-
-                final textSummary = _perLineValue == 'Two Lines of Text'
-                    ? '$line1 / $line2'
-                    : line1;
-
-                // Build a Product instance to add to the cart (personalisation
-                // details baked into the title). Use the currently selected
-                // image as the product image if available.
-                final selectedImage = (widget.product.images.isNotEmpty)
-                    ? widget.product.images[_selectedImageIndex]
-                    : '';
-
-                final personalisedProduct = Product(
-                  id: '${widget.product.id}-${DateTime.now().millisecondsSinceEpoch}',
-                  title: '${widget.product.title} — $textSummary',
-                  price: widget.product.price,
-                  imageUrl: selectedImage,
-                );
-
-                // Add to cart via provider
-                Provider.of<CartModel>(context, listen: false)
-                    .addItem(personalisedProduct, quantity: qty);
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Personalisation added ($qty): $textSummary',
-                    ),
-                  ),
-                );
-              },
+              onPressed: isFormValid ? _handleAddToCart : null,
               child: const Text(
                 'ADD TO CART',
                 style: TextStyle(
