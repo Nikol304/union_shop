@@ -21,3 +21,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/personalisation_main.jpg
+    - assets/personalisation_alt.jpg
