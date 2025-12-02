@@ -21,6 +21,9 @@ class CartItem {
 class CartModel extends ChangeNotifier {
   final List<CartItem> _items = [];
 
+  // Optionally keep simple order history in memory
+  final List<List<CartItem>> _orderHistory = [];
+
   List<CartItem> get items => List.unmodifiable(_items);
 
   int get totalQuantity => _items.fold(0, (sum, item) => sum + item.quantity);
@@ -77,4 +80,25 @@ class CartModel extends ChangeNotifier {
     _items.clear();
     notifyListeners();
   }
+
+  /// Simulate placing an order (no real payment).
+  void checkout() {
+    if (_items.isEmpty) return;
+
+    // Save a snapshot of the current cart as a "placed order" (optional)
+    _orderHistory.add(_items
+        .map((item) => CartItem(
+              product: item.product,
+              selectedColor: item.selectedColor,
+              selectedSize: item.selectedSize,
+              quantity: item.quantity,
+            ))
+        .toList());
+
+    // Clear cart
+    _items.clear();
+    notifyListeners();
+  }
+
+  List<List<CartItem>> get orderHistory => List.unmodifiable(_orderHistory);
 }

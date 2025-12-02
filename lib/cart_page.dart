@@ -421,11 +421,36 @@ class _SubtotalAndActions extends StatelessWidget {
             const SizedBox(width: 12),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                        'Checkout is not implemented in this coursework app.'),
-                  ),
+                final cart = context.read<CartModel>();
+
+                if (cart.items.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Your cart is empty.')),
+                  );
+                  return;
+                }
+
+                cart.checkout();
+
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Order placed'),
+                      content: const Text(
+                          'Thank you! Your order has been placed. No payment was taken – this is a demo checkout.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/', (route) => false);
+                          },
+                          child: const Text('Continue shopping'),
+                        ),
+                      ],
+                    );
+                  },
                 );
               },
               style: ElevatedButton.styleFrom(
