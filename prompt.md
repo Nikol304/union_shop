@@ -239,7 +239,7 @@ Replace the inline footers with the constant widget app_footer in the following 
 halloween_page.dart --DONE --
 signature_page.dart -- DONE--
 
-specific_collection_page.dart -- created, rooted to navigation, footer DONE --
+specific_collection_page.dart -- created, rooted to navigation, footer --DONE --
 
 shop.dart -- Shoudnt be a page? -- DELETED --
 authentication.dart -- shoudnt have a footer?
@@ -251,13 +251,15 @@ authentication.dart -- shoudnt have a footer?
 - add the products and reuse the page
 - add back button so i can go back to all collections page
 - make products look like the shop ones
+
 - the collection one shouldnt appear as a link for final project
 
 # Navigation
 - add navigation routes for all pages --/page_name
 
 # Product page
-- link page
+- link page -- DONE--
+- Try to match the looks of it closely to the original one
 
 # Mobile navigation
 - On phone sandwitch bar menu doesnt show all options available on dekstop
