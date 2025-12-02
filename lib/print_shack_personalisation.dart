@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
+import 'package:union_shop/models/personalisation_product.dart';
 
 class PrintShackPersonalisationPage extends StatefulWidget {
-  const PrintShackPersonalisationPage({Key? key}) : super(key: key);
+  final PersonalisationProduct product;
+
+  const PrintShackPersonalisationPage({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<PrintShackPersonalisationPage> createState() =>
@@ -12,11 +18,21 @@ class PrintShackPersonalisationPage extends StatefulWidget {
 
 class _PrintShackPersonalisationPageState
     extends State<PrintShackPersonalisationPage> {
-  String _perLineValue = 'One Line of Text';
+  late String _perLineValue;
   final TextEditingController _personalisationController =
       TextEditingController();
   final TextEditingController _quantityController =
       TextEditingController(text: '1');
+
+  // which thumbnail is selected (for big image)
+  int _selectedImageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // default dropdown value from model
+    _perLineValue = widget.product.perLineOptions.first;
+  }
 
   @override
   void dispose() {
@@ -44,7 +60,6 @@ class _PrintShackPersonalisationPageState
                       isMobile ? _buildMobileContent() : _buildDesktopContent(),
                 ),
                 const Divider(height: 0),
-                // Footer
                 const AppFooter(),
               ],
             ),
@@ -66,27 +81,9 @@ class _PrintShackPersonalisationPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AspectRatio(
-                aspectRatio: 1.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      // Replace with your image
-                      image: AssetImage('assets/personalisation_main.jpg'),
-                    ),
-                  ),
-                ),
-              ),
+              _buildMainImage(),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  _buildThumbnail('assets/personalisation_main.jpg', true),
-                  const SizedBox(width: 8),
-                  _buildThumbnail('assets/personalisation_alt.jpg', false),
-                ],
-              ),
+              _buildThumbnailsRow(),
             ],
           ),
         ),
@@ -108,49 +105,98 @@ class _PrintShackPersonalisationPageState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AspectRatio(
-          aspectRatio: 1.0,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('assets/personalisation_main.jpg'),
-              ),
-            ),
-          ),
-        ),
+        _buildMainImage(),
         const SizedBox(height: 16),
-        Row(
-          children: [
-            _buildThumbnail('assets/personalisation_main.jpg', true),
-            const SizedBox(width: 8),
-            _buildThumbnail('assets/personalisation_alt.jpg', false),
-          ],
-        ),
+        _buildThumbnailsRow(),
         const SizedBox(height: 24),
         _buildProductForm(),
       ],
     );
   }
 
+  // ---------- IMAGES ----------
+
+  Widget _buildMainImage() {
+    final images = widget.product.images;
+
+    if (images.isEmpty) {
+      return AspectRatio(
+        aspectRatio: 1.0,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.grey.shade200,
+          ),
+          child: const Text('No image'),
+        ),
+      );
+    }
+
+    final imageUrl = images[_selectedImageIndex];
+
+    return AspectRatio(
+      aspectRatio: 1.0,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey.shade200,
+            alignment: Alignment.center,
+            child: const Icon(Icons.image_not_supported, color: Colors.grey),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThumbnailsRow() {
+    final images = widget.product.images;
+    if (images.length <= 1) {
+      return const SizedBox.shrink();
+    }
+
+    return Row(
+      children: List.generate(images.length, (index) {
+        final path = images[index];
+        final isSelected = index == _selectedImageIndex;
+
+        return Padding(
+          padding: EdgeInsets.only(right: index == images.length - 1 ? 0 : 8),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedImageIndex = index;
+              });
+            },
+            child: _buildThumbnail(path, isSelected),
+          ),
+        );
+      }),
+    );
+  }
+
   // ---------- PRODUCT FORM ----------
 
   Widget _buildProductForm() {
+    final product = widget.product;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Personalisation',
-          style: TextStyle(
+        Text(
+          product.title,
+          style: const TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 12),
-        const Text(
-          '£3.00',
-          style: TextStyle(
+        Text(
+          '£${product.price.toStringAsFixed(2)}',
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
           ),
@@ -166,17 +212,17 @@ class _PrintShackPersonalisationPageState
         const SizedBox(height: 24),
 
         // Per Line dropdown
-        const Row(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Per Line: ',
               style: TextStyle(fontSize: 14),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
-              'One Line of Text',
-              style: TextStyle(fontSize: 14),
+              _perLineValue,
+              style: const TextStyle(fontSize: 14),
             ),
           ],
         ),
@@ -184,17 +230,15 @@ class _PrintShackPersonalisationPageState
         SizedBox(
           width: 260,
           child: DropdownButtonFormField<String>(
-            initialValue: _perLineValue,
-            items: const [
-              DropdownMenuItem(
-                value: 'One Line of Text',
-                child: Text('One Line of Text'),
-              ),
-              DropdownMenuItem(
-                value: 'Two Lines of Text',
-                child: Text('Two Lines of Text'),
-              ),
-            ],
+            value: _perLineValue,
+            items: product.perLineOptions
+                .map(
+                  (option) => DropdownMenuItem(
+                    value: option,
+                    child: Text(option),
+                  ),
+                )
+                .toList(),
             decoration: _inputDecoration(),
             onChanged: (val) {
               if (val != null) {
@@ -246,7 +290,8 @@ class _PrintShackPersonalisationPageState
                 ),
               ),
               onPressed: () {
-                // TODO: handle add to cart
+                // TODO: hook into CartModel if you want
+                // For coursework spec, having a working form is enough.
               },
               child: const Text(
                 'ADD TO CART',
@@ -287,12 +332,9 @@ class _PrintShackPersonalisationPageState
     );
   }
 
-  // ---------- FOOTER ----------
-  // footer replaced with the standard site footer in the build method above
-
   // ---------- SMALL HELPERS ----------
 
-  Widget _buildThumbnail(String asset, bool isSelected) {
+  Widget _buildThumbnail(String imageUrl, bool isSelected) {
     return Container(
       width: 80,
       height: 80,
@@ -302,9 +344,17 @@ class _PrintShackPersonalisationPageState
           width: 2,
         ),
         borderRadius: BorderRadius.circular(4),
-        image: DecorationImage(
-          image: AssetImage(asset),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Image.network(
+          imageUrl,
           fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey.shade200,
+            alignment: Alignment.center,
+            child: const Icon(Icons.image_not_supported, size: 20),
+          ),
         ),
       ),
     );

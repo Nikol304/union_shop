@@ -17,6 +17,7 @@ import 'package:union_shop/authentication.dart';
 import 'package:union_shop/the_print_shack.dart';
 import 'package:union_shop/clothing.dart';
 import 'package:union_shop/print_shack_personalisation.dart';
+import 'package:union_shop/models/personalisation_product.dart';
 import 'package:union_shop/specific_collection_page.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/product_card.dart';
@@ -60,7 +61,21 @@ class UnionShopApp extends StatelessWidget {
               title: 'Collection', products: const <Product>[]),
           '/print-shack': (context) => const PrintShackPage(),
           '/print-shack-personalisation': (context) =>
-              const PrintShackPersonalisationPage(),
+              const PrintShackPersonalisationPage(
+                product: PersonalisationProduct(
+                  id: 'personalisation',
+                  title: 'Personalisation',
+                  price: 3.00,
+                  images: [
+                    'assets/personalisation_main.jpg',
+                    'assets/personalisation_alt.jpg',
+                  ],
+                  perLineOptions: [
+                    'One Line of Text',
+                    'Two Lines of Text',
+                  ],
+                ),
+              ),
           '/about': (context) => const AboutPage(),
           // Keep both route names mapping to the same authentication page for
           // backwards compatibility. Use '/authentication' as the canonical route.
