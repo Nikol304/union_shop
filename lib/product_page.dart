@@ -274,7 +274,22 @@ class _ProductDetailsPanel extends StatelessWidget {
                 const SnackBar(content: Text('Added to cart')),
               );
             },
-            child: const Text('ADD TO CART'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4B2E83), // Purple
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50), // ← pill shape
+              ),
+              elevation: 2,
+            ),
+            child: const Text(
+              'ADD TO CART',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.0,
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 12),
