@@ -24,7 +24,6 @@ class HalloweenPage extends StatelessWidget {
         child: Column(
           children: [
             const AppHeader(),
-
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: sidePadding,
@@ -35,7 +34,9 @@ class HalloweenPage extends StatelessWidget {
                   final contentIsWide = constraints.maxWidth > 850;
 
                   final image = Container(
-                    width: contentIsWide ? constraints.maxWidth * 0.45 : double.infinity,
+                    width: contentIsWide
+                        ? constraints.maxWidth * 0.45
+                        : double.infinity,
                     height: contentIsWide ? 500 : 380,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
@@ -47,7 +48,9 @@ class HalloweenPage extends StatelessWidget {
                   );
 
                   final details = SizedBox(
-                    width: contentIsWide ? constraints.maxWidth * 0.45 : double.infinity,
+                    width: contentIsWide
+                        ? constraints.maxWidth * 0.45
+                        : double.infinity,
                     child: _ProductDetails(product: _tote),
                   );
 
@@ -72,7 +75,6 @@ class HalloweenPage extends StatelessWidget {
                 },
               ),
             ),
-
             const AppFooter(),
           ],
         ),
@@ -97,31 +99,29 @@ class _ProductDetails extends StatelessWidget {
           style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
-
         Text(
           '£${product.price.toStringAsFixed(2)}',
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const Text('Tax included.', style: TextStyle(color: Colors.grey)),
         const SizedBox(height: 24),
-
-        const Text('Halloween Tote Bag', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text('Halloween Tote Bag',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-
         SizedBox(
           width: 250,
           child: DropdownButtonFormField(
             value: variants.first,
-            items: variants.map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(),
+            items: variants
+                .map((v) => DropdownMenuItem(value: v, child: Text(v)))
+                .toList(),
             onChanged: (_) {},
             decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ),
         const SizedBox(height: 20),
-
         const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-
         SizedBox(
           width: 100,
           child: TextField(
@@ -131,7 +131,6 @@ class _ProductDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24),
-
         SizedBox(
           width: 260,
           height: 48,
@@ -142,14 +141,13 @@ class _ProductDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-
         SizedBox(
           width: 260,
           height: 44,
-          child: OutlinedButton(onPressed: () {}, child: const Text('Buy with shop')),
+          child: OutlinedButton(
+              onPressed: () {}, child: const Text('Buy with shop')),
         ),
         const SizedBox(height: 24),
-
         const Text(
           'Trick or treat yourself to one of these limited edition Halloween tote bags!',
           style: TextStyle(fontSize: 15, height: 1.5),
