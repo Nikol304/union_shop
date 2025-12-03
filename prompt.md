@@ -307,3 +307,87 @@ authentication.dart -- shoudnt have a footer?
 - search system
 - tests
 - ReadMe file
+
+# Tests: 
+Unit tests (logic, models)
+
+test/models/product_test.dart
+Product construction keeps defaults (galleryImages default []).
+Equality / toString (if implemented) and field values.
+test/models/cart_model_test.dart
+addItem increments quantity for same item/variant.
+removeItem decreases and removes when quantity reaches 0.
+total price calculation matches expected (price * qty + multiple items).
+clear empties cart.
+item metadata (color/size) preserved per line item.
+Widget tests (widget-level behavior, isolated)
+
+test/widgets/adaptive_image_test.dart
+Displays Image.asset when path not starting with http.
+Displays Image.network when path starts with http.
+errorBuilder fallback shows when image fails to load (simulate by providing bad path).
+test/widgets/product_card_test.dart
+Renders title and price from Product.
+Uses _ProductImage (or AdaptiveImage) and respects aspect ratio.
+Tapping the card triggers navigation to '/product' with the product in arguments (use NavigatorObserver/mock).
+test/widgets/home_section_grid_test.dart
+Grid child count matches products passed.
+childAspectRatio and layout change when LayoutBuilder width toggles (simulate constraints).
+test/widgets/app_header_footer_test.dart
+Header shows navigation labels.
+Tapping logo/home route triggers navigation (mock Navigator).
+test/pages/product_page_test.dart
+Defensive behavior: when no / wrong arguments, shows fallback message.
+Given a Product with galleryImages: main image and thumbnail widgets display and switching thumbnail updates selected image.
+Buttons: ADD TO CART calls CartModel.addItem (wrap with Provider and mock CartModel), shows SnackBar.
+Button styling: verifies styleFrom includes pill radius and vertical padding (checks ButtonTheme or button widget properties).
+Description renders under buttons when product.description present.
+test/pages/halloween_page_test.dart
+If Halloween page redirects to product page, verify it pushes replacement with correct Product argument.
+If shows grid version (if used elsewhere): images load via AdaptiveImage and ADD TO CART calls CartModel.
+test/pages/print_shack_personalisation_test.dart
+Dropdown initialValue usage works (test value selection and form submission).
+Personalisation preview updates when text/options change.
+test/widgets/home_hero_carousel_test.dart
+Carousel built with expected number of slides; swiping changes slide index (widget tests emulating gestures).
+test/widgets/product_thumbnail_test.dart
+Thumbnail border changes when selected.
+Integration / end-to-end tests (flutter_driver / integration_test)
+
+integration_test/app_e2e_test.dart
+Full purchase flow:
+Start app, open home, tap a ProductCard, product page opens with correct product.
+Change quantity, press ADD TO CART, navigate to Cart page, confirm item present and totals correct.
+Asset loading verification:
+Confirm local asset images render (no network requests necessary).
+Checkout placeholder flow (if checkout route exists): try hitting checkout and validate navigation / errors.
+integration_test/navigation_routes_test.dart
+Verify all named routes build without throwing (pushNamed for each route; use mock args where required).
+(Optional) auth_integration_test.dart
+If you use Firebase Auth, use firebase_auth_mocks and test sign-in error handling and registration flows (mock responses).
+Golden / visual tests (optional)
+
+test/golden/product_card_golden.dart
+Golden snapshot for ProductCard in narrow and wide layouts (asset and network images).
+test/golden/product_page_golden.dart
+ProductPage desktop and mobile snapshots.
+Utilities and test setup
+
+test/test_helpers/mock_cart_model.dart — mock or fake CartModel to assert addItem calls.
+test/test_helpers/mock_navigator_observer.dart — capture navigation calls.
+test/test_helpers/firebase_mocks.dart — if testing auth flows.
+Notes / constraints
+
+Provider: wrap widgets with ChangeNotifierProvider.value or a mock provider to assert CartModel interactions.
+Firebase: avoid hitting real Firebase in unit/widget tests — use firebase_auth_mocks or abstract Firebase calls and inject mock implementations.
+Assets: Widget tests load assets from flutter_test binding. Ensure assets are listed in pubspec.yaml; if flutter test fails to find assets, add a test-specific asset bundle or use TestWidgetsFlutterBinding.ensureInitialized() and provide a FakeAssetBundle.
+Network images: widget tests can fail loading network images; prefer AdaptiveImage and use network image URLs only in integration tests or mock network image loading.
+Commands to run tests (Windows PowerShell)
+
+Unit & widget tests:
+flutter test
+Integration tests:
+flutter test integration_test/app_e2e_test.dart
+or with flutter drive / integration_test plugin per your setup.
+Run a single test file:
+flutter test test/widgets/product_card_test.dart
