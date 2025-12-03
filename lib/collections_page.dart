@@ -113,8 +113,7 @@ class CollectionsPage extends StatelessWidget {
                           CollectionCard(
                             title: 'Autumn Favourites',
                             width: cardWidth,
-                            imageUrl:
-                                'assets/images/autumn.png',
+                            imageUrl: 'assets/images/autumn.png',
                           ),
                           CollectionCard(
                             title: 'Black Friday',
@@ -139,8 +138,7 @@ class CollectionsPage extends StatelessWidget {
                           CollectionCard(
                             title: 'Essentials',
                             width: cardWidth,
-                            imageUrl:
-                                'assets/images/essentials.png',
+                            imageUrl: 'assets/images/essentials.png',
                           ),
                         ],
                       );
@@ -194,7 +192,7 @@ class CollectionCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Stack(
               fit: StackFit.expand,
-                children: [
+              children: [
                 AdaptiveImage(
                   imageUrl,
                   fit: BoxFit.cover,

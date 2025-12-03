@@ -297,7 +297,7 @@ class _PrintShackPersonalisationPageState
         SizedBox(
           width: 260,
           child: DropdownButtonFormField<String>(
-              initialValue: _perLineValue,
+            initialValue: _perLineValue,
             items: product.perLineOptions
                 .map(
                   (option) => DropdownMenuItem(

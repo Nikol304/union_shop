@@ -71,7 +71,6 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           label: 'About',
                           onTap: () => navigateTo('/about'),
                         ),
-                      
                       ],
                     ),
                   const Spacer(),
