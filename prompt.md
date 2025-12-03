@@ -266,21 +266,22 @@ authentication.dart -- shoudnt have a footer?
 - shop is missing
 
 # Next steps: 
-- print shack pages to match example ones
+- print shack pages to match example ones -- DONE --
 - replace all the pictures with generated ones
-- the about page doesn't match the original one
-- hero image on home page should be a slider with couple of pictures 
+- the about page doesn't match the original one -- DONE --
+- hero image on home page should be a slider with couple of pictures -- DONE --
 - ensure all necessary pages are now created for the coursework 
-- ask where the collections page should be linked as it doesnt appear in the header in original website
+- ask where the collections page should be linked as it doesnt appear in the header in original website -- DONE --
 - remove sandwitch bar from web version, it should only appear in mobile version
-- add header text message
+- add header text message -- DONE --
 - write test functions for all files (learn what tests exactly u need)
 - make sure the test functions run and there are no errors
 - have a thorough, clean README file -- add at the end so it includes everything
 - the union logo should be bigger and the links centralised
 - connect all the buttons to pages so they are functional
 - fix all problems that terminal says there are
-# start on functionality:\
+
+# start on functionality:\ -- DONE --
 - Add items to bag
 - Remove items from bag
 - Cart page
@@ -288,5 +289,5 @@ authentication.dart -- shoudnt have a footer?
 
 # Advanced:
 - user authentication and account management
-- cart management and price calculations
+- cart management and price calculations -- DONE --
 - deployment on git maybe, using firebase for database
