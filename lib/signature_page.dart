@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/widgets/app_header.dart';
-import 'package:union_shop/widgets/app_footer.dart';
+import 'package:union_shop/models/product.dart';
+import 'package:union_shop/specific_collection_page.dart';
 
 class SignaturePage extends StatelessWidget {
-  const SignaturePage({Key? key}) : super(key: key);
+  const SignaturePage({super.key});
+
+  // Signature & Essential range products
+  List<Product> get _signatureProducts => const [
+        Product(
+          id: 'signature-tshirt',
+          title: 'Signature T-Shirt',
+          price: 14.99,
+          imageUrl: 'assets/images/signature_tshirt.png',
+        ),
+        Product(
+          id: 'signature-hoodie',
+          title: 'Signature Hoodie',
+          price: 32.99,
+          imageUrl: 'assets/images/signature_hoodie.png',
+        ),
+        Product(
+          id: 'essential-zip-hoodie',
+          title: 'Limited Edition Essential Zip Hoodie',
+          price: 14.99,
+          imageUrl: 'assets/images/essential_zip_hoodie.png',
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppHeader(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(24.0),
-              child: Center(
-                child: Text(
-                  'Signature & Essentials (placeholder)\nReplace with product grid when ready.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
-
-            /// Shared reusable footer
-            const AppFooter(),
-          ],
-        ),
-      ),
+    return SpecificCollectionPage(
+      title: 'Signature & Essential Range',
+      products: _signatureProducts,
     );
   }
 }
