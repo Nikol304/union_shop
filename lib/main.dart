@@ -106,6 +106,10 @@ class HomeScreen extends StatelessWidget {
       price: 14.99,
       oldPrice: 20.00,
       imageUrl: 'assets/images/sweatshirt_grey.png',
+      galleryImages: const [
+        'assets/images/sweatshirt_grey.png',
+        'assets/images/hoodie_grey.png',
+      ],
     ),
     Product(
       id: 'essential-tshirt',
@@ -122,6 +126,11 @@ class HomeScreen extends StatelessWidget {
       title: 'Signature Hoodie',
       price: 32.99,
       imageUrl: 'assets/images/hoodie_green.png',
+      galleryImages: const [
+        'assets/images/hoodie_green.png',
+        'assets/images/hoodie_grey.png',
+        'assets/images/hoodie_red.png',
+      ],
     ),
     Product(
       id: 'signature-tshirt',
