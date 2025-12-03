@@ -14,8 +14,7 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
 
   final List<Map<String, String>> slides = [
     {
-      'image':
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+      'image': 'assets/images/hero_111.png',
       'title': 'Essential Range – Over 20% OFF!',
       'subtitle':
           'Over 20% off our Essential Range. Come and grab yours while stock lasts!',
@@ -23,8 +22,7 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
       'route': '/collection',
     },
     {
-      'image':
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      'image': 'assets/images/merch_drop.png',
       'title': 'New Merch Drop!',
       'subtitle': 'Fresh arrivals are here. Limited stock available.',
       'button': 'SHOP NOW',
