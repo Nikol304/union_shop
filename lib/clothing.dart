@@ -27,6 +27,8 @@ class ClothingPage extends StatelessWidget {
             'assets/images/hoodie_red.png',
             'assets/images/sweatshirt_grey.png',
           ],
+          description:
+              'A classic, cozy sweatshirt made from soft brushed cotton with a relaxed fit. Ideal for layering and everyday wear. Machine washable and available in sizes S–XXL.',
         ),
         Product(
           id: 'classic-tshirts',

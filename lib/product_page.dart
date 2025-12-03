@@ -102,22 +102,7 @@ class _ProductPageState extends State<ProductPage> {
               _buildThumbnailsRow(product),
               const SizedBox(height: 24),
 
-              // Description under thumbnails
-              if (product.description.isNotEmpty) ...[
-                const Text(
-                  "Product Information",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  product.description,
-                  style: const TextStyle(fontSize: 14, height: 1.5),
-                ),
-                const SizedBox(height: 24),
-              ],
+              // description moved into the right-hand details panel
             ],
           ),
         ),
@@ -158,22 +143,7 @@ class _ProductPageState extends State<ProductPage> {
         _buildThumbnailsRow(product),
         const SizedBox(height: 24),
 
-        // Description
-        if (product.description.isNotEmpty) ...[
-          const Text(
-            "Product Information",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            product.description,
-            style: const TextStyle(fontSize: 14, height: 1.5),
-          ),
-          const SizedBox(height: 24),
-        ],
+        // description moved into the right-hand details panel
 
         _ProductDetailsPanel(
           product: product,
@@ -481,6 +451,25 @@ class _ProductDetailsPanel extends StatelessWidget {
             _shareButton('PIN IT'),
           ],
         ),
+        const SizedBox(height: 24),
+
+        // Move product information here so it appears under the action buttons
+        if (product.description.isNotEmpty) ...[
+          const Divider(),
+          const SizedBox(height: 12),
+          const Text(
+            "Product Information",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            product.description,
+            style: const TextStyle(fontSize: 14, height: 1.5),
+          ),
+        ],
       ],
     );
   }
