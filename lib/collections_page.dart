@@ -113,13 +113,12 @@ class CollectionsPage extends StatelessWidget {
                             title: 'Autumn Favourites',
                             width: cardWidth,
                             imageUrl:
-                                'https://images.pexels.com/photos/3760851/pexels-photo-3760851.jpeg',
+                                'assets/images/autumn.png',
                           ),
                           CollectionCard(
                             title: 'Black Friday',
                             width: cardWidth,
-                            imageUrl:
-                                'https://images.pexels.com/photos/5650023/pexels-photo-5650023.jpeg',
+                            imageUrl: 'assets/images/black_friday.png',
                           ),
                           CollectionCard(
                             title: 'Clothing',
@@ -127,10 +126,9 @@ class CollectionsPage extends StatelessWidget {
                             imageUrl: 'assets/images/clothing.png',
                           ),
                           CollectionCard(
-                            title: 'Accessories',
+                            title: 'Personalise',
                             width: cardWidth,
-                            imageUrl:
-                                'https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg',
+                            imageUrl: 'assets/images/personalise.png',
                           ),
                           CollectionCard(
                             title: 'Gift Ideas',
@@ -141,7 +139,7 @@ class CollectionsPage extends StatelessWidget {
                             title: 'Essentials',
                             width: cardWidth,
                             imageUrl:
-                                'https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg',
+                                'assets/images/essentials.png',
                           ),
                         ],
                       );
