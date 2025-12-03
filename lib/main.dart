@@ -105,16 +105,14 @@ class HomeScreen extends StatelessWidget {
       title: 'Limited Edition Essential Zip Hoodies',
       price: 14.99,
       oldPrice: 20.00,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/EssentialZipHoodie1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/sweatshirt_grey.png',
     ),
     Product(
       id: 'essential-tshirt',
       title: 'Essential T-Shirt',
       price: 6.99,
       oldPrice: 10.00,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/EssentialTShirt1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/tshirts.png',
     ),
   ];
 
@@ -123,8 +121,7 @@ class HomeScreen extends StatelessWidget {
       id: 'signature-hoodie',
       title: 'Signature Hoodie',
       price: 32.99,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/SignatureHoodie1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/hoodie_green.png',
     ),
     Product(
       id: 'signature-tshirt',
@@ -294,7 +291,7 @@ class _HomeSection extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 16),
               LayoutBuilder(
                 builder: (context, constraints) {
                   final bool wide = constraints.maxWidth >= 900;
@@ -308,7 +305,8 @@ class _HomeSection extends StatelessWidget {
                       crossAxisCount: crossAxisCount,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 24,
-                      childAspectRatio: wide ? 1.4 : 0.9,
+                      // Make items a bit taller so content fits
+                      childAspectRatio: wide ? 1.0 : 0.8,
                     ),
                     itemBuilder: (context, index) {
                       return ProductCard(product: products[index]);

@@ -19,7 +19,7 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
       'subtitle':
           'Over 20% off our Essential Range. Come and grab yours while stock lasts!',
       'button': 'BROWSE COLLECTION',
-      'route': '/collection',
+      'route': '/collections',
     },
     {
       'image': 'assets/images/merch_drop.png',
@@ -29,8 +29,8 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
       'route': '/merch',
     },
     {
-      'image':
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityKeyring1_1024x1024@2x.jpg?v=1752230450',
+      'image': 'assets/images/mug_hoodie.png',
+          
       'title': 'Print Shack Personalisation',
       'subtitle': 'Make it yours with custom designs and embroidery.',
       'button': 'PERSONALISE',

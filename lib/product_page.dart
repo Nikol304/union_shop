@@ -118,16 +118,35 @@ class _ProductImage extends StatelessWidget {
         aspectRatio: 4 / 5,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: Colors.grey[300],
-              child: const Center(
-                child: Icon(Icons.image_not_supported, color: Colors.grey),
-              ),
-            ),
-          ),
+          child: Builder(builder: (context) {
+            final bool isNetwork = imageUrl.startsWith('http');
+
+            final Widget image = isNetwork
+                ? Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child:
+                            Icon(Icons.image_not_supported, color: Colors.grey),
+                      ),
+                    ),
+                  )
+                : Image.asset(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child:
+                            Icon(Icons.image_not_supported, color: Colors.grey),
+                      ),
+                    ),
+                  );
+
+            return image;
+          }),
         ),
       ),
     );

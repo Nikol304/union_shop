@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
-import 'package:union_shop/widgets/adaptive_image.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -9,23 +8,17 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => Navigator.pushNamed(context, '/product', arguments: product),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image area expands to fill available space inside a square grid tile.
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: AdaptiveImage(
-                product.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-            ),
+          // fixed image shape for all cards — use a wider image so cards are less tall
+          AspectRatio(
+            aspectRatio: 4 / 3,
+            child: _ProductImage(imageUrl: product.imageUrl),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
             product.title,
             style: const TextStyle(fontSize: 14, color: Colors.black),
@@ -67,6 +60,43 @@ class ProductCard extends StatelessWidget {
     return Text(
       '£${product.price.toStringAsFixed(2)}',
       style: const TextStyle(fontSize: 13, color: Colors.grey),
+    );
+  }
+}
+
+class _ProductImage extends StatelessWidget {
+  final String imageUrl;
+
+  const _ProductImage({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isNetwork = imageUrl.startsWith('http');
+
+    final Widget image = isNetwork
+        ? Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => _buildFallback(),
+          )
+        : Image.asset(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => _buildFallback(),
+          );
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4),
+      child: image,
+    );
+  }
+
+  Widget _buildFallback() {
+    return Container(
+      color: Colors.grey[300],
+      child: const Center(
+        child: Icon(Icons.image_not_supported, color: Colors.grey),
+      ),
     );
   }
 }
