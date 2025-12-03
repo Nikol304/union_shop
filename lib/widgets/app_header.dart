@@ -44,12 +44,12 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                     onTap: navigateToHome,
                     child: Image.network(
                       'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                      height: 18,
+                      height: 35,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           color: Colors.grey[300],
-                          width: 18,
+                          width: 35,
                           height: 18,
                           child: const Center(
                             child: Icon(Icons.image_not_supported,
