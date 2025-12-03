@@ -291,3 +291,19 @@ authentication.dart -- shoudnt have a footer?
 - user authentication and account management
 - cart management and price calculations -- DONE --
 - deployment on git maybe, using firebase for database
+
+# Pictures:
+- homepage
+- print shack
+- sale
+
+# Left to do:
+- add products to diff collections
+- make halloween and signature pages
+- remove log in link
+- fix sign in and sign up
+- remove sandwitch bar for dekstop
+- host site
+- search system
+- tests
+- ReadMe file
