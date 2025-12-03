@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -17,16 +18,10 @@ class ProductCard extends StatelessWidget {
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
+              child: AdaptiveImage(
                 product.imageUrl,
                 fit: BoxFit.cover,
                 width: double.infinity,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                ),
               ),
             ),
           ),

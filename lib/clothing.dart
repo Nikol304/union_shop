@@ -11,22 +11,19 @@ class ClothingPage extends StatelessWidget {
           id: 'classic-hoodies',
           title: 'Classic Hoodies',
           price: 25.00,
-          imageUrl:
-              'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
+          imageUrl: 'assets/images/hoodie_grey.png',
         ),
         Product(
           id: 'classic-sweatshirts',
           title: 'Classic Sweatshirts',
           price: 23.00,
-          imageUrl:
-              'https://images.pexels.com/photos/7671173/pexels-photo-7671173.jpeg',
+          imageUrl: 'assets/images/hoodie_red.png',
         ),
         Product(
           id: 'classic-tshirts',
           title: 'Classic T-Shirts',
           price: 15.00,
-          imageUrl:
-              'https://images.pexels.com/photos/7697491/pexels-photo-7697491.jpeg',
+          imageUrl: 'assets/images/classic_tshirt.png',
         ),
         // Continue converting your other _ClothingProduct entries here:
         // Product(

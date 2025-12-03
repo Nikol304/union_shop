@@ -36,15 +36,13 @@ class MerchPage extends StatelessWidget {
           id: 'union-tote-bag',
           title: 'Union Tote Bag',
           price: 8.00,
-          imageUrl:
-              'https://images.pexels.com/photos/1002638/pexels-photo-1002638.jpeg',
+          imageUrl: 'assets/images/tote_bag.png',
         ),
         Product(
           id: 'union-mug',
           title: 'Union Mug',
           price: 6.00,
-          imageUrl:
-              'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+          imageUrl: 'assets/images/mug.png',
         ),
         // add more merch items…
       ];

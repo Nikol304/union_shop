@@ -124,8 +124,7 @@ class CollectionsPage extends StatelessWidget {
                           CollectionCard(
                             title: 'Clothing',
                             width: cardWidth,
-                            imageUrl:
-                                'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
+                            imageUrl: 'assets/images/clothing.png',
                           ),
                           CollectionCard(
                             title: 'Accessories',
@@ -136,8 +135,7 @@ class CollectionsPage extends StatelessWidget {
                           CollectionCard(
                             title: 'Gift Ideas',
                             width: cardWidth,
-                            imageUrl:
-                                'https://images.pexels.com/photos/1304640/pexels-photo-1304640.jpeg',
+                            imageUrl: 'assets/images/gifts.png',
                           ),
                           CollectionCard(
                             title: 'Essentials',
