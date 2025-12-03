@@ -3,6 +3,7 @@ import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 import 'package:union_shop/specific_collection_page.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 // Sample products used for demo/showing collections. Replace with real data later.
 const Map<String, List<Product>> _sampleProducts = {
@@ -193,8 +194,8 @@ class CollectionCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Stack(
               fit: StackFit.expand,
-              children: [
-                Image.network(
+                children: [
+                AdaptiveImage(
                   imageUrl,
                   fit: BoxFit.cover,
                 ),

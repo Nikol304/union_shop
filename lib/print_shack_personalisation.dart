@@ -5,6 +5,7 @@ import 'package:union_shop/widgets/app_footer.dart';
 import 'package:union_shop/models/personalisation_product.dart';
 import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 class PrintShackPersonalisationPage extends StatefulWidget {
   final PersonalisationProduct product;
@@ -210,14 +211,9 @@ class _PrintShackPersonalisationPageState
       aspectRatio: 1.0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
-        child: Image.network(
+        child: AdaptiveImage(
           imageUrl,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
-            color: Colors.grey.shade200,
-            alignment: Alignment.center,
-            child: const Icon(Icons.image_not_supported, color: Colors.grey),
-          ),
         ),
       ),
     );
@@ -301,7 +297,7 @@ class _PrintShackPersonalisationPageState
         SizedBox(
           width: 260,
           child: DropdownButtonFormField<String>(
-            value: _perLineValue,
+              initialValue: _perLineValue,
             items: product.perLineOptions
                 .map(
                   (option) => DropdownMenuItem(
@@ -433,14 +429,9 @@ class _PrintShackPersonalisationPageState
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
-        child: Image.network(
+        child: AdaptiveImage(
           imageUrl,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
-            color: Colors.grey.shade200,
-            alignment: Alignment.center,
-            child: const Icon(Icons.image_not_supported, size: 20),
-          ),
         ),
       ),
     );

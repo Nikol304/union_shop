@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 import 'package:union_shop/widgets/print_shack_nav_dropdown.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   const AppHeader({Key? key}) : super(key: key);
@@ -42,21 +43,10 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: navigateToHome,
-                    child: Image.network(
+                    child: AdaptiveImage(
                       'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                      height: 35,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[300],
-                          width: 35,
-                          height: 18,
-                          child: const Center(
-                            child: Icon(Icons.image_not_supported,
-                                color: Colors.grey),
-                          ),
-                        );
-                      },
+                      height: 35,
                     ),
                   ),
                   const SizedBox(width: 32),

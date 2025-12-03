@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/app_header.dart';
@@ -119,33 +120,10 @@ class _ProductImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Builder(builder: (context) {
-            final bool isNetwork = imageUrl.startsWith('http');
-
-            final Widget image = isNetwork
-                ? Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child:
-                            Icon(Icons.image_not_supported, color: Colors.grey),
-                      ),
-                    ),
-                  )
-                : Image.asset(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child:
-                            Icon(Icons.image_not_supported, color: Colors.grey),
-                      ),
-                    ),
-                  );
-
-            return image;
+            return AdaptiveImage(
+              imageUrl,
+              fit: BoxFit.cover,
+            );
           }),
         ),
       ),
@@ -222,7 +200,7 @@ class _ProductDetailsPanel extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
-          value: selectedColor,
+          initialValue: selectedColor,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             isDense: true,
@@ -243,7 +221,7 @@ class _ProductDetailsPanel extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
-          value: selectedSize,
+          initialValue: selectedSize,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             isDense: true,

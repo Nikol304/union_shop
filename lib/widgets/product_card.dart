@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -16,7 +17,13 @@ class ProductCard extends StatelessWidget {
           // fixed image shape for all cards — use a wider image so cards are less tall
           AspectRatio(
             aspectRatio: 4 / 3,
-            child: _ProductImage(imageUrl: product.imageUrl),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: AdaptiveImage(
+                product.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           const SizedBox(height: 12),
           Text(
@@ -64,39 +71,4 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-class _ProductImage extends StatelessWidget {
-  final String imageUrl;
-
-  const _ProductImage({super.key, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    final bool isNetwork = imageUrl.startsWith('http');
-
-    final Widget image = isNetwork
-        ? Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => _buildFallback(),
-          )
-        : Image.asset(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => _buildFallback(),
-          );
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
-      child: image,
-    );
-  }
-
-  Widget _buildFallback() {
-    return Container(
-      color: Colors.grey[300],
-      child: const Center(
-        child: Icon(Icons.image_not_supported, color: Colors.grey),
-      ),
-    );
-  }
-}
+// _ProductImage replaced by AdaptiveImage usage above.
