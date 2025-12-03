@@ -37,6 +37,10 @@ class MerchPage extends StatelessWidget {
           title: 'Union Tote Bag',
           price: 8.00,
           imageUrl: 'assets/images/tote_bag.png',
+          galleryImages: const [
+            'assets/images/tote_bag.png',
+            'assets/images/Halloween_bag.png',
+          ],
         ),
         Product(
           id: 'union-mug',

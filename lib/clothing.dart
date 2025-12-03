@@ -12,18 +12,32 @@ class ClothingPage extends StatelessWidget {
           title: 'Classic Hoodies',
           price: 25.00,
           imageUrl: 'assets/images/hoodie_grey.png',
+          galleryImages: const [
+            'assets/images/hoodie_grey.png',
+            'assets/images/hoodie_green.png',
+            'assets/images/hoodie_red.png',
+          ],
         ),
         Product(
           id: 'classic-sweatshirts',
           title: 'Classic Sweatshirts',
           price: 23.00,
           imageUrl: 'assets/images/hoodie_red.png',
+          galleryImages: const [
+            'assets/images/hoodie_red.png',
+            'assets/images/sweatshirt_grey.png',
+          ],
         ),
         Product(
           id: 'classic-tshirts',
           title: 'Classic T-Shirts',
           price: 15.00,
           imageUrl: 'assets/images/classic_tshirt.png',
+          galleryImages: const [
+            'assets/images/classic_tshirt.png',
+            'assets/images/tshirts.png',
+            'assets/images/tshirts_folded.png',
+          ],
         ),
         // Continue converting your other _ClothingProduct entries here:
         // Product(

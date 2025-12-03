@@ -17,6 +17,10 @@ class HalloweenPage extends StatefulWidget {
     description:
         'Trick or treat yourself to one of these limited edition Halloween tote bags! '
         'Available online & in-store for just £2.50!',
+    galleryImages: const [
+      'assets/images/Halloween_bag.png',
+      'assets/images/tote_bag.png',
+    ],
   );
 
   @override
