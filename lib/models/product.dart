@@ -8,6 +8,10 @@ class Product {
   /// Optional old price for sales/discounts
   final double? oldPrice;
 
+  /// Extra images for the gallery (thumbnails). Keep default empty so existing
+  /// Product(...) constructions remain compatible.
+  final List<String> galleryImages;
+
   final String description;
   final String category; // e.g. 'clothing', 'merch'
   final String collection; // e.g. 'essential', 'signature', 'halloween'
@@ -20,6 +24,7 @@ class Product {
     required this.price,
     required this.imageUrl,
     this.oldPrice,
+    this.galleryImages = const [],
     this.description = '',
     this.category = '',
     this.collection = '',

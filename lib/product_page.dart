@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/adaptive_image.dart';
-import 'package:provider/provider.dart';
 import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
@@ -18,113 +18,262 @@ class _ProductPageState extends State<ProductPage> {
   String _selectedSize = 'S';
   int _quantity = 1;
 
+  // for gallery-style main image + thumbnails
+  int _selectedImageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)!.settings.arguments as Product;
+    final args = ModalRoute.of(context)?.settings.arguments;
 
-    final width = MediaQuery.of(context).size.width;
-    final isDesktop = width >= 900;
-    final horizontalPadding = isDesktop ? 48.0 : 16.0;
-    final verticalPadding = isDesktop ? 32.0 : 16.0;
+    if (args is! Product) {
+      // show helpful fallback instead of crashing
+      return Scaffold(
+        appBar: const AppHeader(),
+        body: const Center(
+          child: Text(
+            'No product found.\nMake sure you pass a Product as navigation argument.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        bottomNavigationBar: const AppFooter(),
+      );
+    }
+
+  final product = args;
 
     return Scaffold(
-      body: Column(
-        children: [
-          // 👇 stays fixed at the top
-          const AppHeader(),
+      appBar: const AppHeader(),
+      backgroundColor: Colors.white,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isMobile = constraints.maxWidth < 900;
+          final horizontalPadding = isMobile ? 16.0 : 40.0;
+          final verticalPadding = isMobile ? 16.0 : 32.0;
 
-          // 👇 everything below scrolls (product layout + footer)
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: horizontalPadding,
-                      vertical: verticalPadding,
-                    ),
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        final isWide = constraints.maxWidth >= 900;
-
-                        final image = _ProductImage(imageUrl: product.imageUrl);
-
-                        final details = _ProductDetailsPanel(
-                          product: product,
-                          selectedColor: _selectedColor,
-                          selectedSize: _selectedSize,
-                          quantity: _quantity,
-                          onColorChanged: (value) {
-                            if (value != null) {
-                              setState(() => _selectedColor = value);
-                            }
-                          },
-                          onSizeChanged: (value) {
-                            if (value != null) {
-                              setState(() => _selectedSize = value);
-                            }
-                          },
-                          onQuantityChanged: (value) {
-                            setState(() => _quantity = value);
-                          },
-                        );
-
-                        // Desktop: image left, details right
-                        if (isWide) {
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(flex: 3, child: image),
-                              const SizedBox(width: 48),
-                              Expanded(flex: 2, child: details),
-                            ],
-                          );
-                        }
-
-                        // Mobile / tablet: stacked
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            image,
-                            const SizedBox(height: 32),
-                            details,
-                          ],
-                        );
-                      },
-                    ),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                    vertical: verticalPadding,
                   ),
-                  const SizedBox(height: 32),
-                  const AppFooter(), // 👈 footer scrolls into view
-                ],
-              ),
+                  child: isMobile
+                      ? _buildMobileContent(product)
+                      : _buildDesktopContent(product),
+                ),
+                const Divider(height: 0),
+                const AppFooter(),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
-}
 
-class _ProductImage extends StatelessWidget {
-  final String imageUrl;
+  // ---------- IMAGE LIST HELPER ----------
 
-  const _ProductImage({required this.imageUrl});
+  /// For now, we only have one image (product.imageUrl).
+  /// If you later extend Product with more images, just update this method.
+  List<String> _productImages(Product product) {
+    // If gallery images are provided, prefer them (they may include the main image
+    // plus thumbnails). Otherwise fall back to the single imageUrl field.
+    if (product.galleryImages.isNotEmpty) {
+      return product.galleryImages;
+    }
+    return [product.imageUrl];
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      // cap the visual height so the image isn’t gigantic
-      constraints: const BoxConstraints(maxHeight: 480),
-      child: AspectRatio(
-        aspectRatio: 4 / 5,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Builder(builder: (context) {
-            return AdaptiveImage(
-              imageUrl,
-              fit: BoxFit.cover,
-            );
-          }),
+  // ---------- LAYOUTS ----------
+
+  Widget _buildDesktopContent(Product product) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // LEFT – images
+        Expanded(
+          flex: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                    _buildMainImage(product),
+                    const SizedBox(height: 16),
+                    _buildThumbnailsRow(product),
+                    const SizedBox(height: 24),
+
+                    // Description under thumbnails
+                    if (product.description.isNotEmpty) ...[
+                      const Text(
+                        "Product Information",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        product.description,
+                        style: const TextStyle(fontSize: 14, height: 1.5),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+            ],
+          ),
+        ),
+        const SizedBox(width: 40),
+        // RIGHT – product details
+        Expanded(
+          flex: 5,
+          child: _ProductDetailsPanel(
+            product: product,
+            selectedColor: _selectedColor,
+            selectedSize: _selectedSize,
+            quantity: _quantity,
+            onColorChanged: (value) {
+              if (value != null) {
+                setState(() => _selectedColor = value);
+              }
+            },
+            onSizeChanged: (value) {
+              if (value != null) {
+                setState(() => _selectedSize = value);
+              }
+            },
+            onQuantityChanged: (value) {
+              setState(() => _quantity = value);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileContent(Product product) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMainImage(product),
+        const SizedBox(height: 16),
+        _buildThumbnailsRow(product),
+        const SizedBox(height: 24),
+
+        // Description
+        if (product.description.isNotEmpty) ...[
+          const Text(
+            "Product Information",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            product.description,
+            style: const TextStyle(fontSize: 14, height: 1.5),
+          ),
+          const SizedBox(height: 24),
+        ],
+
+        _ProductDetailsPanel(
+          product: product,
+          selectedColor: _selectedColor,
+          selectedSize: _selectedSize,
+          quantity: _quantity,
+          onColorChanged: (value) {
+            if (value != null) {
+              setState(() => _selectedColor = value);
+            }
+          },
+          onSizeChanged: (value) {
+            if (value != null) {
+              setState(() => _selectedSize = value);
+            }
+          },
+          onQuantityChanged: (value) {
+            setState(() => _quantity = value);
+          },
+        ),
+      ],
+    );
+  }
+
+  // ---------- IMAGES ----------
+
+  Widget _buildMainImage(Product product) {
+    final images = _productImages(product);
+
+    if (images.isEmpty) {
+      return AspectRatio(
+        aspectRatio: 1.0,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.grey.shade200,
+          ),
+          child: const Text('No image'),
+        ),
+      );
+    }
+
+    final imageUrl = images[_selectedImageIndex];
+
+    return AspectRatio(
+      aspectRatio: 1.0,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: AdaptiveImage(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThumbnailsRow(Product product) {
+    final images = _productImages(product);
+    if (images.length <= 1) {
+      // Only one image – no thumbnails needed (but layout supports more)
+      return const SizedBox.shrink();
+    }
+
+    return Row(
+      children: List.generate(images.length, (index) {
+        final path = images[index];
+        final isSelected = index == _selectedImageIndex;
+
+        return Padding(
+          padding: EdgeInsets.only(right: index == images.length - 1 ? 0 : 8),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedImageIndex = index;
+              });
+            },
+            child: _buildThumbnail(path, isSelected),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildThumbnail(String imageUrl, bool isSelected) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isSelected ? const Color(0xFF4D2963) : Colors.grey.shade300,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: AdaptiveImage(
+          imageUrl,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -163,35 +312,44 @@ class _ProductDetailsPanel extends StatelessWidget {
         // Title
         Text(
           product.title,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
 
         // Price + old price
         Row(
           children: [
             Text(
               priceText,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(width: 8),
             if (oldPriceText != null)
               Text(
                 oldPriceText,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
-                    ),
+                style: const TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
               ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 4),
+        Text(
+          'Tax included.',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        const SizedBox(height: 24),
 
         // Color
         const Text(
@@ -200,7 +358,7 @@ class _ProductDetailsPanel extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
-          initialValue: selectedColor,
+          value: selectedColor,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             isDense: true,
@@ -221,7 +379,7 @@ class _ProductDetailsPanel extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
-          initialValue: selectedSize,
+          value: selectedSize,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             isDense: true,
@@ -257,7 +415,7 @@ class _ProductDetailsPanel extends StatelessWidget {
         ),
         const SizedBox(height: 24),
 
-        // Buttons
+        // ADD TO CART (pill-shaped purple, like you wanted)
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
@@ -275,11 +433,11 @@ class _ProductDetailsPanel extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4B2E83), // Purple
+              backgroundColor: const Color(0xFF4B2E83), // purple
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50), // ← pill shape
+                borderRadius: BorderRadius.circular(50), // pill shape
               ),
               elevation: 2,
             ),
@@ -293,22 +451,52 @@ class _ProductDetailsPanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
+
+        // Buy with Shop (also pill-shaped for consistency)
         SizedBox(
           width: double.infinity,
           child: OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              // TODO: hook up Shop Pay / external checkout if needed
+            },
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              side: BorderSide(color: Colors.grey.shade400),
+            ),
             child: const Text('Buy with shop'),
           ),
         ),
         const SizedBox(height: 24),
 
-        // Description
-        if (product.description.isNotEmpty)
-          Text(
-            product.description,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+        // Share buttons (like on personalisation page)
+        Row(
+          children: [
+            _shareButton('SHARE'),
+            const SizedBox(width: 8),
+            _shareButton('TWEET'),
+            const SizedBox(width: 8),
+            _shareButton('PIN IT'),
+          ],
+        ),
       ],
+    );
+  }
+
+  Widget _shareButton(String label) {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: Colors.grey.shade400),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+      ),
+      onPressed: () {
+        // TODO: implement real sharing if needed
+      },
+      child: Text(label),
     );
   }
 }
