@@ -238,18 +238,24 @@ class HomeScreen extends StatelessWidget {
             _HomeSection(
               title: 'ESSENTIAL RANGE - OVER 20% OFF!',
               products: _essentialRangeProducts,
+              topPadding: 64,
+              bottomPadding: 24,
             ),
 
             // SIGNATURE RANGE (new section, same layout)
             _HomeSection(
               title: 'SIGNATURE RANGE',
               products: _signatureRangeProducts,
+              topPadding: 16,
+              bottomPadding: 24,
             ),
 
             // PORTSMOUTH CITY COLLECTION (now 4 products)
             _HomeSection(
               title: 'PORTSMOUTH CITY COLLECTION',
               products: _portsmouthCityProducts,
+              topPadding: 16,
+              bottomPadding: 32,
             ),
 
             const AppFooter(),
@@ -261,13 +267,18 @@ class HomeScreen extends StatelessWidget {
 }
 
 /// Reusable homepage section
+
 class _HomeSection extends StatelessWidget {
   final String title;
   final List<Product> products;
+  final double topPadding;
+  final double bottomPadding;
 
   const _HomeSection({
     required this.title,
     required this.products,
+    this.topPadding = 32,
+    this.bottomPadding = 32,
   });
 
   @override
@@ -275,7 +286,7 @@ class _HomeSection extends StatelessWidget {
     return Container(
       color: Colors.white,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 64),
+      padding: EdgeInsets.only(top: topPadding, bottom: bottomPadding),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1100),
