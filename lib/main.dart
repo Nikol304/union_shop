@@ -98,6 +98,75 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // ===== Dummy homepage data =====
+  static const List<Product> _essentialRangeProducts = [
+    Product(
+      id: 'essential-zip-hoodie',
+      title: 'Limited Edition Essential Zip Hoodies',
+      price: 14.99,
+      oldPrice: 20.00,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/EssentialZipHoodie1_1024x1024@2x.jpg?v=1752230282',
+    ),
+    Product(
+      id: 'essential-tshirt',
+      title: 'Essential T-Shirt',
+      price: 6.99,
+      oldPrice: 10.00,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/EssentialTShirt1_1024x1024@2x.jpg?v=1752230282',
+    ),
+  ];
+
+  static const List<Product> _signatureRangeProducts = [
+    Product(
+      id: 'signature-hoodie',
+      title: 'Signature Hoodie',
+      price: 32.99,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/SignatureHoodie1_1024x1024@2x.jpg?v=1752230282',
+    ),
+    Product(
+      id: 'signature-tshirt',
+      title: 'Signature T-Shirt',
+      price: 14.99,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/SignatureTShirt1_1024x1024@2x.jpg?v=1752230282',
+    ),
+  ];
+
+  static const List<Product> _portsmouthCityProducts = [
+    Product(
+      id: 'portsmouth-postcard',
+      title: 'Portsmouth City Postcard',
+      price: 1.00,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard1_1024x1024@2x.jpg?v=1752230282',
+    ),
+    Product(
+      id: 'portsmouth-magnet',
+      title: 'Portsmouth City Magnet',
+      price: 4.50,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+    ),
+    Product(
+      id: 'portsmouth-keyring',
+      title: 'Portsmouth City Keyring',
+      price: 3.50,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+    ),
+    Product(
+      id: 'portsmouth-notebook',
+      title: 'Portsmouth City Notebook',
+      price: 6.00,
+      imageUrl:
+          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard1_1024x1024@2x.jpg?v=1752230282',
+    ),
+  ];
+
+  // ===== Navigation helpers (unchanged) =====
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
@@ -155,92 +224,100 @@ class HomeScreen extends StatelessWidget {
   }
 
   void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
+    // placeholder
   }
 
   @override
   Widget build(BuildContext context) {
-    // Header is handled by AppHeader
     return Scaffold(
       appBar: const AppHeader(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // ========================
-            // HERO CAROUSEL
-            // ========================
+            // HERO
             const HomeHeroCarousel(),
 
-            // Products Section
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      'PRODUCTS SECTION',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(height: 48),
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 48,
-                      children: [
-                        ProductCard(
-                          product: Product(
-                            id: 'home-1',
-                            title: 'Placeholder Product 1',
-                            price: 10.00,
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                        ),
-                        ProductCard(
-                          product: Product(
-                            id: 'home-2',
-                            title: 'Placeholder Product 2',
-                            price: 15.00,
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                        ),
-                        ProductCard(
-                          product: Product(
-                            id: 'home-3',
-                            title: 'Placeholder Product 3',
-                            price: 20.00,
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                        ),
-                        ProductCard(
-                          product: Product(
-                            id: 'home-4',
-                            title: 'Placeholder Product 4',
-                            price: 25.00,
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            // ESSENTIAL RANGE
+            _HomeSection(
+              title: 'ESSENTIAL RANGE - OVER 20% OFF!',
+              products: _essentialRangeProducts,
             ),
 
-            // Footer
+            // SIGNATURE RANGE (new section, same layout)
+            _HomeSection(
+              title: 'SIGNATURE RANGE',
+              products: _signatureRangeProducts,
+            ),
+
+            // PORTSMOUTH CITY COLLECTION (now 4 products)
+            _HomeSection(
+              title: 'PORTSMOUTH CITY COLLECTION',
+              products: _portsmouthCityProducts,
+            ),
+
             const AppFooter(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Reusable homepage section
+class _HomeSection extends StatelessWidget {
+  final String title;
+  final List<Product> products;
+
+  const _HomeSection({
+    required this.title,
+    required this.products,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 64),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18,
+                  letterSpacing: 2,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 40),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final bool wide = constraints.maxWidth >= 900;
+                  final int crossAxisCount = wide ? 2 : 1;
+
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: products.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 24,
+                      childAspectRatio: wide ? 1.4 : 0.9,
+                    ),
+                    itemBuilder: (context, index) {
+                      return ProductCard(product: products[index]);
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
