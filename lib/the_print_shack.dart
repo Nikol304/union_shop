@@ -46,16 +46,15 @@ class PrintShackPage extends StatelessWidget {
                       final bool isWide = constraints.maxWidth >= 900;
                       final imageWidgets = [
                         _PrintImage(
-                          imageUrl:
-                              'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
+                          imageUrl: 'assets/images/tshirts_folded.png',
+                              
+                        ),
+                        _PrintImage(
+                          imageUrl: 'assets/images/tshirts.png',
                         ),
                         _PrintImage(
                           imageUrl:
-                              'https://images.pexels.com/photos/4061381/pexels-photo-4061381.jpeg',
-                        ),
-                        _PrintImage(
-                          imageUrl:
-                              'https://images.pexels.com/photos/6311575/pexels-photo-6311575.jpeg',
+                              'assets/images/tshirt_white.png',
                         ),
                       ];
 

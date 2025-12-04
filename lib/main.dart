@@ -75,8 +75,8 @@ class UnionShopApp extends StatelessWidget {
                   title: 'Personalisation',
                   price: 3.0,
                   images: <String>[
-                    'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
-                    'https://images.pexels.com/photos/6311575/pexels-photo-6311575.jpeg',
+                    'assets/images/personalise.png',
+                    'assets/images/tshirts_folded.png',
                   ],
                   perLineOptions: <String>[
                     'One Line of Text',
@@ -136,8 +136,7 @@ class HomeScreen extends StatelessWidget {
       id: 'signature-tshirt',
       title: 'Signature T-Shirt',
       price: 14.99,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/SignatureTShirt1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/tshirts.png',
     ),
   ];
 
@@ -146,29 +145,37 @@ class HomeScreen extends StatelessWidget {
       id: 'portsmouth-postcard',
       title: 'Portsmouth City Postcard',
       price: 1.00,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/postcard.png',
     ),
     Product(
       id: 'portsmouth-magnet',
       title: 'Portsmouth City Magnet',
       price: 4.50,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/magnet.png',
     ),
     Product(
-      id: 'portsmouth-keyring',
-      title: 'Portsmouth City Keyring',
+      id: 'portsmouth-badge',
+      title: 'Portsmouth City Badge',
       price: 3.50,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/badge.png',
     ),
     Product(
       id: 'portsmouth-notebook',
       title: 'Portsmouth City Notebook',
       price: 6.00,
-      imageUrl:
-          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard1_1024x1024@2x.jpg?v=1752230282',
+      imageUrl: 'assets/images/notebook.png',
+    ),
+    Product(
+      id: 'portsmouth-crystal-ball',
+      title: 'Portsmouth City Crystal Ball',
+      price: 6.00,
+      imageUrl: 'assets/images/crystal_ball.png',
+    ),
+    Product(
+      id: 'portsmouth-bookmark',
+      title: 'Portsmouth City Book Mark',
+      price: 6.00,
+      imageUrl: 'assets/images/bookmark.png',
     ),
   ];
 
