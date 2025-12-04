@@ -310,6 +310,12 @@ authentication.dart -- shoudnt have a footer?
 - tests
 - ReadMe file
 
+- on mobile home page doesnt fit nicely and doesnt match the original one
+- search is a bit weird
+- sign in/sign up is confusing
+- pics for sale, pics for signature collection, collections products
+- why is print shack personalisation product inside main
+
 # Tests: 
 Unit tests (logic, models)
 
