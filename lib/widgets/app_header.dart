@@ -4,9 +4,42 @@ import 'package:union_shop/models/cart_model.dart';
 import 'package:union_shop/widgets/shop_nav_dropdown.dart';
 import 'package:union_shop/widgets/print_shack_nav_dropdown.dart';
 import 'package:union_shop/widgets/adaptive_image.dart';
+import 'package:union_shop/search_delegate.dart';
 
-class AppHeader extends StatelessWidget implements PreferredSizeWidget {
+class AppHeader extends StatefulWidget implements PreferredSizeWidget {
   const AppHeader({Key? key}) : super(key: key);
+
+  @override
+  State<AppHeader> createState() => _AppHeaderState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(100);
+}
+
+class _AppHeaderState extends State<AppHeader> {
+  final TextEditingController _searchController = TextEditingController();
+  bool _showSearch = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _submitSearch() {
+    final query = _searchController.text.trim();
+    if (query.isEmpty) return;
+    // Open the full search UI prefilled with the query and hide the inline bar
+    setState(() {
+      _showSearch = false;
+    });
+
+    showSearch(
+      context: context,
+      delegate: ProductSearchDelegate(),
+      query: query,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +55,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return Container(
-      height: preferredSize.height,
+      height: widget.preferredSize.height,
       color: Colors.white,
       child: Column(
         children: [
@@ -87,24 +120,74 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Search icon (stub for now)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.search,
-                            size: 18,
-                            color: Colors.grey,
+                        if (_showSearch) ...[
+                          SizedBox(
+                            width: isMobile ? 180 : 220,
+                            child: TextField(
+                              controller: _searchController,
+                              onSubmitted: (_) => _submitSearch(),
+                              decoration: InputDecoration(
+                                hintText: 'Search',
+                                isDense: true,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.search,
+                                    size: 18,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: _submitSearch,
+                                ),
+                              ),
+                            ),
                           ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.close,
+                              size: 18,
+                              color: Colors.grey,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            constraints: const BoxConstraints(
+                              minWidth: 32,
+                              minHeight: 32,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _showSearch = false;
+                              });
+                            },
                           ),
-                          onPressed: () {
-                            // TODO: implement search
-                          },
-                        ),
+                        ] else
+                          IconButton(
+                            icon: const Icon(
+                              Icons.search,
+                              size: 18,
+                              color: Colors.grey,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            constraints: const BoxConstraints(
+                              minWidth: 32,
+                              minHeight: 32,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _showSearch = true;
+                              });
+                            },
+                          ),
 
-                        // Account icon
+                        // user icon
                         IconButton(
                           icon: const Icon(
                             Icons.person_outline,
@@ -117,11 +200,11 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                             minHeight: 32,
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/authentication');
+                            Navigator.pushNamed(context, '/login');
                           },
                         ),
 
-                        // Cart icon + badge
+                        // cart icon + badge (kept existing implementation)
                         Consumer<CartModel>(
                           builder: (context, cart, _) {
                             final count = cart.totalQuantity;
@@ -205,9 +288,6 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(100);
 }
 
 class _NavLink extends StatelessWidget {
@@ -302,7 +382,10 @@ class _MobileMenuPageState extends State<MobileMenuPage> {
                       color: Colors.grey,
                     ),
                     onPressed: () {
-                      // TODO search
+                      showSearch(
+                        context: context,
+                        delegate: ProductSearchDelegate(),
+                      );
                     },
                   ),
                   IconButton(
@@ -447,8 +530,6 @@ class _MobileMenuPageState extends State<MobileMenuPage> {
         },
       ),
       const Divider(height: 1),
-
-      
     ];
   }
 
