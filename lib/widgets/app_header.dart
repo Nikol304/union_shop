@@ -448,14 +448,7 @@ class _MobileMenuPageState extends State<MobileMenuPage> {
       ),
       const Divider(height: 1),
 
-      // UPSU.net (external) – you can hook this up with url_launcher later
-      ListTile(
-        title: const Text('UPSU.net'),
-        onTap: () {
-          // TODO: open https://upsu.net with url_launcher
-        },
-      ),
-      const Divider(height: 1),
+      
     ];
   }
 
