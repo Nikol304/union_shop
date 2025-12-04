@@ -293,9 +293,11 @@ authentication.dart -- shoudnt have a footer?
 - deployment on git maybe, using firebase for database
 
 # Pictures:
-- homepage
-- print shack
+- homepage --DONE --
+- print shack --DONE --
+
 - sale
+- signature, last meny from shop
 
 # Left to do:
 - add products to diff collections
