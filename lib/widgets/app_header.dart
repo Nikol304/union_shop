@@ -29,7 +29,7 @@ class _AppHeaderState extends State<AppHeader> {
   void _submitSearch() {
     final query = _searchController.text.trim();
     if (query.isEmpty) return;
-    // Open the full search UI prefilled with the query and hide the inline bar
+
     setState(() {
       _showSearch = false;
     });
@@ -62,7 +62,7 @@ class _AppHeaderState extends State<AppHeader> {
           // TOP BANNER
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             color: const Color(0xFF4d2963),
             child: const Text(
               'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
@@ -70,219 +70,311 @@ class _AppHeaderState extends State<AppHeader> {
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
-          // MAIN HEADER BAR
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  // Logo
-                  GestureDetector(
-                    onTap: navigateToHome,
-                    child: AdaptiveImage(
-                      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                      fit: BoxFit.cover,
-                      height: 35,
+
+          // MOBILE SEARCH ROW: only when search is active on mobile
+          if (isMobile && _showSearch) _buildMobileSearchRow(),
+
+          // MAIN HEADER ROW:
+          // - always shown on desktop
+          // - hidden on mobile *while* search row is visible
+          if (!isMobile || !_showSearch)
+            Expanded(
+              child: _buildMainHeaderRow(
+                context: context,
+                isMobile: isMobile,
+                navigateTo: navigateTo,
+                navigateToHome: navigateToHome,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// Normal header row (logo + nav + icons)
+  Widget _buildMainHeaderRow({
+    required BuildContext context,
+    required bool isMobile,
+    required void Function(String route) navigateTo,
+    required VoidCallback navigateToHome,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          // Logo
+          GestureDetector(
+            onTap: navigateToHome,
+            child: AdaptiveImage(
+              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+              fit: BoxFit.cover,
+              height: 35,
+            ),
+          ),
+          const SizedBox(width: 32),
+
+          // Desktop nav links
+          if (!isMobile)
+            Row(
+              children: [
+                _NavLink(
+                  label: 'Home',
+                  onTap: navigateToHome,
+                ),
+                const ShopNavDropdown(),
+                _NavLink(
+                  label: 'Collections',
+                  onTap: () => navigateTo('/collections'),
+                ),
+                const PrintShackNavDropdown(),
+                _NavLink(
+                  label: 'Sale',
+                  onTap: () => navigateTo('/sale'),
+                ),
+                _NavLink(
+                  label: 'About',
+                  onTap: () => navigateTo('/about'),
+                ),
+              ],
+            ),
+
+          const Spacer(),
+
+          // RIGHT SIDE ICONS (search / inline search, user, cart, burger)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // DESKTOP INLINE SEARCH BAR
+              if (!isMobile && _showSearch) ...[
+                SizedBox(
+                  width: 220,
+                  child: TextField(
+                    controller: _searchController,
+                    onSubmitted: (_) => _submitSearch(),
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      isDense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Colors.grey),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.search,
+                          size: 18,
+                          color: Colors.grey,
+                        ),
+                        onPressed: _submitSearch,
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 32),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    size: 18,
+                    color: Colors.grey,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _showSearch = false;
+                    });
+                  },
+                ),
+              ] else ...[
+                // SEARCH ICON (desktop toggles inline, mobile shows top search row)
+                IconButton(
+                  icon: const Icon(
+                    Icons.search,
+                    size: 18,
+                    color: Colors.grey,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
+                  onPressed: () {
+                    if (isMobile) {
+                      setState(() {
+                        _showSearch =
+                            true; // show top search row, hide header row
+                      });
+                    } else {
+                      setState(() {
+                        _showSearch = true; // show inline search
+                      });
+                    }
+                  },
+                ),
+              ],
 
-                  // Desktop nav links
-                  if (!isMobile)
-                    Row(
-                      children: [
-                        _NavLink(
-                          label: 'Home',
-                          onTap: navigateToHome,
-                        ),
-                        const ShopNavDropdown(),
-                        _NavLink(
-                          label: 'Collections',
-                          onTap: () => navigateTo('/collections'),
-                        ),
-                        const PrintShackNavDropdown(),
-                        _NavLink(
-                          label: 'Sale',
-                          onTap: () => navigateTo('/sale'),
-                        ),
-                        _NavLink(
-                          label: 'About',
-                          onTap: () => navigateTo('/about'),
-                        ),
-                      ],
-                    ),
+              // These icons stay visible on DESKTOP, even when inline search is open
+              IconButton(
+                icon: const Icon(
+                  Icons.person_outline,
+                  size: 18,
+                  color: Colors.grey,
+                ),
+                padding: const EdgeInsets.all(8),
+                constraints: const BoxConstraints(
+                  minWidth: 32,
+                  minHeight: 32,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
 
-                  const Spacer(),
-
-                  // Right side icons (+ mobile menu)
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 600),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (_showSearch) ...[
-                          SizedBox(
-                            width: isMobile ? 180 : 220,
-                            child: TextField(
-                              controller: _searchController,
-                              onSubmitted: (_) => _submitSearch(),
-                              decoration: InputDecoration(
-                                hintText: 'Search',
-                                isDense: true,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: _submitSearch,
-                                ),
+              Consumer<CartModel>(
+                builder: (context, cart, _) {
+                  final count = cart.totalQuantity;
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.shopping_bag_outlined,
+                          size: 18,
+                          color: Colors.grey,
+                        ),
+                        padding: const EdgeInsets.all(8),
+                        constraints: const BoxConstraints(
+                          minWidth: 32,
+                          minHeight: 32,
+                        ),
+                        onPressed: () {
+                          // ignore: avoid_print
+                          print('AppHeader: cart icon tapped');
+                          Navigator.pushNamed(context, '/cart');
+                        },
+                      ),
+                      if (count > 0)
+                        Positioned(
+                          right: 6,
+                          top: 8,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              '$count',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.close,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _showSearch = false;
-                              });
-                            },
-                          ),
-                        ] else
-                          IconButton(
-                            icon: const Icon(
-                              Icons.search,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _showSearch = true;
-                              });
-                            },
-                          ),
-
-                        // user icon
-                        IconButton(
-                          icon: const Icon(
-                            Icons.person_outline,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/login');
-                          },
                         ),
+                    ],
+                  );
+                },
+              ),
 
-                        // cart icon + badge (kept existing implementation)
-                        Consumer<CartModel>(
-                          builder: (context, cart, _) {
-                            final count = cart.totalQuantity;
-                            return Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: () {
-                                    // ignore: avoid_print
-                                    print('AppHeader: cart icon tapped');
-                                    Navigator.pushNamed(context, '/cart');
-                                  },
-                                ),
-                                if (count > 0)
-                                  Positioned(
-                                    right: 6,
-                                    top: 8,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Text(
-                                        '$count',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            );
-                          },
-                        ),
-
-                        // MOBILE-ONLY SANDWICH MENU
-                        if (isMobile)
-                          IconButton(
-                            icon: const Icon(
-                              Icons.menu,
-                              size: 20,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const MobileMenuPage(),
-                                  fullscreenDialog: true,
-                                ),
-                              );
-                            },
-                          ),
-                      ],
-                    ),
+              // MOBILE-ONLY SANDWICH MENU
+              if (isMobile)
+                IconButton(
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 20,
+                    color: Colors.grey,
                   ),
-                ],
+                  padding: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const MobileMenuPage(),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Mobile-only full-width search row (like your screenshot)
+  Widget _buildMobileSearchRow() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          Expanded(
+            child: SizedBox(
+              height: 36,
+              child: TextField(
+                controller: _searchController,
+                style: const TextStyle(fontSize: 14),
+                onSubmitted: (_) => _submitSearch(),
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  isDense: true,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  suffixIcon: IconButton(
+                    padding: const EdgeInsets.all(4),
+                    constraints: const BoxConstraints(
+                      minWidth: 28,
+                      minHeight: 28,
+                    ),
+                    icon: const Icon(
+                      Icons.search,
+                      size: 18,
+                      color: Colors.grey,
+                    ),
+                    onPressed: _submitSearch,
+                  ),
+                ),
               ),
             ),
+          ),
+          const SizedBox(width: 6),
+          IconButton(
+            padding: const EdgeInsets.all(6),
+            constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+            icon: const Icon(
+              Icons.close,
+              size: 18,
+              color: Colors.grey,
+            ),
+            onPressed: () {
+              setState(() {
+                _showSearch = false;
+              });
+            },
           ),
         ],
       ),
@@ -335,6 +427,8 @@ class MobileMenuPage extends StatefulWidget {
 
 class _MobileMenuPageState extends State<MobileMenuPage> {
   _MobileMenuSection _section = _MobileMenuSection.root;
+  final TextEditingController _mobileSearchController = TextEditingController();
+  bool _showMobileSearch = false;
 
   @override
   Widget build(BuildContext context) {
@@ -375,80 +469,124 @@ class _MobileMenuPageState extends State<MobileMenuPage> {
                     ),
                   ),
                   const Spacer(),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      size: 18,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {
-                      showSearch(
-                        context: context,
-                        delegate: ProductSearchDelegate(),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.person_outline,
-                      size: 18,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {
-                      Navigator.popAndPushNamed(context, '/authentication');
-                    },
-                  ),
-                  Consumer<CartModel>(
-                    builder: (context, cart, _) {
-                      final count = cart.totalQuantity;
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            onPressed: () {
-                              Navigator.popAndPushNamed(context, '/cart');
-                            },
+                  if (_showMobileSearch) ...[
+                    SizedBox(
+                      width: isMobile ? 180 : 220,
+                      child: TextField(
+                        controller: _mobileSearchController,
+                        onSubmitted: (_) {
+                          final q = _mobileSearchController.text.trim();
+                          if (q.isEmpty) return;
+                          setState(() => _showMobileSearch = false);
+                          showSearch(
+                            context: context,
+                            delegate: ProductSearchDelegate(),
+                            query: q,
+                          );
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
                           ),
-                          if (count > 0)
-                            Positioned(
-                              right: 6,
-                              top: 8,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  '$count',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showMobileSearch = false;
+                        });
+                      },
+                    ),
+                  ] else ...[
+                    IconButton(
+                      icon: const Icon(
+                        Icons.search,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showMobileSearch = true;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.person_outline,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        Navigator.popAndPushNamed(context, '/authentication');
+                      },
+                    ),
+                    Consumer<CartModel>(
+                      builder: (context, cart, _) {
+                        final count = cart.totalQuantity;
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.shopping_bag_outlined,
+                                size: 18,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                Navigator.popAndPushNamed(context, '/cart');
+                              },
+                            ),
+                            if (count > 0)
+                              Positioned(
+                                right: 6,
+                                top: 8,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    '$count',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                        ],
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      size: 20,
-                      color: Colors.grey,
+                          ],
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
                 ],
               ),
             ),
