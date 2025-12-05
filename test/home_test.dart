@@ -14,7 +14,7 @@ void main() {
         binding.window.clearDevicePixelRatioTestValue();
       });
 
-  await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
+      await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
       await tester.pumpAndSettle();
 
       // Check that key homepage elements are present
@@ -31,7 +31,7 @@ void main() {
         binding.window.clearDevicePixelRatioTestValue();
       });
 
-  await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
+      await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
       await tester.pumpAndSettle();
 
       // ProductCard widgets should be present (at least some products)
@@ -47,12 +47,12 @@ void main() {
         binding.window.clearDevicePixelRatioTestValue();
       });
 
-  await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
+      await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
       await tester.pumpAndSettle();
 
-  // Check that header icons commonly present on desktop are visible
-  expect(find.byIcon(Icons.search), findsWidgets);
-  expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
+      // Check that header icons commonly present on desktop are visible
+      expect(find.byIcon(Icons.search), findsWidgets);
+      expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
     });
 
     testWidgets('should display footer', (tester) async {
@@ -64,12 +64,13 @@ void main() {
         binding.window.clearDevicePixelRatioTestValue();
       });
 
-  await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
+      await tester.pumpWidget(const UnionShopApp(enableHeroAutoSlide: false));
       await tester.pumpAndSettle();
 
       // Footer should contain the opening hours section
       expect(find.text('Opening Hours'), findsOneWidget);
-      expect(find.textContaining("We'll never share your email."), findsOneWidget);
+      expect(
+          find.textContaining("We'll never share your email."), findsOneWidget);
     });
   });
 }
