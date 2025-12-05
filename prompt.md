@@ -290,29 +290,28 @@ authentication.dart -- shoudnt have a footer?
 # Advanced:
 - user authentication and account management
 - cart management and price calculations -- DONE --
-- deployment on git maybe, using firebase for database
+- deployment on git maybe, using firebase for database -- DONE --
 
 # Pictures:
 - homepage --DONE --
 - print shack --DONE --
 
-- sale
-- signature, last meny from shop
+- sale -- DONE --
+- signature, last meny from shop -- DONE -- 
 
 # Left to do:
 - add products to diff collections -- DONE --
 - make halloween and signature pages -- DONE --
 - remove log in link -- DONE --
-- fix sign in and sign up
 - remove sandwitch bar for dekstop -- DONE --
 - host site -- DONE --
 - search system -- DONE --
+
+
 - tests
+- fix sign in and sign up
 - ReadMe file, update after adding the tests
-
 - on mobile home page doesnt fit nicely and doesnt match the original one
-- sign in/sign up is confusing
-
 - why is print shack personalisation product inside main
 
 # Tests: 
