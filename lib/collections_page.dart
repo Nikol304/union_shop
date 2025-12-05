@@ -12,15 +12,13 @@ const Map<String, List<Product>> _sampleProducts = {
       id: 'autumn-1',
       title: 'Autumn Hoodie',
       price: 29.99,
-      imageUrl:
-          'https://images.pexels.com/photos/936048/pexels-photo-936048.jpeg',
+      imageUrl: 'assets/images/hoodie_green.png',
     ),
     Product(
       id: 'autumn-2',
       title: 'Autumn T-Shirt',
       price: 14.99,
-      imageUrl:
-          'https://images.pexels.com/photos/428343/pexels-photo-428343.jpeg',
+      imageUrl: 'assets/images/tshirts.png',
     ),
   ],
   'Black Friday': [
@@ -28,8 +26,7 @@ const Map<String, List<Product>> _sampleProducts = {
       id: 'bf-1',
       title: 'Black Friday Mug',
       price: 6.99,
-      imageUrl:
-          'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+      imageUrl: 'assets/images/mug.png',
     ),
   ],
   'Clothing': [
@@ -37,13 +34,69 @@ const Map<String, List<Product>> _sampleProducts = {
       id: 'cloth-1',
       title: 'Classic Hoodie',
       price: 39.99,
-      imageUrl:
-          'https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg',
+      imageUrl: 'assets/images/hoodie_blue.png',
     ),
   ],
-  'Accessories': [],
-  'Gift Ideas': [],
-  'Essentials': [],
+  'Accessories': [
+    Product(
+      id: 'tote-bag',
+      title: 'Tote Bag',
+      price: 3.50,
+      imageUrl: 'assets/images/tote_bag.png',
+    ),
+    Product(
+      id: 'postcard-pack',
+      title: 'Postcard',
+      price: 2.25,
+      imageUrl: 'assets/images/postcard.png',
+    ),
+    Product(
+      id: 'city-badge',
+      title: 'City Badge',
+      price: 4.00,
+      imageUrl: 'assets/images/badge.png',
+    ),
+  ],
+  'Gift Ideas': [
+    Product(
+      id: 'postcard-pack',
+      title: 'Postcard',
+      price: 10.00,
+      imageUrl: 'assets/images/postcard.png',
+    ),
+    Product(
+      id: 'gift-mug',
+      title: 'Mug',
+      price: 12.99,
+      imageUrl: 'assets/images/mug.png',
+    ),
+    Product(
+      id: 'gift-noteset',
+      title: 'Notepad Set',
+      price: 5.50,
+      imageUrl: 'assets/images/notebook.png',
+    ),
+  ],
+  'Essentials': [
+    Product(
+      id: 'ess-tote-bag',
+      title: 'Reusable Tote Bag',
+      price: 6.00,
+      imageUrl: 'assets/images/tote_bag.png',
+    ),
+    Product(
+      id: 'ess-tee-black',
+      title: 'Classic Tee - Black',
+      price: 14.99,
+      imageUrl: 'assets/images/tshirts.png',
+    ),
+    Product(
+      id: 'ess-crystal-ball',
+      title: 'Crystal Ball',
+      price: 3.99,
+      imageUrl: 'assets/images/crystal_ball.png',
+    ),
+  ],
 };
 
 class CollectionsPage extends StatelessWidget {
