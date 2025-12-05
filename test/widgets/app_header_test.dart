@@ -30,10 +30,10 @@ void main() {
 
   testWidgets('AppHeader shows mobile search row when search toggled',
       (WidgetTester tester) async {
-  final binding = TestWidgetsFlutterBinding.ensureInitialized();
-  // narrow screen — increase height so the header has room and avoids
-  // vertical RenderFlex overflow in tests.
-  binding.window.physicalSizeTestValue = const Size(320, 200);
+    final binding = TestWidgetsFlutterBinding.ensureInitialized();
+    // narrow screen — increase height so the header has room and avoids
+    // vertical RenderFlex overflow in tests.
+    binding.window.physicalSizeTestValue = const Size(320, 200);
     binding.window.devicePixelRatioTestValue = 1.0;
     addTearDown(() {
       binding.window.clearPhysicalSizeTestValue();
