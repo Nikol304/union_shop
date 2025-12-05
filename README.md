@@ -208,9 +208,9 @@ Notes:
 
 Add these images to `docs/screenshots/` and update the README with real images later.
 
-- Home (desktop): `docs/screenshots/home_desktop.png`  
 
- - Home (desktop): `docs/screenshots/homescreen.png`  
+
+- Home (desktop): `docs/screenshots/homescreen.png`  
 	![Home - Desktop](docs/screenshots/homescreen.png)
 
 - Product page (gallery): `docs/screenshots/product_page.png`  
@@ -222,7 +222,10 @@ Add these images to `docs/screenshots/` and update the README with real images l
 - Mobile navigation (sandwich menu): `docs/screenshots/mobile_nav.png`  
 	![Mobile nav](docs/screenshots/mobile_nav.png)
     ![Mobile nav](docs/screenshots/mobile_nav_2.png)
-- Print Shack Personalisation: `docs/screenshots/personalisation_page.png`  
+
+- Mobile navigation Sub-Menu (sandwich menu): `docs/screenshots/mobile_nav_2.png`  
+    ![Mobile nav](docs/screenshots/mobile_nav_2.png)
+ 
 
  - Print Shack Personalisation: `docs/screenshots/pers_page.png`  
 	![Personalisation](docs/screenshots/pers_page.png)
