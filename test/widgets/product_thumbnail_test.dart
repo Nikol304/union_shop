@@ -6,7 +6,8 @@ import 'package:union_shop/models/product.dart';
 import 'package:union_shop/models/cart_model.dart';
 
 void main() {
-  testWidgets('thumbnail border changes when selected', (WidgetTester tester) async {
+  testWidgets('thumbnail border changes when selected',
+      (WidgetTester tester) async {
     final product = Product(
       id: 'p1',
       title: 'T1',
@@ -66,8 +67,10 @@ void main() {
     final afterList = tester.widgetList<Container>(thumbnailFinder).toList();
     final newFirst = afterList[0];
     final newSecond = afterList[1];
-    final newFirstColor = (newFirst.decoration as BoxDecoration).border!.top.color;
-    final newSecondColor = (newSecond.decoration as BoxDecoration).border!.top.color;
+    final newFirstColor =
+        (newFirst.decoration as BoxDecoration).border!.top.color;
+    final newSecondColor =
+        (newSecond.decoration as BoxDecoration).border!.top.color;
 
     expect(newFirstColor != newSecondColor, isTrue);
   });
