@@ -13,14 +13,16 @@ void main() {
       binding.window.clearDevicePixelRatioTestValue();
     });
 
-    await tester.pumpWidget(const MaterialApp(home: Scaffold(body: AppFooter())));
+    await tester
+        .pumpWidget(const MaterialApp(home: Scaffold(body: AppFooter())));
     await tester.pumpAndSettle();
 
-  expect(find.text('Opening Hours'), findsOneWidget);
-  expect(find.text('Help'), findsOneWidget);
-  // 'Subscribe' appears more than once in the widget tree (wide vs narrow
-  // variants). Assert at least one occurrence.
-  expect(find.text('Subscribe'), findsWidgets);
-  expect(find.textContaining("We'll never share your email."), findsOneWidget);
+    expect(find.text('Opening Hours'), findsOneWidget);
+    expect(find.text('Help'), findsOneWidget);
+    // 'Subscribe' appears more than once in the widget tree (wide vs narrow
+    // variants). Assert at least one occurrence.
+    expect(find.text('Subscribe'), findsWidgets);
+    expect(
+        find.textContaining("We'll never share your email."), findsOneWidget);
   });
 }
