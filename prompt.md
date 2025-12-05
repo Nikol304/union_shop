@@ -300,20 +300,19 @@ authentication.dart -- shoudnt have a footer?
 - signature, last meny from shop
 
 # Left to do:
-- add products to diff collections
-- make halloween and signature pages
-- remove log in link
+- add products to diff collections -- DONE --
+- make halloween and signature pages -- DONE --
+- remove log in link -- DONE --
 - fix sign in and sign up
-- remove sandwitch bar for dekstop
-- host site
-- search system
+- remove sandwitch bar for dekstop -- DONE --
+- host site -- DONE --
+- search system -- DONE --
 - tests
-- ReadMe file
+- ReadMe file, update after adding the tests
 
 - on mobile home page doesnt fit nicely and doesnt match the original one
-- search is a bit weird
 - sign in/sign up is confusing
-- pics for sale, pics for signature collection, collections products
+
 - why is print shack personalisation product inside main
 
 # Tests: 
