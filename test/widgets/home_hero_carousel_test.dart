@@ -13,11 +13,12 @@ void main() {
       binding.window.clearDevicePixelRatioTestValue();
     });
 
-  await tester.pumpWidget(const MaterialApp(home: Scaffold(body: HomeHeroCarousel(enableAutoSlide: false))));
+    await tester.pumpWidget(const MaterialApp(
+        home: Scaffold(body: HomeHeroCarousel(enableAutoSlide: false))));
     await tester.pumpAndSettle();
 
-  // Initial slide contains title text from slides[0]
-  expect(find.text('Essential Range – Over 20% OFF!'), findsOneWidget);
+    // Initial slide contains title text from slides[0]
+    expect(find.text('Essential Range – Over 20% OFF!'), findsOneWidget);
 
     // Perform a horizontal drag to move to next slide
     await tester.fling(find.byType(PageView), const Offset(-300, 0), 1000);
