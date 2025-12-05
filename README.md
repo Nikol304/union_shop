@@ -1,7 +1,7 @@
 # 🎓 Union Shop — Flutter Web Coursework (UPSU)
 
 > A full e-commerce Flutter Web application recreating the UPSU Union Shop website, built for University of Portsmouth coursework.  
-> Coursework specification reference: <sup>:contentReference[oaicite:0]{index=0}</sup>
+> Coursework specification reference: <sup>[Coursework brief (SharePoint)](https://portdotacdotuk-my.sharepoint.com/:w:/g/personal/mani_ghahremani_port_ac_uk/EbM1UcwOHMRLmcKeI0btHqYBeZ3ADWjyN0EXBWdHLhsO_g?e=o7AjLb)</sup>
 
 ---
 
@@ -113,43 +113,7 @@ Top-level overview (important files/folders)
 - `pubspec.yaml` — dependencies and asset definitions
 - `firebase.json`, `.firebaserc` — Firebase Hosting config (created when you run `firebase init hosting`)
 
-Simplified project view
 
-```text
-lib/
-	main.dart                # App entry point, route setup, home
-	models/
-		product.dart           # Product model (id, title, price, images, etc.)
-		cart_model.dart        # CartModel with add/remove/update/total logic
-	widgets/
-		app_header.dart        # Reusable header with navigation and cart icon
-		app_footer.dart        # Reusable footer for all pages
-		product_card.dart      # Product tiles/cards for grids and lists
-		adaptive_image.dart    # Responsive image widget
-		shop_nav_dropdown.dart # SHOP dropdown for Clothing, Merch, Sale, etc.
-		print_shack_nav_dropdown.dart # PRINT SHACK dropdown
-	pages/
-		product_page.dart              # Product details page
-		about_page.dart                # About us page
-		collections_page.dart          # Collections overview
-		specific_collection_page.dart  # Single collection listing
-		sale.dart                      # Sale items collection
-		merch_page.dart                # Merch collection
-		clothing.dart                  # Clothing collection
-		signature_page.dart            # Signature range
-		halloween_page.dart            # Halloween themed collection
-		the_print_shack.dart           # Print Shack info
-		print_shack_personalisation.dart # Personalisation form and preview
-		authentication.dart            # Authentication flow (login/register UI)
-test/
-	home_test.dart           # Widget tests for home page
-	product_test.dart        # Widget tests for product page
-	(additional model/widget tests as implemented)
-assets/
-	images/                  # Product, hero, and collection images
-firebase.json              # Firebase Hosting configuration
-.pubspec.yaml              # Dependencies and assets configuration
-```
 
 Purpose of each layer
 - UI / Pages (`lib/*.dart`): screens that compose the SPA or multi-page experience; respond to navigation and user interactions.
