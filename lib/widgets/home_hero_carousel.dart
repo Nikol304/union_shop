@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:union_shop/widgets/adaptive_image.dart';
 
 class HomeHeroCarousel extends StatefulWidget {
   const HomeHeroCarousel({super.key});
@@ -30,7 +31,6 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
     },
     {
       'image': 'assets/images/mug_hoodie.png',
-          
       'title': 'Print Shack Personalisation',
       'subtitle': 'Make it yours with custom designs and embroidery.',
       'button': 'PERSONALISE',
@@ -82,7 +82,7 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
                 fit: StackFit.expand,
                 children: [
                   // BACKGROUND IMAGE
-                  Image.network(
+                  AdaptiveImage(
                     slide['image']!,
                     fit: BoxFit.cover,
                   ),
