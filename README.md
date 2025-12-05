@@ -221,7 +221,7 @@ Add these images to `docs/screenshots/` and update the README with real images l
 
 - Mobile navigation (sandwich menu): `docs/screenshots/mobile_nav.png`  
 	![Mobile nav](docs/screenshots/mobile_nav.png)
-
+    ![Mobile nav](docs/screenshots/mobile_nav_2.png)
 - Print Shack Personalisation: `docs/screenshots/personalisation_page.png`  
 
  - Print Shack Personalisation: `docs/screenshots/pers_page.png`  
