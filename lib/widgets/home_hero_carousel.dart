@@ -3,7 +3,11 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:union_shop/widgets/adaptive_image.dart';
 
 class HomeHeroCarousel extends StatefulWidget {
-  const HomeHeroCarousel({super.key});
+  /// If [enableAutoSlide] is false, the carousel won't schedule the periodic
+  /// autoSlide behaviour. This is useful for tests to avoid pending timers.
+  const HomeHeroCarousel({super.key, this.enableAutoSlide = true});
+
+  final bool enableAutoSlide;
 
   @override
   State<HomeHeroCarousel> createState() => _HomeHeroCarouselState();
@@ -41,9 +45,11 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
   @override
   void initState() {
     super.initState();
-
-    // Auto-slide every 5 seconds
-    Future.delayed(const Duration(seconds: 5), autoSlide);
+    // Auto-slide every 5 seconds. Tests may disable this behaviour by
+    // passing enableAutoSlide: false to avoid creating pending timers.
+    if (widget.enableAutoSlide) {
+      Future.delayed(const Duration(seconds: 5), autoSlide);
+    }
   }
 
   void autoSlide() {
