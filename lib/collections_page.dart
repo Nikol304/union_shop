@@ -3,6 +3,8 @@ import 'package:union_shop/widgets/app_header.dart';
 import 'package:union_shop/widgets/app_footer.dart';
 import 'package:union_shop/specific_collection_page.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/models/personalisation_product.dart';
+import 'package:union_shop/print_shack_personalisation.dart';
 import 'package:union_shop/widgets/adaptive_image.dart';
 
 // Sample products used for demo/showing collections. Replace with real data later.
@@ -182,6 +184,28 @@ class CollectionsPage extends StatelessWidget {
                             title: 'Personalise',
                             width: cardWidth,
                             imageUrl: 'assets/images/personalise.png',
+                            onTap: () {
+                              final product = PersonalisationProduct(
+                                id: 'ps-default',
+                                title: 'T-Shirt Personalisation',
+                                price: 8.00,
+                                images: ['assets/images/personalise.png'],
+                                perLineOptions: [
+                                  'One Line of Text',
+                                  'Two Lines of Text'
+                                ],
+                              );
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PrintShackPersonalisationPage(
+                                    product: product,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           CollectionCard(
                             title: 'Gift Ideas',
@@ -214,29 +238,32 @@ class CollectionCard extends StatelessWidget {
   final String title;
   final String imageUrl;
   final double width;
+  final VoidCallback? onTap;
 
   const CollectionCard({
     super.key,
     required this.title,
     required this.imageUrl,
     required this.width,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Push SpecificCollectionPage and pass sample products for the tapped collection.
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SpecificCollectionPage(
-              title: title,
-              products: _sampleProducts[title] ?? const <Product>[],
-            ),
-          ),
-        );
-      },
+      onTap: onTap ??
+          () {
+            // Default behavior: push SpecificCollectionPage and pass sample products for the tapped collection.
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SpecificCollectionPage(
+                  title: title,
+                  products: _sampleProducts[title] ?? const <Product>[],
+                ),
+              ),
+            );
+          },
       child: SizedBox(
         width: width,
         child: AspectRatio(
