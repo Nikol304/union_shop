@@ -8,22 +8,22 @@ class SignaturePage extends StatelessWidget {
   // Signature & Essential range products
   List<Product> get _signatureProducts => const [
         Product(
-          id: 'signature-tshirt',
-          title: 'Signature T-Shirt',
+          id: 'signature-hoodie-black',
+          title: 'Signature Hoodie Black',
           price: 14.99,
-          imageUrl: 'assets/images/signature_tshirt.png',
+          imageUrl: 'assets/images/hoodie_black.png',
         ),
         Product(
-          id: 'signature-hoodie',
-          title: 'Signature Hoodie',
+          id: 'signature-hoodie-purple',
+          title: 'Signature Hoodie Purple',
           price: 32.99,
-          imageUrl: 'assets/images/signature_hoodie.png',
+          imageUrl: 'assets/images/hoodie_purple.png',
         ),
         Product(
-          id: 'essential-zip-hoodie',
-          title: 'Limited Edition Essential Zip Hoodie',
+          id: 'essential-hoodie-blue',
+          title: 'Limited Edition Essential Hoodie Blue',
           price: 14.99,
-          imageUrl: 'assets/images/essential_zip_hoodie.png',
+          imageUrl: 'assets/images/hoodie_blue.png',
         ),
       ];
 
