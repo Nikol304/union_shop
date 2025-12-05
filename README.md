@@ -207,7 +207,9 @@ Notes:
 Add these images to `docs/screenshots/` and update the README with real images later.
 
 - Home (desktop): `docs/screenshots/home_desktop.png`  
-	![Home - Desktop](docs/screenshots/home_desktop.png)
+
+ - Home (desktop): `docs/screenshots/homescreen.png`  
+	![Home - Desktop](docs/screenshots/homescreen.png)
 
 - Product page (gallery): `docs/screenshots/product_page.png`  
 	![Product page](docs/screenshots/product_page.png)
@@ -219,7 +221,9 @@ Add these images to `docs/screenshots/` and update the README with real images l
 	![Mobile nav](docs/screenshots/mobile_nav.png)
 
 - Print Shack Personalisation: `docs/screenshots/personalisation_page.png`  
-	![Personalisation](docs/screenshots/personalisation_page.png)
+
+ - Print Shack Personalisation: `docs/screenshots/pers_page.png`  
+	![Personalisation](docs/screenshots/pers_page.png)
 
 (Replace placeholders with real screenshots before submission. Good practice: include both desktop and narrow/mobile crops.)
 
