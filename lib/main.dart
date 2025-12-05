@@ -35,7 +35,9 @@ void main() async {
 }
 
 class UnionShopApp extends StatelessWidget {
-  const UnionShopApp({super.key});
+  const UnionShopApp({super.key, this.enableHeroAutoSlide = true});
+
+  final bool enableHeroAutoSlide;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,8 @@ class UnionShopApp extends StatelessWidget {
         initialRoute: '/',
         // All named routes (INCLUDING HOME)
         routes: {
-          '/': (context) => const HomeScreen(),
+          '/': (context) =>
+              HomeScreen(enableHeroAutoSlide: enableHeroAutoSlide),
           '/product': (context) => const ProductPage(),
           '/cart': (context) {
             // debug
@@ -96,7 +99,9 @@ class UnionShopApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.enableHeroAutoSlide = true});
+
+  final bool enableHeroAutoSlide;
 
   // ===== Dummy homepage data =====
   static const List<Product> _essentialRangeProducts = [
@@ -248,7 +253,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             // HERO
-            const HomeHeroCarousel(),
+            HomeHeroCarousel(enableAutoSlide: enableHeroAutoSlide),
 
             // ESSENTIAL RANGE
             _HomeSection(
