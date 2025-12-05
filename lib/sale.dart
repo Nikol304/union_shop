@@ -7,60 +7,53 @@ class SalePage extends StatelessWidget {
   const SalePage({super.key});
 
   // Dummy sale products using the shared Product model
-  static const List<Product> _saleProducts = [
+  static final List<Product> _saleProducts = [
     Product(
       id: 'sale-a5-notepad',
       title: 'A5 Notepad',
       price: 1.80,
       oldPrice: 3.00,
-      imageUrl:
-          'https://images.pexels.com/photos/950241/pexels-photo-950241.jpeg',
+      imageUrl: 'assets/images/notebook.png',
     ),
     Product(
       id: 'sale-classic-sweatshirt-neutral',
       title: 'Classic Sweatshirts - Neutral',
       price: 10.99,
       oldPrice: 17.00,
-      imageUrl:
-          'https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg',
+      imageUrl: 'assets/images/sweatshirt_grey.png',
     ),
     Product(
       id: 'sale-recycled-notebook',
       title: 'Recycled Notebook',
       price: 1.80,
-      imageUrl:
-          'https://images.pexels.com/photos/3831849/pexels-photo-3831849.jpeg',
+      imageUrl: 'assets/images/notebook.png',
     ),
     Product(
-      id: 'sale-iphone-cable',
-      title: 'iPhone Charge & Sync Cable',
+      id: 'sale-hoodie-blue',
+      title: 'Hoodie Blue',
       price: 1.50,
       oldPrice: 3.00,
-      imageUrl:
-          'https://images.pexels.com/photos/1054389/pexels-photo-1054389.jpeg',
+      imageUrl: 'assets/images/hoodie_blue.png',
     ),
     Product(
-      id: 'sale-dimple-pop-keyring',
-      title: 'Dimple Pop Fidget Keyring',
+      id: 'sale-bookmark',
+      title: 'Bookmark',
       price: 0.99,
       oldPrice: 1.50,
-      imageUrl:
-          'https://images.pexels.com/photos/3662718/pexels-photo-3662718.jpeg',
+      imageUrl: 'assets/images/bookmark.png',
     ),
     Product(
-      id: 'sale-nike-tech-pants-w',
-      title: 'Nike Academy 18 Tech Pants (W)',
+      id: 'sale-hoodie-black',
+      title: 'Hoodie Black',
       price: 7.00,
       oldPrice: 24.99,
-      imageUrl:
-          'https://images.pexels.com/photos/7671173/pexels-photo-7671173.jpeg',
+      imageUrl: 'assets/images/hoodie_black.png',
     ),
     Product(
-      id: 'sale-nike-tech-pants-m',
-      title: 'Nike Academy 18 Tech Pants (M)',
+      id: 'sale-printed-mug',
+      title: 'Printed Mug',
       price: 7.00, // or 0 + "Sold out" badge later if you extend the model
-      imageUrl:
-          'https://images.pexels.com/photos/7671168/pexels-photo-7671168.jpeg',
+      imageUrl: 'assets/images/mug.png',
     ),
   ];
 
