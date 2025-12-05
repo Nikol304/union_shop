@@ -3,6 +3,8 @@
 > A full e-commerce Flutter Web application recreating the UPSU Union Shop website, built for University of Portsmouth coursework.  
 > Coursework specification reference: <sup>[Coursework brief (SharePoint)](https://portdotacdotuk-my.sharepoint.com/:w:/g/personal/mani_ghahremani_port_ac_uk/EbM1UcwOHMRLmcKeI0btHqYBeZ3ADWjyN0EXBWdHLhsO_g?e=o7AjLb)</sup>
 
+> Hosting Link: <sup>[Website Hosting URL](https://union-shop-69e59.web.app)</sup>
+
 ---
 
 ## 📌 Overview
