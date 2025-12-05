@@ -28,65 +28,6 @@ The goal is to demonstrate **Flutter UI**, **state management**, **navigation**,
 
 ---
 
-# 📦 Features by Coursework Category
-
-## **Basic Features (40%)**
-| Feature | Status |
-|--------|--------|
-| Static Homepage | ✅ |
-| About Us Page | ✅ |
-| Footer widget | ✅ Reusable across all pages |
-| Dummy Collections Page | ✅ |
-| Dummy Collection Page | ✅ |
-| Dummy Product Page | ✅ |
-| Sale Collection | ✅ |
-| Authentication UI | ✅ |
-| Static Navbar | ✅ |
-
----
-
-## **Intermediate Features (35%)**
-| Feature | Status |
-|--------|--------|
-| Dynamic Collections Page | ✅ |
-| Dynamic Collection Page w/ filtering | ✅ |
-| Functional Product Page (options, gallery) | ✅ |
-| Shopping Cart (add/remove/update) | ✅ |
-| Print Shack Personalisation Page | ✅ |
-| Full Navigation System | ✅ |
-| Responsiveness (mobile & desktop) | ✅ |
-
----
-
-## **Advanced Features (25%)**
-| Feature | Status |
-|--------|--------|
-| Authentication System (Firebase Auth) | ✅ |
-| Cart Management w/ totals | ✅ |
-| Search System | ✅ |
-| External Cloud Services (Firebase Hosting + Auth) | ✅ |
-
----
-
-# 🧭 Routing Table
-
-| Route | Description |
-|-------|-------------|
-| `/` | Home |
-| `/about` | About page |
-| `/collections` | Collections overview |
-| `/collections/:id` | Specific collection |
-| `/product/:id` | Product detail |
-| `/cart` | Shopping cart |
-| `/merch` | Merch landing |
-| `/clothing` | Clothing collection |
-| `/signature` | Signature range |
-| `/sale` | Sale collection |
-| `/print-shack` | Print Shack info |
-| `/print-shack/personalisation` | Personalisation flow |
-| `/auth` | Authentication page |
-
----
 
 # 📁 Project Structure
 
@@ -436,10 +377,7 @@ flutter analyze
 
 ---
 
-Final notes for submission
-- Ensure the `build/web` artifacts are created prior to running `firebase deploy`.
-- Replace placeholder deploy URL and screenshots with actual assets before coursework submission.
-- Double-check you have enabled Email/Password sign-in in your Firebase project if you use Authentication.
+###Author: Nikol Dimitrova
 
 
 
